@@ -6,10 +6,11 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.List;
 
-public class CreateMemberCommand extends BaseCommand{
+public class CreateMemberCommand extends BaseCommand {
     private final static String USER_REGISTERED = "Member %s registered successfully!";
     private final static String USER_ALREADY_EXIST = "Member %s already exist. Choose a different username!";
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
+
     public CreateMemberCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
     }
@@ -28,12 +29,14 @@ public class CreateMemberCommand extends BaseCommand{
 
         return String.format(USER_REGISTERED, username);
     }
+
     private void throwIfMemberExists(String username) {
-        if (getTmsRepository().memberExists(username)){
+        if (getTmsRepository().memberExists(username)) {
             throw new IllegalArgumentException(
-                    String.format(USER_ALREADY_EXIST,username));
+                    String.format(USER_ALREADY_EXIST, username));
         }
     }
+
     @Override
     protected boolean requiresLogin() {
         return false;
