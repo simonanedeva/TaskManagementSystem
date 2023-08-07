@@ -3,7 +3,6 @@ package com.company.oop.taskManagementSystem.models;
 import com.company.oop.taskManagementSystem.models.contracts.ActivityLog;
 import com.company.oop.taskManagementSystem.models.contracts.Comment;
 import com.company.oop.taskManagementSystem.models.contracts.Task;
-import com.company.oop.taskManagementSystem.models.enums.Status;
 import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.ArrayList;
@@ -23,9 +22,6 @@ public class TaskImpl implements Task {
     private int id;
     private String title;
     private String description;
-
-    private Status status;
-
     private final List<Comment> comments;
     private final List<ActivityLog> historyOfChanges;
 
@@ -53,11 +49,6 @@ public class TaskImpl implements Task {
     }
 
     @Override
-    public Status getStatus() {
-        return this.status;
-    }
-
-    @Override
     public List<Comment> getComments() {
         return new ArrayList<>(comments);
     }
@@ -77,8 +68,7 @@ public class TaskImpl implements Task {
     }
 
     public void setDescription(String description) {
-        ValidationHelpers.validateStringLength(title, MIN_LENGTH_DESCRIPTION, MAX_LENGTH_DESCRIPTION, INVALID_DESCRIPTION_LENGTH_MESSAGE);
+        ValidationHelpers.validateStringLength(description, MIN_LENGTH_DESCRIPTION, MAX_LENGTH_DESCRIPTION, INVALID_DESCRIPTION_LENGTH_MESSAGE);
         this.description = description;
     }
-
 }

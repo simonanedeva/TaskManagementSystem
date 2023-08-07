@@ -1,7 +1,5 @@
 package com.company.oop.taskManagementSystem.models.contracts;
 
-import com.company.oop.taskManagementSystem.models.enums.Status;
-
 import java.util.List;
 
 public interface Task {
@@ -12,11 +10,11 @@ public interface Task {
 
     String getDescription();
 
-    Status getStatus();
-
     List<Comment> getComments();
     // TODO: 7.08.23 maybe should be string - look at it later.
 
     List<ActivityLog> getHistoryOfChanges();
     // TODO: 7.08.23 same as above.
+
+    String getStatus();
 }

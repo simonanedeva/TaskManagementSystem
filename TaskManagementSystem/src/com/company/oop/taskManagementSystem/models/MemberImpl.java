@@ -1,7 +1,10 @@
 package com.company.oop.taskManagementSystem.models;
 
 import com.company.oop.taskManagementSystem.models.contracts.Member;
+import com.company.oop.taskManagementSystem.models.contracts.Task;
 import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
+
+import java.util.List;
 
 import static java.lang.String.format;
 
@@ -16,6 +19,7 @@ public class MemberImpl implements Member {
             USERNAME_LEN_MAX);
 
     private String username;
+    private List<Task> tasks;
 
 
     public MemberImpl(String username) {
@@ -34,4 +38,8 @@ public class MemberImpl implements Member {
         return this.username;
     }
 
-}
+    @Override
+    public void addSteps(String steps) {
+        }
+
+    }
