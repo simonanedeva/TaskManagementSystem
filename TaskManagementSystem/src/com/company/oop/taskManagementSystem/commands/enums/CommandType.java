@@ -4,6 +4,6 @@ public enum CommandType {
     LOGIN,
     LOGOUT,
     CREATEMEMBER,
-    SHOWMEMBERACTIVITY;
+    SHOWMEMBERACTIVITY, SHOWMEMBERS;
 
 }

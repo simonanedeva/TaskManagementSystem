@@ -22,7 +22,6 @@ public class MemberImpl implements Member {
 
     private String username;
     private final List<Task> tasks;
-
     private final List<ActivityLog> activityHistory;
 
     public MemberImpl(String username) {
@@ -52,6 +51,12 @@ public class MemberImpl implements Member {
 
     @Override
     public void addSteps(String steps) {
+    }
+
+    @Override
+    public String printMembers() {
+        return null;
+        // TODO: 7.08.23 finish the method
     }
 
 }
