@@ -1,66 +1,66 @@
 package com.company.oop.taskManagementSystem.core;
 
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
-import com.company.oop.taskManagementSystem.models.contracts.User;
+import com.company.oop.taskManagementSystem.models.contracts.Member;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TMSRepositoryImpl implements TMSRepository {
-    private static final String NO_LOGGED_IN_USER = "There is no logged in user.";
-    private final static String NO_SUCH_USER = "There is no user with username %s!";
-    private final static String USER_ALREADY_EXIST = "User %s already exist. Choose a different username!";
-    private final List<User> users;
-    private User loggedUser;
+    private static final String NO_LOGGED_IN_MEMBER = "There is no logged in member.";
+    private final static String NO_SUCH_MEMBER = "There is no member with username %s!";
+    private final static String MEMBER_ALREADY_EXIST = "Member %s already exist. Choose a different username!";
+    private final List<Member> members;
+    private Member loggedMember;
 
     public TMSRepositoryImpl() {
-        this.users = new ArrayList<>();
-        this.loggedUser = null;
+        this.members = new ArrayList<>();
+        this.loggedMember = null;
     }
 
     @Override
-    public List<User> getUsers() {
-        return new ArrayList<>(users);
+    public List<Member> getMembers() {
+        return new ArrayList<>(members);
     }
 
     @Override
-    public void addUser(User userToAdd) {
-        if (users.contains(userToAdd)) {
-            throw new IllegalArgumentException(String.format(USER_ALREADY_EXIST, userToAdd.getUsername()));
+    public void addMember(Member memberToAdd) {
+        if (members.contains(memberToAdd)) {
+            throw new IllegalArgumentException(String.format(MEMBER_ALREADY_EXIST, memberToAdd.getUsername()));
         }
-        this.users.add(userToAdd);
+        this.members.add(memberToAdd);
     }
 
     @Override
-    public User findUserByUsername(String username) {
-        User user = users
+    public Member findMemberByUsername(String username) {
+        Member member = members
                 .stream()
                 .filter(u -> u.getUsername().equalsIgnoreCase(username))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format(NO_SUCH_USER, username)));
-        return user;
+                .orElseThrow(() -> new IllegalArgumentException(String.format(NO_SUCH_MEMBER, username)));
+        return member;
     }
 
     @Override
-    public User getLoggedInUser() {
-        if (loggedUser == null) {
-            throw new IllegalArgumentException(NO_LOGGED_IN_USER);
+    public Member getLoggedInMember() {
+        if (loggedMember == null) {
+            throw new IllegalArgumentException(NO_LOGGED_IN_MEMBER);
         }
-        return loggedUser;
+        return loggedMember;
     }
 
     @Override
-    public boolean hasLoggedInUser() {
-        return loggedUser != null;
+    public boolean hasLoggedInMember() {
+        return loggedMember != null;
     }
 
     @Override
-    public void login(User user) {
-        loggedUser = user;
+    public void login(Member member) {
+        loggedMember = member;
     }
 
     @Override
     public void logout() {
-        loggedUser = null;
+        loggedMember = null;
     }
 }

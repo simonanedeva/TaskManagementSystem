@@ -1,15 +1,15 @@
 package com.company.oop.taskManagementSystem.commands;
 
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
-import com.company.oop.taskManagementSystem.models.contracts.User;
+import com.company.oop.taskManagementSystem.models.contracts.Member;
 import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.List;
 
 public class LoginCommand extends BaseCommand {
-    private final static String USER_LOGGED_IN = "User %s successfully logged in!";
+    private final static String MEMBER_LOGGED_IN = "Member %s successfully logged in!";
     //private final static String WRONG_USERNAME_OR_PASSWORD = "Wrong username or password!";
-    public final static String USER_LOGGED_IN_ALREADY = "User %s is logged in! Please log out first!";
+    public final static String MEMBER_LOGGED_IN_ALREADY = "Member %s is logged in! Please log out first!";
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1; //switch to 2 if password implemented!!!
     public LoginCommand(TMSRepository tmsRepository) {
@@ -18,7 +18,7 @@ public class LoginCommand extends BaseCommand {
 
     @Override
     protected String executeCommand(List<String> parameters) {
-        throwIfUserLoggedIn();
+        throwIfMemberLoggedIn();
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String username = parameters.get(0);
         //String password = parameters.get(1);
@@ -27,14 +27,14 @@ public class LoginCommand extends BaseCommand {
     }
 
     private String login(String username) {
-        User userFound = getTmsRepository().findUserByUsername(username);
+        Member memberFound = getTmsRepository().findMemberByUsername(username);
 
  /*       if (!userFound.getPassword().equals(password)) {
             throw new IllegalArgumentException(WRONG_USERNAME_OR_PASSWORD);
         }*/
 
-        getTmsRepository().login(userFound);
-        return String.format(USER_LOGGED_IN, username);
+        getTmsRepository().login(memberFound);
+        return String.format(MEMBER_LOGGED_IN, username);
     }
 
     @Override
@@ -42,10 +42,10 @@ public class LoginCommand extends BaseCommand {
         return false;
     }
 
-    private void throwIfUserLoggedIn() {
-        if (getTmsRepository().hasLoggedInUser()) {
+    private void throwIfMemberLoggedIn() {
+        if (getTmsRepository().hasLoggedInMember()) {
             throw new IllegalArgumentException(
-                    String.format(USER_LOGGED_IN_ALREADY, getTmsRepository().getLoggedInUser().getUsername())
+                    String.format(MEMBER_LOGGED_IN_ALREADY, getTmsRepository().getLoggedInMember().getUsername())
             );
         }
     }

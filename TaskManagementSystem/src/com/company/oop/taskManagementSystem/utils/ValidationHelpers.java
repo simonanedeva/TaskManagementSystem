@@ -13,6 +13,10 @@ public class ValidationHelpers {
             throw new IllegalArgumentException(message);
         }
     }
+    public static void validateStringLength(String stringToValidate, int minLength, int maxLength, String message) {
+        validateIntRange(stringToValidate.length(), minLength, maxLength, message);
+    }
+
     public static void validateIntRange(int value, int min, int max, String message) {
         if (value < min || value > max) {
             throw new IllegalArgumentException(message);

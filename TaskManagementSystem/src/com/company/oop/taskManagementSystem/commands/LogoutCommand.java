@@ -6,7 +6,7 @@ import java.util.List;
 
 public class LogoutCommand extends BaseCommand{
 
-    public final static String USER_LOGGED_OUT = "User logged out!";
+    public final static String MEMBER_LOGGED_OUT = "Member logged out!";
     public LogoutCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
     }
@@ -14,7 +14,7 @@ public class LogoutCommand extends BaseCommand{
     @Override
     protected String executeCommand(List<String> parameters) {
         getTmsRepository().logout();
-        return USER_LOGGED_OUT;
+        return MEMBER_LOGGED_OUT;
     }
 
     @Override

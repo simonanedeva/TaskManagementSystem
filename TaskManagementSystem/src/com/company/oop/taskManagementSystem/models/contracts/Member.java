@@ -1,6 +1,6 @@
 package com.company.oop.taskManagementSystem.models.contracts;
 
-public interface User {
+public interface Member {
     String getUsername();
 
 }

@@ -1,21 +1,21 @@
 package com.company.oop.taskManagementSystem.core.contracts;
 
-import com.company.oop.taskManagementSystem.models.contracts.User;
+import com.company.oop.taskManagementSystem.models.contracts.Member;
 
 import java.util.List;
 
 public interface TMSRepository {
-    List<User> getUsers();
+    List<Member> getMembers();
 
-    User getLoggedInUser();
+    Member getLoggedInMember();
 
-    void addUser(User userToAdd);
+    void addMember(Member memberToAdd);
 
-    User findUserByUsername(String username);
+    Member findMemberByUsername(String username);
 
-    boolean hasLoggedInUser();
+    boolean hasLoggedInMember();
 
-    void login(User user);
+    void login(Member member);
 
     void logout();
 
