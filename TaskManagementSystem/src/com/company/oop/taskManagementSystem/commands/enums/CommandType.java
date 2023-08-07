@@ -2,5 +2,8 @@ package com.company.oop.taskManagementSystem.commands.enums;
 
 public enum CommandType {
     LOGIN,
-    LOGOUT
+    LOGOUT,
+    CREATEMEMBER,
+    SHOWMEMBERACTIVITY;
+
 }

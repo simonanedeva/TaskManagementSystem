@@ -8,7 +8,7 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskImpl implements Task {
+public abstract class TaskImpl implements Task {
     public static final int MAX_LENGTH_TITLE = 50;
     public static final int MIN_LENGTH_TITLE = 10;
     public static final int MIN_LENGTH_DESCRIPTION = 10;

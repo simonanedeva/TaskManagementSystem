@@ -19,5 +19,9 @@ public interface TMSRepository {
 
     void logout();
 
+    public boolean memberExists (String username);
+
+    Member createMember(String username);
+
     //TODO UserImpl ++ квото друго има покрай него
 }

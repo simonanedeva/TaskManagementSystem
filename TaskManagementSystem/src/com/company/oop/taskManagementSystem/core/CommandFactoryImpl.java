@@ -1,6 +1,8 @@
 package com.company.oop.taskManagementSystem.core;
 
+import com.company.oop.taskManagementSystem.commands.CreateMemberCommand;
 import com.company.oop.taskManagementSystem.commands.LogoutCommand;
+import com.company.oop.taskManagementSystem.commands.ShowMemberActivity;
 import com.company.oop.taskManagementSystem.commands.contracts.Command;
 import com.company.oop.taskManagementSystem.commands.LoginCommand;
 import com.company.oop.taskManagementSystem.commands.enums.CommandType;
@@ -17,6 +19,10 @@ public class CommandFactoryImpl implements CommandFactory {
                 return new LoginCommand(tmsRepository);
             case LOGOUT:
                 return new LogoutCommand(tmsRepository);
+            case CREATEMEMBER:
+                return new CreateMemberCommand(tmsRepository);
+            case SHOWMEMBERACTIVITY:
+                return new ShowMemberActivity(tmsRepository);
             default:
                 throw new IllegalArgumentException();
         }

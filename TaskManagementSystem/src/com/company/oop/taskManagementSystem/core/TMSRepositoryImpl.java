@@ -1,6 +1,7 @@
 package com.company.oop.taskManagementSystem.core;
 
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
+import com.company.oop.taskManagementSystem.models.MemberImpl;
 import com.company.oop.taskManagementSystem.models.contracts.Member;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class TMSRepositoryImpl implements TMSRepository {
     @Override
     public void addMember(Member memberToAdd) {
         if (members.contains(memberToAdd)) {
+            // TODO: 7.08.23 I think this validation can be removed as we check for whether the user exist during the CreateMemberCommand, which is at an earlier stage.
             throw new IllegalArgumentException(String.format(MEMBER_ALREADY_EXIST, memberToAdd.getUsername()));
         }
         this.members.add(memberToAdd);
@@ -39,6 +41,16 @@ public class TMSRepositoryImpl implements TMSRepository {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(String.format(NO_SUCH_MEMBER, username)));
         return member;
+    }
+
+    // TODO: 7.08.23 not sure how the above one works and made this one but we can rewrite it later. Also added to the interface.
+    public boolean memberExists (String username) {
+        for (Member member : members) {
+            if (member.getUsername().equalsIgnoreCase(username)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -63,4 +75,10 @@ public class TMSRepositoryImpl implements TMSRepository {
     public void logout() {
         loggedMember = null;
     }
+
+    @Override
+    public Member createMember(String username){
+        return new MemberImpl(username);
+    }
+
 }
