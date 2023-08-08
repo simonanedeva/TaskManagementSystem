@@ -10,8 +10,6 @@ import java.util.List;
 
 public class ShowMembersCommand extends BaseCommand {
 
-    // TODO: 8.08.23 command works well with SHOWMEMBERS (+ it takes 1 parameter) see how to do it with 0 parameters
-
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 0;
 
     public ShowMembersCommand(TMSRepository tmsRepository) {
@@ -30,7 +28,8 @@ public class ShowMembersCommand extends BaseCommand {
         for (Member member : memberList) {
             sb.append(member.getUsername()).append(", ");
         }
-        return sb.toString();
+        sb.deleteCharAt(sb.length()-2);
+        return sb.toString().trim();
     }
 
     @Override
