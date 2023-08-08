@@ -25,6 +25,8 @@ public class ShowMemberActivityCommand extends BaseCommand{
         for (ActivityLog activityLog : list) {
             sb.append(activityLog.viewInfo()).append(System.lineSeparator());
         }
+        // TODO: 8.08.23 Implement some printing method in Member, which prints getActivityHistory! 
+        // TODO: 8.08.23 Do a check if there is no activity and return that there is no activity. 
         return sb.toString();
     }
 

@@ -40,4 +40,7 @@ public class TeamImpl implements Team {
     public List<Board> getBoards() {
         return new ArrayList<>(boards);
     }
+    public void addMember(Member member) {
+        members.add(member);
+    }
 }

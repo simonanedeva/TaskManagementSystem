@@ -30,6 +30,8 @@ public class ShowTeamsCommand extends BaseCommand {
         sb.deleteCharAt(sb.length()-2);
         return sb.toString().trim();
     }
+    // TODO: 8.08.23 Do a check if there is no activity and return that there is no activity.
+
 
     @Override
     protected boolean requiresLogin() {
