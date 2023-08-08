@@ -48,7 +48,13 @@ public class MemberImpl implements Member {
     public List<ActivityLog> getActivityHistory(){
         return new ArrayList<>(activityHistory);
     }
-
+    public String displayActivityHistory() {
+        StringBuilder sb = new StringBuilder();
+        for (ActivityLog log : activityHistory) {
+           sb.append(log.viewInfo()).append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
     @Override
     public void addSteps(String steps) {
     }

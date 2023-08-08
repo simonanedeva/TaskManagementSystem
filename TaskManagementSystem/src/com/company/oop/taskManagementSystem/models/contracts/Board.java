@@ -9,4 +9,6 @@ public interface Board {
     public List<Task> getTasks();
 
     public List<ActivityLog> getActivityHistory();
+
+    String displayActivityHistory();
 }

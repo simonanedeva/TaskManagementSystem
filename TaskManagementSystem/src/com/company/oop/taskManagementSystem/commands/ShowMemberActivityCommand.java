@@ -11,6 +11,9 @@ import java.util.List;
 public class ShowMemberActivityCommand extends BaseCommand{
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
+    public static final String NO_ACTIVITY_FOR_MEMBER = "Currently there is no activity to display for member %s.";
+
+
     public ShowMemberActivityCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
     }
@@ -20,14 +23,17 @@ public class ShowMemberActivityCommand extends BaseCommand{
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String username = parameters.get(0);
         Member member = getTmsRepository().findMemberByUsername(username);
-        List<ActivityLog> list = member.getActivityHistory();
-        StringBuilder sb = new StringBuilder();
-        for (ActivityLog activityLog : list) {
-            sb.append(activityLog.viewInfo()).append(System.lineSeparator());
+        if (member.getActivityHistory().isEmpty()){
+            return String.format(NO_ACTIVITY_FOR_MEMBER, member.getUsername());
         }
-        // TODO: 8.08.23 Implement some printing method in Member, which prints getActivityHistory! 
-        // TODO: 8.08.23 Do a check if there is no activity and return that there is no activity. 
-        return sb.toString();
+        return member.displayActivityHistory();
+        //this command above replaces the code below. Should test when we have same activity to add.
+//        List<ActivityLog> list = member.getActivityHistory();
+//        StringBuilder sb = new StringBuilder();
+//        for (ActivityLog activityLog : list) {
+//            sb.append(activityLog.viewInfo()).append(System.lineSeparator());
+//        }
+//        return sb.toString();
     }
 
     @Override

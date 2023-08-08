@@ -12,6 +12,9 @@ public class ShowBoardActivityCommand extends BaseCommand {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
+    public static final String NO_ACTIVITY_FOR_BOARD = "Currently there is no activity to display for board %s.";
+
+
     public ShowBoardActivityCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
     }
@@ -31,9 +34,15 @@ public class ShowBoardActivityCommand extends BaseCommand {
 
         for (Board boardItem : boardItems) {
             sb.append(boardItem.getName()).append(System.lineSeparator()); //add member username for readability
-            sb.append(boardItem.getActivityHistory()).append(System.lineSeparator());
-            // TODO: 8.08.23 add PrintActivityHistory method to improve the printing in ShowTeam/Member/ActivityCommand
-            // TODO: 8.08.23 Do a check if there is no activity and return that there is no activity.
+            if (boardItem.getActivityHistory().isEmpty()){
+                sb.append(String.format(NO_ACTIVITY_FOR_BOARD,boardItem.getName()));
+                sb.append(System.lineSeparator());
+            } else {
+                sb.append(boardItem.displayActivityHistory());
+            }
+            //This command above replaces the code below and updates current functionality so that it returns a formatted string of activity and not a list
+            //as well as a message in case there is no activity to show. Should test when we have same activity to add.
+//            sb.append(boardItem.getActivityHistory()).append(System.lineSeparator());
         }
         return sb.toString();
     }

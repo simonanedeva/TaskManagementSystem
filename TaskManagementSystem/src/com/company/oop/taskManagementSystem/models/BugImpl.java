@@ -17,17 +17,20 @@ public class BugImpl extends TaskImpl implements Bug {
     private BugSeverity severity;
     private BugStatus status;
     private String assignee;
+    private List<Comment> comments;
 
+    private List<ActivityLog> historyOfChanges;
 
     public BugImpl(int id, String title, String description, List<String> stepsToReproduce, Priority priority,
-                   BugSeverity severity, BugStatus status, String assignee, List<Comment> comments, List<ActivityLog> historyOfChanges) {
+                   BugSeverity severity, String assignee) {
         super(id, title, description);
         this.stepsToReproduce = new ArrayList<>();
         setPriority(priority);
         setSeverity(severity);
-        setStatus(status);
+        this.status = BugStatus.ACTIVE;
         setAssignee(assignee);
-        // TODO: 7.08.23 confirm with Victor if this is the correct constructor, do we need to add comments & historyOfChanges somewhere here?
+        comments = new ArrayList<>();
+        historyOfChanges = new ArrayList<>();
     }
 
     public void setPriority(Priority priority) {

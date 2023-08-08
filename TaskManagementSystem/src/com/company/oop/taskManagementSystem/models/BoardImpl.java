@@ -39,6 +39,14 @@ public class BoardImpl implements Board {
         return new ArrayList<>(activityHistory);
     }
 
+    public String displayActivityHistory() {
+        StringBuilder sb = new StringBuilder();
+        for (ActivityLog log : activityHistory) {
+            sb.append(log.viewInfo()).append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
+
     public void addTask(Task task) {
         tasks.add(task);
     }
