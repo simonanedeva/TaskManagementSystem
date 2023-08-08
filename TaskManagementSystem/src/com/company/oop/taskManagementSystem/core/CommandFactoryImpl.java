@@ -24,6 +24,10 @@ public class CommandFactoryImpl implements CommandFactory {
                 return new ShowMemberActivity(tmsRepository);
             case CREATETEAM:
                 return new CreateTeamCommand(tmsRepository);
+            case SHOWTEAMS:
+                return new ShowTeamsCommand(tmsRepository);
+            case SHOWTEAMACTIVITY:
+                return new ShowTeamActivityCommand(tmsRepository);
             default:
                 throw new IllegalArgumentException();
         }

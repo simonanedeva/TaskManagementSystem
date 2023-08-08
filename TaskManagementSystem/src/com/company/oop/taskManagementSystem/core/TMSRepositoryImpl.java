@@ -12,6 +12,7 @@ import java.util.List;
 public class TMSRepositoryImpl implements TMSRepository {
     private static final String NO_LOGGED_IN_MEMBER = "There is no logged in member.";
     private final static String NO_SUCH_MEMBER = "There is no member with username %s!";
+    private final static String NO_SUCH_TEAM = "There is no team with name %s!";
     private final static String MEMBER_ALREADY_EXIST = "Member %s already exist. Choose a different username!";
     private final List<Member> members;
     private final List<Team> teams;
@@ -47,9 +48,9 @@ public class TMSRepositoryImpl implements TMSRepository {
     }
 
     // TODO: 7.08.23 not sure how the above one works and made this one but we can rewrite it later. Also added to the interface.
-    public boolean memberExists (String username) {
+    public boolean memberExists(String username) {
         for (Member member : members) {
-            if (member.getUsername().equalsIgnoreCase(username)){
+            if (member.getUsername().equalsIgnoreCase(username)) {
                 return true;
             }
         }
@@ -80,7 +81,7 @@ public class TMSRepositoryImpl implements TMSRepository {
     }
 
     @Override
-    public Member createMember(String username){
+    public Member createMember(String username) {
         return new MemberImpl(username);
     }
 
@@ -100,7 +101,7 @@ public class TMSRepositoryImpl implements TMSRepository {
     @Override
     public boolean teamExists(String teamName) {
         for (Team team : teams) {
-            if (team.getName().equalsIgnoreCase(teamName)){
+            if (team.getName().equalsIgnoreCase(teamName)) {
                 return true;
             }
         }
@@ -111,4 +112,15 @@ public class TMSRepositoryImpl implements TMSRepository {
     public List<Team> getTeams() {
         return new ArrayList<>(teams);
     }
+
+    @Override
+    public Team findTeamByName(String teamName) {
+        Team team = teams
+                .stream()
+                .filter(u -> u.getName().equalsIgnoreCase(teamName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(String.format(NO_SUCH_TEAM, teamName)));
+        return team;
+    }
 }
+

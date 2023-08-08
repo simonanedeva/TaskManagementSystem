@@ -32,5 +32,7 @@ public interface TMSRepository {
 
     List<Team> getTeams();
 
+    Team findTeamByName(String teamName);
+
     //TODO UserImpl ++ квото друго има покрай него
 }
