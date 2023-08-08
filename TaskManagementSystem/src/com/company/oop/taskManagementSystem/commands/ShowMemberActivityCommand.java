@@ -8,10 +8,10 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 import java.util.List;
 
 
-public class ShowMemberActivity extends BaseCommand{
+public class ShowMemberActivityCommand extends BaseCommand{
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
-    public ShowMemberActivity(TMSRepository tmsRepository) {
+    public ShowMemberActivityCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
     }
 

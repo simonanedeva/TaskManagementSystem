@@ -23,12 +23,13 @@ public class ShowMembersCommand extends BaseCommand {
     }
 
     private String showMembers() {
-        StringBuilder sb = new StringBuilder();
         List<Member> memberList = getTmsRepository().getMembers();
+        StringBuilder sb = new StringBuilder();
+
         for (Member member : memberList) {
             sb.append(member.getUsername()).append(", ");
         }
-        sb.deleteCharAt(sb.length()-2);
+        sb.deleteCharAt(sb.length() - 2);
         return sb.toString().trim();
     }
 
