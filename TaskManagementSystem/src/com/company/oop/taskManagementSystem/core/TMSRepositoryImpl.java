@@ -2,7 +2,9 @@ package com.company.oop.taskManagementSystem.core;
 
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
 import com.company.oop.taskManagementSystem.models.MemberImpl;
+import com.company.oop.taskManagementSystem.models.TeamImpl;
 import com.company.oop.taskManagementSystem.models.contracts.Member;
+import com.company.oop.taskManagementSystem.models.contracts.Team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +14,12 @@ public class TMSRepositoryImpl implements TMSRepository {
     private final static String NO_SUCH_MEMBER = "There is no member with username %s!";
     private final static String MEMBER_ALREADY_EXIST = "Member %s already exist. Choose a different username!";
     private final List<Member> members;
+    private final List<Team> teams;
     private Member loggedMember;
 
     public TMSRepositoryImpl() {
         this.members = new ArrayList<>();
+        this.teams = new ArrayList<>();
         this.loggedMember = null;
     }
 
@@ -27,7 +31,6 @@ public class TMSRepositoryImpl implements TMSRepository {
     @Override
     public void addMember(Member memberToAdd) {
         if (members.contains(memberToAdd)) {
-            // TODO: 7.08.23 I think this validation can be removed as we check for whether the user exist during the CreateMemberCommand, which is at an earlier stage.
             throw new IllegalArgumentException(String.format(MEMBER_ALREADY_EXIST, memberToAdd.getUsername()));
         }
         this.members.add(memberToAdd);
@@ -81,4 +84,31 @@ public class TMSRepositoryImpl implements TMSRepository {
         return new MemberImpl(username);
     }
 
+    @Override
+    public Team createTeam(String teamName) {
+        return new TeamImpl(teamName);
+    }
+
+    @Override
+    public void addTeam(Team teamToAdd) {
+        if (teams.contains(teamToAdd)) {
+            throw new IllegalArgumentException(String.format(MEMBER_ALREADY_EXIST, teamToAdd.getName()));
+        }
+        this.teams.add(teamToAdd);
+    }
+
+    @Override
+    public boolean teamExists(String teamName) {
+        for (Team team : teams) {
+            if (team.getName().equalsIgnoreCase(teamName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public List<Team> getTeams() {
+        return new ArrayList<>(teams);
+    }
 }

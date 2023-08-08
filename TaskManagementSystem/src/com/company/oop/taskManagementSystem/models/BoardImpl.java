@@ -1,4 +1,6 @@
 package com.company.oop.taskManagementSystem.models;
 
-public class BoardImpl {
+import com.company.oop.taskManagementSystem.models.contracts.Board;
+
+public class BoardImpl implements Board {
 }

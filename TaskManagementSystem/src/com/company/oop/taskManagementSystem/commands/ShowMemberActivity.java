@@ -7,7 +7,7 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.List;
 
-// TODO: 7.08.23 To be done by Viktor later on.
+
 public class ShowMemberActivity extends BaseCommand{
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
