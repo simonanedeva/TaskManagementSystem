@@ -1,5 +1,6 @@
 package com.company.oop.taskManagementSystem.core.contracts;
 
+import com.company.oop.taskManagementSystem.models.contracts.Board;
 import com.company.oop.taskManagementSystem.models.contracts.Member;
 import com.company.oop.taskManagementSystem.models.contracts.Team;
 
@@ -33,6 +34,8 @@ public interface TMSRepository {
     List<Team> getTeams();
 
     Team findTeamByName(String teamName);
+
+    Board createBoard(String boardName);
 
     //TODO UserImpl ++ квото друго има покрай него
 }

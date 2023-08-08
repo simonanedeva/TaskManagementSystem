@@ -1,8 +1,10 @@
 package com.company.oop.taskManagementSystem.core;
 
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
+import com.company.oop.taskManagementSystem.models.BoardImpl;
 import com.company.oop.taskManagementSystem.models.MemberImpl;
 import com.company.oop.taskManagementSystem.models.TeamImpl;
+import com.company.oop.taskManagementSystem.models.contracts.Board;
 import com.company.oop.taskManagementSystem.models.contracts.Member;
 import com.company.oop.taskManagementSystem.models.contracts.Team;
 
@@ -121,6 +123,11 @@ public class TMSRepositoryImpl implements TMSRepository {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(String.format(NO_SUCH_TEAM, teamName)));
         return team;
+    }
+
+    @Override
+    public Board createBoard(String boardName) {
+        return new BoardImpl(boardName);
     }
 }
 

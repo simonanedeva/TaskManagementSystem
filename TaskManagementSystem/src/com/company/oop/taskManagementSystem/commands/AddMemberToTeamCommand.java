@@ -7,14 +7,14 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.List;
 
-public class AddMemberToTeam extends BaseCommand{
+public class AddMemberToTeamCommand extends BaseCommand{
 
     private static final String MEMBER_ADDED_TO_TEAM = "Member %s added to team %s!";
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
     public static final String MEMBER_IS_PART_OF_TEAM_ERR_MESSAGE = "Member %s is already a part of team %s!";
 
-    public AddMemberToTeam(TMSRepository tmsRepository) {
+    public AddMemberToTeamCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
     }
 

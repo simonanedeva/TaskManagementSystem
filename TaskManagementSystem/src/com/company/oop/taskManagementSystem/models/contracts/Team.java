@@ -11,4 +11,6 @@ public interface Team {
     public List<Board> getBoards();
 
     public void addMember(Member member);
+
+    public void addBoard(Board board);
 }

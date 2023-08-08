@@ -43,4 +43,9 @@ public class TeamImpl implements Team {
     public void addMember(Member member) {
         members.add(member);
     }
+
+    @Override
+    public void addBoard(Board board) {
+        boards.add(board);
+    }
 }
