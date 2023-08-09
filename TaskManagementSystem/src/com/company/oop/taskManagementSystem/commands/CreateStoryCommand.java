@@ -1,10 +1,7 @@
 package com.company.oop.taskManagementSystem.commands;
 
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
-import com.company.oop.taskManagementSystem.models.contracts.Board;
-import com.company.oop.taskManagementSystem.models.contracts.Member;
-import com.company.oop.taskManagementSystem.models.contracts.Story;
-import com.company.oop.taskManagementSystem.models.contracts.Team;
+import com.company.oop.taskManagementSystem.models.contracts.*;
 import com.company.oop.taskManagementSystem.models.enums.Priority;
 import com.company.oop.taskManagementSystem.models.enums.StorySize;
 import com.company.oop.taskManagementSystem.utils.ParsingHelpers;
@@ -43,7 +40,10 @@ public class CreateStoryCommand extends BaseCommand{
 
         List<Board> boards= teamOfLoggedInMember.getBoards();
         Board board = findBoardInTeam(boards,boardToAdd);
-        board.addTask(getTmsRepository().createStory(title,description,priority,size,assignee));
+        Task taskToAdd = getTmsRepository().createStory(title,description,priority,size,assignee);
+        board.addTask(taskToAdd);
+        Member memberAssignee = getTmsRepository().findMemberByUsername(assignee);
+        memberAssignee.addTask(taskToAdd);
 
         member.logEvent(String.format("Story %s created by member %s",title, member.getUsername()));
         board.logEvent(String.format("Story %s created by member %s",title, member.getUsername()));

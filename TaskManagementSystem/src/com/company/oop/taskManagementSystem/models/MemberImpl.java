@@ -69,4 +69,8 @@ public class MemberImpl implements Member {
         this.activityHistory.add(new ActivityLogImpl(event));
     }
 
+    @Override
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
 }

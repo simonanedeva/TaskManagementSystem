@@ -10,5 +10,7 @@ public interface Member {
     String printMembers();
     String displayActivityHistory();
 
-    public void logEvent(String event);
+     void logEvent(String event);
+
+    void addTask (Task task);
 }
