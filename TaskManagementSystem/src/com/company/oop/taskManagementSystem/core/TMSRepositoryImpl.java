@@ -1,15 +1,11 @@
 package com.company.oop.taskManagementSystem.core;
 
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
-import com.company.oop.taskManagementSystem.models.BoardImpl;
-import com.company.oop.taskManagementSystem.models.FeedbackImpl;
-import com.company.oop.taskManagementSystem.models.MemberImpl;
-import com.company.oop.taskManagementSystem.models.TeamImpl;
-import com.company.oop.taskManagementSystem.models.contracts.Board;
-import com.company.oop.taskManagementSystem.models.contracts.Feedback;
-import com.company.oop.taskManagementSystem.models.contracts.Member;
-import com.company.oop.taskManagementSystem.models.contracts.Team;
+import com.company.oop.taskManagementSystem.models.*;
+import com.company.oop.taskManagementSystem.models.contracts.*;
 import com.company.oop.taskManagementSystem.models.enums.FeedbackStatus;
+import com.company.oop.taskManagementSystem.models.enums.Priority;
+import com.company.oop.taskManagementSystem.models.enums.StorySize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,6 +143,11 @@ public class TMSRepositoryImpl implements TMSRepository {
             }
         }
         throw new IllegalArgumentException(String.format("Command is not supported as member %s is not part of any team!", loggedMember.getUsername()));
+    }
+
+    @Override
+    public Task createStory(String title, String description, Priority priority, StorySize size, String assignee) {
+        return new StoryImpl(++id, title, description, priority, size, assignee);
     }
 
     public Feedback createFeedback(String title, String description, int rating){

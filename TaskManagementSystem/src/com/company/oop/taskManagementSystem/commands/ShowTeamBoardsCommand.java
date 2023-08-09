@@ -2,7 +2,6 @@ package com.company.oop.taskManagementSystem.commands;
 
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
 import com.company.oop.taskManagementSystem.models.contracts.Board;
-import com.company.oop.taskManagementSystem.models.contracts.Member;
 import com.company.oop.taskManagementSystem.models.contracts.Team;
 import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 

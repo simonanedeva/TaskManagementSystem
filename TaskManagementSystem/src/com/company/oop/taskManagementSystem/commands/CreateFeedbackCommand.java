@@ -35,13 +35,14 @@ public class CreateFeedbackCommand extends BaseCommand{
     private String createFeedback(String title, String boardToAdd, String description, int rating){
         Member member = getTmsRepository().getLoggedInMember();
         Team teamOfLoggedInMember = getTmsRepository().FindTeamOfMEmeber(member.getUsername());
-        // TODO: 9.08.23 We should consider optimizing here - the error message from FinTeamOfMember is too generic. 
+        // TODO: 9.08.23 We should consider optimizing here - the error message from FinTeamOfMember is too generic.
         List<Board> boards= teamOfLoggedInMember.getBoards();
         Board board = findBoardInTeam(boards,boardToAdd);
         board.addTask(getTmsRepository().createFeedback(title,description,rating));
         member.logEvent(String.format("Feedback %s created by member %s",title, member.getUsername()));
         board.logEvent(String.format("Feedback %s created by member %s",title, member.getUsername()));
-        // TODO: 9.08.23 creating a board through a task may turn out to be an issue.
+        // TODO: 9.08.23 creating a feedback through a task may turn out to be an issue.
+
         return String.format(FEEDBACK_CREATED, title,boardToAdd);
     }
 

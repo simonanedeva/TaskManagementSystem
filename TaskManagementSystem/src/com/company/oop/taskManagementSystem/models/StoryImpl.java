@@ -12,11 +12,11 @@ public class StoryImpl extends TaskImpl implements Story {
     private StoryStatus status;
     private String assignee;
 
-    public StoryImpl(int id, String title, String description, Priority priority, StorySize size, StoryStatus status, String assignee) {
+    public StoryImpl(int id, String title, String description, Priority priority, StorySize size, String assignee) {
         super(id, title, description);
         setPriority(priority);
         setSize(size);
-        setStatus(status);
+        this.status = StoryStatus.NOTDONE;
         setAssignee(assignee);
     }
 
@@ -34,7 +34,6 @@ public class StoryImpl extends TaskImpl implements Story {
     
     public void setAssignee(String assignee) {
         this.assignee = assignee;
-        // TODO: 7.08.23 make a validation here - assignee should be a member from the team
     }
 
     @Override
