@@ -3,6 +3,7 @@ package com.company.oop.taskManagementSystem.core;
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
 import com.company.oop.taskManagementSystem.models.*;
 import com.company.oop.taskManagementSystem.models.contracts.*;
+import com.company.oop.taskManagementSystem.models.enums.BugSeverity;
 import com.company.oop.taskManagementSystem.models.enums.FeedbackStatus;
 import com.company.oop.taskManagementSystem.models.enums.Priority;
 import com.company.oop.taskManagementSystem.models.enums.StorySize;
@@ -132,7 +133,7 @@ public class TMSRepositoryImpl implements TMSRepository {
     }
 
     // TODO: 9.08.23 this method bellow may be unnecessary in the repo - it can be added to the CreateFeedbackCommand class;
-    public Team FindTeamOfMEmeber(String member){
+    public Team findTeamOfMеmber(String member){
         List<Team> teams = this.teams;
         for (Team team : teams) {
             List<Member> memberList = team.getMembers();
@@ -148,6 +149,11 @@ public class TMSRepositoryImpl implements TMSRepository {
     @Override
     public Task createStory(String title, String description, Priority priority, StorySize size, String assignee) {
         return new StoryImpl(++id, title, description, priority, size, assignee);
+    }
+
+    @Override
+    public Task createBug(String title, String boardToAdd, String description, List<String> stepsToReproduce, Priority priority, BugSeverity severity, String assignee) {
+        return new BugImpl(++id, title, description, stepsToReproduce, priority, severity, assignee);
     }
 
     public Feedback createFeedback(String title, String description, int rating){

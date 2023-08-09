@@ -15,5 +15,6 @@ public enum CommandType {
     CREATEFEEDBACK,
     SHOWBOARDACTIVITY,
     CREATESTORY,
-    CREATETEAM;
+    CREATETEAM,
+    CREATEBUG;
 }

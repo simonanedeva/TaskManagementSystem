@@ -42,6 +42,8 @@ public class CommandFactoryImpl implements CommandFactory {
                 return new ShowBoardActivityCommand(tmsRepository);
             case CREATESTORY:
                 return new CreateStoryCommand(tmsRepository);
+            case CREATEBUG:
+                return new CreateBugCommand(tmsRepository);
             default:
                 throw new IllegalArgumentException();
         }

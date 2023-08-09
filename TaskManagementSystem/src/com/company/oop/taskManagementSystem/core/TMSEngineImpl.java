@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TMSEngineImpl implements TMSEngine {
 
@@ -75,6 +77,8 @@ public class TMSEngineImpl implements TMSEngine {
         return parameters;
     }
 
+    //extractDescriptionParameters V.1 (initial version)
+
     public List<String> extractDescriptionParameters(String fullCommand) {
         int indexOfFirstSeparator = fullCommand.indexOf(MAIN_SPLIT_SYMBOL);
         int indexOfOpenDescription = fullCommand.indexOf(DESCRIPTION_OPEN_SYMBOL);
@@ -92,6 +96,38 @@ public class TMSEngineImpl implements TMSEngine {
         parameters.addAll(result);
         return parameters;
     }
+
+
+    //extractDescriptionParameters V.2 (modified)
+
+    // TODO: 9.08.23 Check the AI suggestion for CreateBugCommand below; when uncommented, all CreateBug/Story/Feedback/Commands work well
+
+//    public List<String> extractDescriptionParameters(String fullCommand) {
+//        int indexOfFirstSeparator = fullCommand.indexOf(MAIN_SPLIT_SYMBOL);
+//
+//        List<String> parameters = new ArrayList<>();
+//        Pattern pattern = Pattern.compile("\\{\\{(.+?)}}");
+//        Matcher matcher = pattern.matcher(fullCommand);
+//
+//        // Step 1: Extract content within "{{ }}" tags using regular expression
+//        while (matcher.find()) {
+//            parameters.add(matcher.group(1));
+//        }
+//
+//        // Step 2: Remove the extracted description parts from the fullCommand
+//        fullCommand = fullCommand.replaceAll("\\{\\{.+?}}", "");
+//
+//        // Step 3: Split the remaining string using MAIN_SPLIT_SYMBOL
+//        List<String> result = new ArrayList<>(Arrays.asList(fullCommand.substring(indexOfFirstSeparator + 1).split(MAIN_SPLIT_SYMBOL)));
+//
+//        // Step 4: Remove empty, null, or whitespace elements from the result list
+//        result.removeAll(Arrays.asList(" ", "", null));
+//
+//        // Step 5: Combine the description parameters and the split result
+//        parameters.addAll(result);
+//
+//        return parameters;
+//    }
 
     private void print(String result) {
         System.out.println(result);

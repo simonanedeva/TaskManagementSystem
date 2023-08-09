@@ -1,38 +1,48 @@
 package com.company.oop.taskManagementSystem.commands;
 
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
-import com.company.oop.taskManagementSystem.models.contracts.*;
+import com.company.oop.taskManagementSystem.models.contracts.Board;
+import com.company.oop.taskManagementSystem.models.contracts.Member;
+import com.company.oop.taskManagementSystem.models.contracts.Task;
+import com.company.oop.taskManagementSystem.models.contracts.Team;
+import com.company.oop.taskManagementSystem.models.enums.BugSeverity;
 import com.company.oop.taskManagementSystem.models.enums.Priority;
-import com.company.oop.taskManagementSystem.models.enums.StorySize;
 import com.company.oop.taskManagementSystem.utils.ParsingHelpers;
 import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
+import java.util.Arrays;
 import java.util.List;
 
-public class CreateStoryCommand extends BaseCommand{
+public class CreateBugCommand extends BaseCommand {
 
-    private static final String STORY_CREATED = "Story %s created successfully in board %s!";
+    // TODO: 9.08.23 implementation works ONLY when extractDescriptionParameters V.2 method in TMS Engine is uncommented
+
+    private static final String BUG_CREATED = "Bug %s created successfully in board %s!";
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 6;
     public static final String ASSIGNEE_ERR_MESSAGE = "Assignee %s is not part of team %s!";
 
-    public CreateStoryCommand(TMSRepository tmsRepository) {
+    public CreateBugCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
     }
 
     @Override
     protected String executeCommand(List<String> parameters) {
+        // TODO: 9.08.23 change extractDescriptionParameters to fit this command (suggestion in comment in class)
+
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String description = parameters.get(0);
-        String title = parameters.get(1);
-        String boardToAdd = parameters.get(2);
-        Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3), Priority.class);
-        StorySize size = ParsingHelpers.tryParseEnum(parameters.get(4), StorySize.class);
-        String assignee = parameters.get(5);
-        return createStory(title,boardToAdd,description,priority, size, assignee);
+        String title = parameters.get(2);
+        String boardToAdd = parameters.get(3);
+        List<String> stepsToReproduce = Arrays.asList(parameters.get(1).split("; "));
+        Priority priority = ParsingHelpers.tryParseEnum(parameters.get(4), Priority.class);
+        BugSeverity severity = ParsingHelpers.tryParseEnum(parameters.get(5), BugSeverity.class);
+        String assignee = parameters.get(6);
+
+        return createBug(title,boardToAdd,description,stepsToReproduce,priority,severity,assignee);
     }
 
-    private String createStory(String title, String boardToAdd, String description, Priority priority, StorySize size, String assignee) {
+    private String createBug(String title, String boardToAdd, String description, List<String> stepsToReproduce, Priority priority, BugSeverity severity, String assignee) {
         Member member = getTmsRepository().getLoggedInMember();
         Team teamOfLoggedInMember = getTmsRepository().findTeamOfMеmber(member.getUsername());
         List<Member> membersInTeam = teamOfLoggedInMember.getMembers();
@@ -40,16 +50,16 @@ public class CreateStoryCommand extends BaseCommand{
 
         List<Board> boards= teamOfLoggedInMember.getBoards();
         Board board = findBoardInTeam(boards,boardToAdd);
-        Task taskToAdd = getTmsRepository().createStory(title,description,priority,size,assignee);
+        Task taskToAdd = getTmsRepository().createBug(title,boardToAdd,description,stepsToReproduce,priority,severity,assignee);
         board.addTask(taskToAdd);
         Member memberAssignee = getTmsRepository().findMemberByUsername(assignee);
         memberAssignee.addTask(taskToAdd);
 
-        member.logEvent(String.format("Story %s created by member %s",title, member.getUsername()));
-        board.logEvent(String.format("Story %s created by member %s",title, member.getUsername()));
-        // TODO: 9.08.23 creating a story through a task may turn out to be an issue.
+        member.logEvent(String.format("Bug %s created by member %s",title, member.getUsername()));
+        board.logEvent(String.format("Bug %s created by member %s",title, member.getUsername()));
+        // TODO: 9.08.23 creating a bug through a task may turn out to be an issue.
 
-        return String.format(STORY_CREATED, title,boardToAdd);
+        return String.format(BUG_CREATED, title,boardToAdd);
     }
 
     private static void throwIfInvalidAssignee(String assignee, Team teamOfLoggedInMember, List<Member> membersInTeam) {
@@ -77,4 +87,5 @@ public class CreateStoryCommand extends BaseCommand{
     protected boolean requiresLogin() {
         return false;
     }
+
 }
