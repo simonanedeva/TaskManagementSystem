@@ -28,17 +28,20 @@ public class AddMemberToTeamCommand extends BaseCommand{
     private String addToTeam(String memberToAdd, String teamToAdd) {
         Member member = getTmsRepository().findMemberByUsername(memberToAdd);
         Team team = getTmsRepository().findTeamByName(teamToAdd);
-        throwIfMemberExists(memberToAdd, teamToAdd, team);
+        throwIfMemberIsPartOfATeam(memberToAdd);
         team.addMember(member);
 
         return String.format(MEMBER_ADDED_TO_TEAM, memberToAdd, teamToAdd);
     }
 
-    private static void throwIfMemberExists(String memberToAdd, String teamToAdd, Team team) {
-        List<Member> memberList = team.getMembers();
-        for (Member member1 : memberList) {
-            if (member1.getUsername().equals(memberToAdd)){
-                throw new IllegalArgumentException(String.format(MEMBER_IS_PART_OF_TEAM_ERR_MESSAGE, memberToAdd, teamToAdd));
+    private void throwIfMemberIsPartOfATeam(String memberToAdd) {
+        List<Team> teams = getTmsRepository().getTeams();
+        for (Team team : teams) {
+            List<Member> memberList = team.getMembers();
+            for (Member member : memberList) {
+                if (member.getUsername().equals(memberToAdd)) {
+                    throw new IllegalArgumentException(String.format(MEMBER_IS_PART_OF_TEAM_ERR_MESSAGE, memberToAdd, team.getName()));
+                }
             }
         }
     }

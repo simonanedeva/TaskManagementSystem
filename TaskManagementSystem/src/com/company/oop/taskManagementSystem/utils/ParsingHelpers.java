@@ -10,4 +10,11 @@ public class ParsingHelpers {
             throw new IllegalArgumentException(String.format(NO_SUCH_ENUM, valueToParse, type.getSimpleName()));
         }
     }
+    public static int tryParseInt(String valueToParse, String errorMessage) {
+        try {
+            return Integer.parseInt(valueToParse);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
 }

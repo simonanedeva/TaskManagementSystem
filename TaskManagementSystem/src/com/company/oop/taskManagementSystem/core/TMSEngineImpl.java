@@ -15,8 +15,8 @@ public class TMSEngineImpl implements TMSEngine {
     private static final String TERMINATION_COMMAND = "Exit";
     private static final String EMPTY_COMMAND_ERROR = "Command cannot be empty.";
     private static final String MAIN_SPLIT_SYMBOL = " ";
-    private static final String COMMENT_OPEN_SYMBOL = "{{";
-    private static final String COMMENT_CLOSE_SYMBOL = "}}";
+    private static final String DESCRIPTION_OPEN_SYMBOL = "{{";
+    private static final String DESCRIPTION_CLOSE_SYMBOL = "}}";
     private static final String REPORT_SEPARATOR = "####################";
 
     private final CommandFactory commandFactory;
@@ -64,8 +64,8 @@ public class TMSEngineImpl implements TMSEngine {
     }
 
     private List<String> extractCommandParameters(String inputLine) {
-        if (inputLine.contains(COMMENT_OPEN_SYMBOL)) {
-            return extractCommentParameters(inputLine);
+        if (inputLine.contains(DESCRIPTION_OPEN_SYMBOL)) {
+            return extractDescriptionParameters(inputLine);
         }
         String[] commandParts = inputLine.split(" ");
         List<String> parameters = new ArrayList<>();
@@ -75,13 +75,13 @@ public class TMSEngineImpl implements TMSEngine {
         return parameters;
     }
 
-    public List<String> extractCommentParameters(String fullCommand) {
+    public List<String> extractDescriptionParameters(String fullCommand) {
         int indexOfFirstSeparator = fullCommand.indexOf(MAIN_SPLIT_SYMBOL);
-        int indexOfOpenComment = fullCommand.indexOf(COMMENT_OPEN_SYMBOL);
-        int indexOfCloseComment = fullCommand.indexOf(COMMENT_CLOSE_SYMBOL);
+        int indexOfOpenDescription = fullCommand.indexOf(DESCRIPTION_OPEN_SYMBOL);
+        int indexOfCloseDescription = fullCommand.indexOf(DESCRIPTION_CLOSE_SYMBOL);
         List<String> parameters = new ArrayList<>();
-        if (indexOfOpenComment >= 0) {
-            parameters.add(fullCommand.substring(indexOfOpenComment + COMMENT_OPEN_SYMBOL.length(), indexOfCloseComment));
+        if (indexOfOpenDescription >= 0) {
+            parameters.add(fullCommand.substring(indexOfOpenDescription + DESCRIPTION_OPEN_SYMBOL.length(), indexOfCloseDescription));
             fullCommand = fullCommand.replaceAll("\\{\\{.+(?=}})}}", "");
         }
 

@@ -65,4 +65,8 @@ public class MemberImpl implements Member {
         // TODO: 7.08.23 finish the method
     }
 
+    public void logEvent(String event) {
+        this.activityHistory.add(new ActivityLogImpl(event));
+    }
+
 }

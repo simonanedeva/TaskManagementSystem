@@ -9,4 +9,6 @@ public interface Member {
     void addSteps(String steps);
     String printMembers();
     String displayActivityHistory();
+
+    public void logEvent(String event);
 }

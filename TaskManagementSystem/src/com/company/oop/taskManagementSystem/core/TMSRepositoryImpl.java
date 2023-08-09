@@ -2,11 +2,14 @@ package com.company.oop.taskManagementSystem.core;
 
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
 import com.company.oop.taskManagementSystem.models.BoardImpl;
+import com.company.oop.taskManagementSystem.models.FeedbackImpl;
 import com.company.oop.taskManagementSystem.models.MemberImpl;
 import com.company.oop.taskManagementSystem.models.TeamImpl;
 import com.company.oop.taskManagementSystem.models.contracts.Board;
+import com.company.oop.taskManagementSystem.models.contracts.Feedback;
 import com.company.oop.taskManagementSystem.models.contracts.Member;
 import com.company.oop.taskManagementSystem.models.contracts.Team;
+import com.company.oop.taskManagementSystem.models.enums.FeedbackStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,8 @@ public class TMSRepositoryImpl implements TMSRepository {
     private final List<Member> members;
     private final List<Team> teams;
     private Member loggedMember;
+
+    private int id;
 
     public TMSRepositoryImpl() {
         this.members = new ArrayList<>();
@@ -129,5 +134,24 @@ public class TMSRepositoryImpl implements TMSRepository {
     public Board createBoard(String boardName) {
         return new BoardImpl(boardName);
     }
+
+    // TODO: 9.08.23 this method bellow may be unnecessary in the repo - it can be added to the CreateFeedbackCommand class;
+    public Team FindTeamOfMEmeber(String member){
+        List<Team> teams = this.teams;
+        for (Team team : teams) {
+            List<Member> memberList = team.getMembers();
+            for (Member member1 : memberList) {
+                if (member1.getUsername().equals(member)) {
+                    return team;
+                }
+            }
+        }
+        throw new IllegalArgumentException(String.format("Command is not supported as member %s is not part of any team!", loggedMember.getUsername()));
+    }
+
+    public Feedback createFeedback(String title, String description, int rating){
+        return new FeedbackImpl(++id,title, description,rating);
+    }
+
 }
 

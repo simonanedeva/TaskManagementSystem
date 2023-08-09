@@ -36,6 +36,10 @@ public class CommandFactoryImpl implements CommandFactory {
                 return new CreateBoardInTeamCommand(tmsRepository);
             case SHOWTEAMBOARDS:
                 return new ShowTeamBoardsCommand(tmsRepository);
+            case CREATEFEEDBACK:
+                return new CreateFeedbackCommand(tmsRepository);
+            case SHOWBOARDACTIVITY:
+                return new ShowBoardActivityCommand(tmsRepository);
             default:
                 throw new IllegalArgumentException();
         }

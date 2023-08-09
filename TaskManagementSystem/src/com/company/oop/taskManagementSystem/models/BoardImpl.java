@@ -50,6 +50,9 @@ public class BoardImpl implements Board {
     public void addTask(Task task) {
         tasks.add(task);
     }
+    public void logEvent(String event) {
+        this.activityHistory.add(new ActivityLogImpl(event));
+    }
 
 
 }
