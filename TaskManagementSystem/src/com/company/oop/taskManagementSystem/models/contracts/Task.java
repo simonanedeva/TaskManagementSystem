@@ -12,9 +12,14 @@ public interface Task {
 
     List<Comment> getComments();
     // TODO: 7.08.23 maybe should be string - look at it later.
+    //  We can shift this to a new interface Commentable.
 
     List<ActivityLog> getHistoryOfChanges();
     // TODO: 7.08.23 same as above.
 
     String getStatus();
+
+    void addComment(Comment comment);
+
+    void removeComment(Comment comment);
 }

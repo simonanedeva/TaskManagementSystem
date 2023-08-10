@@ -71,4 +71,12 @@ public abstract class TaskImpl implements Task {
         ValidationHelpers.validateStringLength(description, MIN_LENGTH_DESCRIPTION, MAX_LENGTH_DESCRIPTION, INVALID_DESCRIPTION_LENGTH_MESSAGE);
         this.description = description;
     }
+
+    public void addComment(Comment comment){
+        this.comments.add(comment);
+    };
+
+    public void removeComment(Comment comment){
+        this.comments.remove(comment);
+    };
 }

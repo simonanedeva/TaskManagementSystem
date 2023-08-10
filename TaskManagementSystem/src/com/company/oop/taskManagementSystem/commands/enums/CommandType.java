@@ -16,5 +16,6 @@ public enum CommandType {
     SHOWBOARDACTIVITY,
     CREATESTORY,
     CREATETEAM,
-    CREATEBUG;
+    CREATEBUG,
+    ADDCOMMENTTOTASK;
 }

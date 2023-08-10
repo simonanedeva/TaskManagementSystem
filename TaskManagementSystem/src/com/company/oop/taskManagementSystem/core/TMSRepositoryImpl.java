@@ -133,6 +133,7 @@ public class TMSRepositoryImpl implements TMSRepository {
     }
 
     // TODO: 9.08.23 this method bellow may be unnecessary in the repo - it can be added to the CreateFeedbackCommand class;
+    // TODO: 10.08.23 Maybe try to extend it using generics as this Find method is repetitive in different createCommand classes;
     public Team findTeamOfMеmber(String member){
         List<Team> teams = this.teams;
         for (Team team : teams) {
