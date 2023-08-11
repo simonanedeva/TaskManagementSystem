@@ -1,23 +1,20 @@
 package com.company.oop.taskManagementSystem.models;
 
 import com.company.oop.taskManagementSystem.models.contracts.Story;
-import com.company.oop.taskManagementSystem.models.enums.Priority;
-import com.company.oop.taskManagementSystem.models.enums.StorySize;
-import com.company.oop.taskManagementSystem.models.enums.StoryStatus;
+import com.company.oop.taskManagementSystem.models.enums.*;
 
 public class StoryImpl extends TaskImpl implements Story {
     
     private Priority priority;
     private StorySize size;
-    private StoryStatus status;
     private String assignee;
 
     public StoryImpl(int id, String title, String description, Priority priority, StorySize size, String assignee) {
         super(id, title, description);
         setPriority(priority);
         setSize(size);
-        this.status = StoryStatus.NOTDONE;
         setAssignee(assignee);
+        status = StatusValues.NOTDONE;
     }
 
     public void setPriority(Priority priority) {
@@ -28,13 +25,20 @@ public class StoryImpl extends TaskImpl implements Story {
         this.size = size;
     }
 
-    public void setStatus(StoryStatus status) {
-        this.status = status;
-    }
-    
     public void setAssignee(String assignee) {
         this.assignee = assignee;
     }
+
+    @Override
+    protected StatusValues isValidStatus(StatusValues value) {
+            StatusValues[] allowedValues = StatusStory.allowedValues;
+            for (StatusValues allowedValue : allowedValues) {
+                if (allowedValue == value) {
+                    return value;
+                }
+            }
+            throw new IllegalArgumentException("Invalid enum value for this class");
+        }
 
     @Override
     public Priority getPriority() {
@@ -63,4 +67,11 @@ public class StoryImpl extends TaskImpl implements Story {
         }
         setPriority(newPriorityStatus);
     }
+
+    @Override
+    public String getType() {
+        return this.getClass().getSimpleName();
+    }
+
+
 }

@@ -17,7 +17,6 @@ public class ChangePriorityOfStory extends BaseCommand {
         super(tmsRepository);
     }
 
-    // TODO: 11.08.23 Not finished!
     // TODO: 11.08.23 discuss if logged in member can change story severity of other members
     @Override
     protected String executeCommand(List<String> parameters) {
@@ -30,23 +29,19 @@ public class ChangePriorityOfStory extends BaseCommand {
 
     private String changePriority(String storyToChange, Priority newPriorityStatus) {
         Member member = getTmsRepository().getLoggedInMember();
-        Team memberTeam = getTmsRepository().findTeamOfMеmber(member.getUsername());
+        Team memberTeam = getTmsRepository().findTeamOfMember(member.getUsername());
         List<Board> boardsList = memberTeam.getBoards();
         for (Board board : boardsList) {
             List<Task> tasks = board.getTasks();
             for (Task task : tasks) {
-                if (task.getTitle().equals(storyToChange)) {
-                    //we need to cast just here. we can also have a try-catch for ClassCastException, which trows a more informative message.
-                    try {
-                        Story story = (Story) task;
-                        String oldPriority = story.getPriority().toString();
-                        story.changePriority(newPriorityStatus);
-                        board.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
-                        member.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
-                        return String.format(PRIORITY_SET_SUCCESSFULLY, storyToChange, oldPriority, newPriorityStatus);
-                    } catch (ClassCastException exception) {
-                        throw new IllegalArgumentException(String.format("There is no story %s in team %s!", storyToChange, memberTeam.getName()));
-                    }
+                if (task.getTitle().equals(storyToChange) && task.getType().equals("StoryImpl")) {
+                    //we need to cast just here; making a validation above to ensure casting success
+                    Story story = (Story) task;
+                    String oldPriority = story.getPriority().toString();
+                    story.changePriority(newPriorityStatus);
+                    board.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
+                    member.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
+                    return String.format(PRIORITY_SET_SUCCESSFULLY, storyToChange, oldPriority, newPriorityStatus);
                 }
             }
         }

@@ -3,12 +3,16 @@ package com.company.oop.taskManagementSystem.models;
 import com.company.oop.taskManagementSystem.models.contracts.ActivityLog;
 import com.company.oop.taskManagementSystem.models.contracts.Comment;
 import com.company.oop.taskManagementSystem.models.contracts.Task;
+import com.company.oop.taskManagementSystem.models.enums.StatusBug;
+import com.company.oop.taskManagementSystem.models.enums.StatusFeedback;
+import com.company.oop.taskManagementSystem.models.enums.StatusStory;
+import com.company.oop.taskManagementSystem.models.enums.StatusValues;
 import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class TaskImpl implements Task {
+public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFeedback {
     public static final int MAX_LENGTH_TITLE = 50;
     public static final int MIN_LENGTH_TITLE = 10;
     public static final int MIN_LENGTH_DESCRIPTION = 10;
@@ -24,6 +28,7 @@ public abstract class TaskImpl implements Task {
     private String description;
     private final List<Comment> comments;
     private final List<ActivityLog> historyOfChanges;
+    protected StatusValues status;
 
     public TaskImpl(int id, String title, String description) {
         setId(id);
@@ -32,6 +37,10 @@ public abstract class TaskImpl implements Task {
         comments = new ArrayList<>();
         historyOfChanges = new ArrayList<>();
     }
+
+//    private void setStatus(StatusValues status) {
+//        this.status = isValidStatus(status);
+//    }
 
     @Override
     public int getId() {
@@ -79,4 +88,7 @@ public abstract class TaskImpl implements Task {
     public void removeComment(Comment comment){
         this.comments.remove(comment);
     };
+
+    protected abstract StatusValues isValidStatus(StatusValues value);
+
 }

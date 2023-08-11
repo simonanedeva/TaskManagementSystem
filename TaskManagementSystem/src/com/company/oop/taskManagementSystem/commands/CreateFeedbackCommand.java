@@ -34,7 +34,7 @@ public class CreateFeedbackCommand extends BaseCommand{
 
     private String createFeedback(String title, String boardToAdd, String description, int rating){
         Member member = getTmsRepository().getLoggedInMember();
-        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMеmber(member.getUsername());
+        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
         // TODO: 9.08.23 We should consider optimizing here - the error message from FinTeamOfMember is too generic.
         List<Board> boards= teamOfLoggedInMember.getBoards();
         Board board = findBoardInTeam(boards,boardToAdd);

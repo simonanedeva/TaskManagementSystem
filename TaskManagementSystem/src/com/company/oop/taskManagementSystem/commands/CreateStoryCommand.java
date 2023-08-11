@@ -34,7 +34,7 @@ public class CreateStoryCommand extends BaseCommand{
 
     private String createStory(String title, String boardToAdd, String description, Priority priority, StorySize size, String assignee) {
         Member member = getTmsRepository().getLoggedInMember();
-        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMеmber(member.getUsername());
+        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
         List<Member> membersInTeam = teamOfLoggedInMember.getMembers();
         throwIfInvalidAssignee(assignee, teamOfLoggedInMember, membersInTeam);
 

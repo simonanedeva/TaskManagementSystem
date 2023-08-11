@@ -28,7 +28,7 @@ public class AddCommentToTaskCommand extends BaseCommand{
     // TODO: 10.08.23 the logic bellow is very bulky - we should consider rewriting it. 
     private String addToTask(String stringCommentToAdd, String taskToAdd) {
         Member member = getTmsRepository().getLoggedInMember();
-        Team memberTeam = getTmsRepository().findTeamOfMеmber(member.getUsername());
+        Team memberTeam = getTmsRepository().findTeamOfMember(member.getUsername());
         Comment commentToAdd = new CommentImpl(stringCommentToAdd,member.getUsername());
         List<Board> boardsList = memberTeam.getBoards();
         boolean taskExist = false;

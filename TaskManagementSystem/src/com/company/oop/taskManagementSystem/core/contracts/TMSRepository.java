@@ -40,7 +40,7 @@ public interface TMSRepository {
 
     Feedback createFeedback(String title, String description, int rating);
 
-    Team findTeamOfMеmber(String member);
+    Team findTeamOfMember(String member);
 
     Task createStory(String title, String description, Priority priority, StorySize size, String assignee);
 

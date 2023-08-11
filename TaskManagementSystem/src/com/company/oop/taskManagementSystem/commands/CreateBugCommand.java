@@ -44,7 +44,7 @@ public class CreateBugCommand extends BaseCommand {
 
     private String createBug(String title, String boardToAdd, String description, List<String> stepsToReproduce, Priority priority, BugSeverity severity, String assignee) {
         Member member = getTmsRepository().getLoggedInMember();
-        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMеmber(member.getUsername());
+        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
         List<Member> membersInTeam = teamOfLoggedInMember.getMembers();
         throwIfInvalidAssignee(assignee, teamOfLoggedInMember, membersInTeam);
 

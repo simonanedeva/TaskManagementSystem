@@ -3,9 +3,7 @@ package com.company.oop.taskManagementSystem.models;
 import com.company.oop.taskManagementSystem.models.contracts.ActivityLog;
 import com.company.oop.taskManagementSystem.models.contracts.Bug;
 import com.company.oop.taskManagementSystem.models.contracts.Comment;
-import com.company.oop.taskManagementSystem.models.enums.BugStatus;
-import com.company.oop.taskManagementSystem.models.enums.Priority;
-import com.company.oop.taskManagementSystem.models.enums.BugSeverity;
+import com.company.oop.taskManagementSystem.models.enums.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +13,6 @@ public class BugImpl extends TaskImpl implements Bug {
     private List<String> stepsToReproduce;
     private Priority priority;
     private BugSeverity severity;
-    private BugStatus status;
     private String assignee;
     private List<Comment> comments;
 
@@ -27,10 +24,10 @@ public class BugImpl extends TaskImpl implements Bug {
         this.stepsToReproduce = new ArrayList<>();
         setPriority(priority);
         setSeverity(severity);
-        this.status = BugStatus.ACTIVE;
         setAssignee(assignee);
         comments = new ArrayList<>();
         historyOfChanges = new ArrayList<>();
+        status = StatusValues.ACTIVE;
     }
 
     public void setPriority(Priority priority) {
@@ -39,10 +36,6 @@ public class BugImpl extends TaskImpl implements Bug {
 
     public void setSeverity(BugSeverity severity) {
         this.severity = severity;
-    }
-
-    public void setStatus(BugStatus status) {
-        this.status = status;
     }
 
     private void setAssignee(String assignee) {
@@ -80,4 +73,20 @@ public class BugImpl extends TaskImpl implements Bug {
         return assignee;
     }
 
-}
+    @Override
+    public String getType() {
+        return this.getClass().getSimpleName();
+    }
+
+    @Override
+    // TODO: 11.08.23 improve; make boolean for the Change status validation
+    protected StatusValues isValidStatus(StatusValues value) {
+            StatusValues[] allowedValues = StatusBug.allowedValues;
+            for (StatusValues allowedValue : allowedValues) {
+                if (allowedValue == value) {
+                    return value;
+                }
+            }
+            throw new IllegalArgumentException("Invalid enum value for this class");
+        }
+    }
