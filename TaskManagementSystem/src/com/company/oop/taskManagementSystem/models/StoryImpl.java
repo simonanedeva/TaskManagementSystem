@@ -55,4 +55,12 @@ public class StoryImpl extends TaskImpl implements Story {
     public String getAssignee() {
         return assignee;
     }
+
+    @Override
+    public void changePriority(Priority newPriorityStatus) {
+        if (newPriorityStatus.equals(priority)) {
+            throw new IllegalArgumentException((String.format("Priority is already set at %s!", priority)));
+        }
+        setPriority(newPriorityStatus);
+    }
 }
