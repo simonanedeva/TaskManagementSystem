@@ -1,5 +1,7 @@
 package com.company.oop.taskManagementSystem.models.contracts;
 
+import com.company.oop.taskManagementSystem.models.enums.StatusValues;
+
 import java.util.List;
 
 public interface Task {
@@ -24,4 +26,8 @@ public interface Task {
     void removeComment(Comment comment);
 
     String getType();
+
+    void changeStatus(StatusValues status);
+
+    boolean isValidStatus(StatusValues status);
 }

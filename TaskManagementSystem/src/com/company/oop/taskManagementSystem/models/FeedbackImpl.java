@@ -1,9 +1,7 @@
 package com.company.oop.taskManagementSystem.models;
 
 import com.company.oop.taskManagementSystem.models.contracts.Feedback;
-import com.company.oop.taskManagementSystem.models.enums.FeedbackStatus;
-import com.company.oop.taskManagementSystem.models.enums.StatusBug;
-import com.company.oop.taskManagementSystem.models.enums.StatusFeedback;
+import com.company.oop.taskManagementSystem.models.enums.contracts.StatusFeedback;
 import com.company.oop.taskManagementSystem.models.enums.StatusValues;
 
 public class FeedbackImpl extends TaskImpl implements Feedback {
@@ -36,11 +34,11 @@ public class FeedbackImpl extends TaskImpl implements Feedback {
     }
 
     @Override
-    protected StatusValues isValidStatus(StatusValues value) {
+    public boolean isValidStatus(StatusValues value) {
         StatusValues[] allowedValues = StatusFeedback.allowedValues;
         for (StatusValues allowedValue : allowedValues) {
             if (allowedValue == value) {
-                return value;
+                return true;
             }
         }
         throw new IllegalArgumentException("Invalid enum value for this class");

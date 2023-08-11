@@ -3,9 +3,9 @@ package com.company.oop.taskManagementSystem.models;
 import com.company.oop.taskManagementSystem.models.contracts.ActivityLog;
 import com.company.oop.taskManagementSystem.models.contracts.Comment;
 import com.company.oop.taskManagementSystem.models.contracts.Task;
-import com.company.oop.taskManagementSystem.models.enums.StatusBug;
-import com.company.oop.taskManagementSystem.models.enums.StatusFeedback;
-import com.company.oop.taskManagementSystem.models.enums.StatusStory;
+import com.company.oop.taskManagementSystem.models.enums.contracts.StatusBug;
+import com.company.oop.taskManagementSystem.models.enums.contracts.StatusFeedback;
+import com.company.oop.taskManagementSystem.models.enums.contracts.StatusStory;
 import com.company.oop.taskManagementSystem.models.enums.StatusValues;
 import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
@@ -89,6 +89,11 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
         this.comments.remove(comment);
     };
 
-    protected abstract StatusValues isValidStatus(StatusValues value);
+    public abstract boolean isValidStatus(StatusValues value);
+
+    public void changeStatus(StatusValues status){
+
+        this.status = status;
+    }
 
 }

@@ -2,6 +2,7 @@ package com.company.oop.taskManagementSystem.models;
 
 import com.company.oop.taskManagementSystem.models.contracts.Story;
 import com.company.oop.taskManagementSystem.models.enums.*;
+import com.company.oop.taskManagementSystem.models.enums.contracts.StatusStory;
 
 public class StoryImpl extends TaskImpl implements Story {
     
@@ -30,13 +31,14 @@ public class StoryImpl extends TaskImpl implements Story {
     }
 
     @Override
-    protected StatusValues isValidStatus(StatusValues value) {
+    public boolean isValidStatus(StatusValues value) {
             StatusValues[] allowedValues = StatusStory.allowedValues;
             for (StatusValues allowedValue : allowedValues) {
                 if (allowedValue == value) {
-                    return value;
+                    return true;
                 }
             }
+            //return false;
             throw new IllegalArgumentException("Invalid enum value for this class");
         }
 

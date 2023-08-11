@@ -87,5 +87,4 @@ public class CreateBugCommand extends BaseCommand {
     protected boolean requiresLogin() {
         return false;
     }
-
 }

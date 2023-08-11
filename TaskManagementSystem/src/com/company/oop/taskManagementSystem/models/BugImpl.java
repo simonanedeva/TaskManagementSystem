@@ -4,6 +4,7 @@ import com.company.oop.taskManagementSystem.models.contracts.ActivityLog;
 import com.company.oop.taskManagementSystem.models.contracts.Bug;
 import com.company.oop.taskManagementSystem.models.contracts.Comment;
 import com.company.oop.taskManagementSystem.models.enums.*;
+import com.company.oop.taskManagementSystem.models.enums.contracts.StatusBug;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,15 +79,16 @@ public class BugImpl extends TaskImpl implements Bug {
         return this.getClass().getSimpleName();
     }
 
+
     @Override
     // TODO: 11.08.23 improve; make boolean for the Change status validation
-    protected StatusValues isValidStatus(StatusValues value) {
-            StatusValues[] allowedValues = StatusBug.allowedValues;
-            for (StatusValues allowedValue : allowedValues) {
-                if (allowedValue == value) {
-                    return value;
-                }
+    public boolean isValidStatus(StatusValues value) {
+        StatusValues[] allowedValues = StatusBug.allowedValues;
+        for (StatusValues allowedValue : allowedValues) {
+            if (allowedValue == value) {
+                return true;
             }
-            throw new IllegalArgumentException("Invalid enum value for this class");
         }
+        throw new IllegalArgumentException("Invalid enum value");
     }
+}

@@ -1,4 +1,6 @@
-package com.company.oop.taskManagementSystem.models.enums;
+package com.company.oop.taskManagementSystem.models.enums.contracts;
+
+import com.company.oop.taskManagementSystem.models.enums.StatusValues;
 
 public interface StatusFeedback {
 

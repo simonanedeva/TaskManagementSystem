@@ -48,6 +48,8 @@ public class CommandFactoryImpl implements CommandFactory {
                 return new AddCommentToTaskCommand(tmsRepository);
             case CHANGEPRIORITYOFSTORY:
                 return new ChangePriorityOfStory(tmsRepository);
+            case CHANGESTATUS:
+                return new ChangeStatusCommand(tmsRepository);
             default:
                 throw new IllegalArgumentException();
         }
