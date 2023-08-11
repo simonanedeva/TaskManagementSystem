@@ -1,5 +1,6 @@
 package com.company.oop.taskManagementSystem.models;
 
+import com.company.oop.taskManagementSystem.commands.ChangeFeedbackRatingCommand;
 import com.company.oop.taskManagementSystem.models.contracts.Feedback;
 import com.company.oop.taskManagementSystem.models.enums.contracts.StatusFeedback;
 import com.company.oop.taskManagementSystem.models.enums.StatusValues;
@@ -14,13 +15,22 @@ public class FeedbackImpl extends TaskImpl implements Feedback {
         status = StatusValues.NEW;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    private void setRating(int rating) {
+        if (rating >= 0) {
+            this.rating = rating;
+        } else {
+            throw new IllegalArgumentException(ChangeFeedbackRatingCommand.RATING_SET_SUCCESSFULLY);
+        }
     }
 
     @Override
     public int getRating() {
         return this.rating;
+    }
+
+    @Override
+    public void changeRating(int newRating) {
+        setRating(newRating);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.company.oop.taskManagementSystem.models.contracts.Comment;
 import com.company.oop.taskManagementSystem.models.enums.*;
 import com.company.oop.taskManagementSystem.models.enums.contracts.StatusBug;
 
+import javax.print.attribute.standard.Severity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +80,21 @@ public class BugImpl extends TaskImpl implements Bug {
         return this.getClass().getSimpleName();
     }
 
+    @Override
+    public void changePriority(Priority newPriorityStatus) {
+        if (newPriorityStatus.equals(priority)) {
+            throw new IllegalArgumentException((String.format("Priority is already set at %s!", priority)));
+        }
+        setPriority(newPriorityStatus);
+    }
+
+    @Override
+    public void changeSeverity(BugSeverity newSeverityStatus) {
+        if (newSeverityStatus.equals(severity)) {
+            throw new IllegalArgumentException((String.format("Severity is already set at %s!", severity)));
+        }
+        setSeverity(newSeverityStatus);
+    }
 
     @Override
     // TODO: 11.08.23 improve; make boolean for the Change status validation

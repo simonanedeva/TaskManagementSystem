@@ -15,7 +15,7 @@ public class CreateFeedbackCommand extends BaseCommand{
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 4;
     public static final String BOARD_IS_PART_OF_TEAM_ERR_MESSAGE = "Board %s is already a part of team %s!";
-    public static final String RATING_WHOLE_NUMBER_ERR_MESSAGE = "Rating must be a whole number";
+    public static final String RATING_WHOLE_NUMBER_ERR_MESSAGE = "Rating must be a whole number1";
 
     public CreateFeedbackCommand(TMSRepository tmsRepository) {
         super(tmsRepository);

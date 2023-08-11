@@ -71,6 +71,14 @@ public class StoryImpl extends TaskImpl implements Story {
     }
 
     @Override
+    public void changeSize(StorySize newSize) {
+        if (newSize.equals(size)) {
+            throw new IllegalArgumentException((String.format("Size is already set at %s!", size)));
+        }
+        setSize(newSize);
+    }
+
+    @Override
     public String getType() {
         return this.getClass().getSimpleName();
     }

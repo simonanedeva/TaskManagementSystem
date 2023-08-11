@@ -11,5 +11,6 @@ public interface Story extends Task{
     StorySize getSize();
     String getAssignee();
     void changePriority(Priority newPriorityStatus);
+    void changeSize(StorySize newSize);
 
 }
