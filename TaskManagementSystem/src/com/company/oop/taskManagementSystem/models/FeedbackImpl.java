@@ -7,6 +7,7 @@ import com.company.oop.taskManagementSystem.models.enums.StatusValues;
 
 public class FeedbackImpl extends TaskImpl implements Feedback {
 
+    public static final String FEEDBACK_RATING_NEG_ERR_MESSAGE = "Feedback rating cannot be negative! Chose a positive whole number";
     private int rating;
 
     public FeedbackImpl(int id, String title, String description, int rating) {
@@ -19,7 +20,7 @@ public class FeedbackImpl extends TaskImpl implements Feedback {
         if (rating >= 0) {
             this.rating = rating;
         } else {
-            throw new IllegalArgumentException(ChangeFeedbackRatingCommand.RATING_SET_SUCCESSFULLY);
+            throw new IllegalArgumentException(FEEDBACK_RATING_NEG_ERR_MESSAGE);
         }
     }
 
