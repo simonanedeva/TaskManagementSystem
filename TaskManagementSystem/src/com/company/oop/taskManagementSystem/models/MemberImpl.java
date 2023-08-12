@@ -13,9 +13,9 @@ import static java.lang.String.format;
 public class MemberImpl implements Member {
     public static final int USERNAME_LEN_MIN = 5;
     public static final int USERNAME_LEN_MAX = 15;
-    private static final String USERNAME_REGEX_PATTERN = "^[A-Za-z0-9]+$";
-    private static final String USERNAME_PATTERN_ERR = "Username contains invalid symbols!";
-    private static final String USERNAME_LEN_ERR = format(
+    public static final String USERNAME_REGEX_PATTERN = "^[A-Za-z0-9]+$";
+    public static final String USERNAME_PATTERN_ERR = "Username contains invalid symbols!";
+    public static final String USERNAME_LEN_ERR = format(
             "Username must be between %d and %d characters long!",
             USERNAME_LEN_MIN,
             USERNAME_LEN_MAX);
