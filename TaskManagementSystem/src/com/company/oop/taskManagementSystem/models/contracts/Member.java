@@ -13,4 +13,6 @@ public interface Member {
      void logEvent(String event);
 
     void addTask (Task task);
+
+    void removeTask (Task task);
 }

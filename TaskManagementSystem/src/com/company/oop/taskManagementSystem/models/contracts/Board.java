@@ -14,5 +14,5 @@ public interface Board {
 
     void addTask(Task task);
 
-    public void logEvent(String event);
+    void logEvent(String event);
 }

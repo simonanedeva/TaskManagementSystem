@@ -73,4 +73,10 @@ public class MemberImpl implements Member {
     public void addTask(Task task) {
         tasks.add(task);
     }
+
+    @Override
+    public void removeTask(Task task) {
+        tasks.remove(task);
+    }
+
 }

@@ -1,10 +1,11 @@
 package com.company.oop.taskManagementSystem.models;
 
+import com.company.oop.taskManagementSystem.models.contracts.AssigneeChangeable;
 import com.company.oop.taskManagementSystem.models.contracts.Story;
 import com.company.oop.taskManagementSystem.models.enums.*;
 import com.company.oop.taskManagementSystem.models.enums.contracts.StatusStory;
 
-public class StoryImpl extends TaskImpl implements Story {
+public class StoryImpl extends TaskImpl implements Story, AssigneeChangeable {
     
     private Priority priority;
     private StorySize size;
@@ -84,4 +85,8 @@ public class StoryImpl extends TaskImpl implements Story {
     }
 
 
+    @Override
+    public void changeAssignee(String assignee) {
+        this.assignee = assignee;
+    }
 }

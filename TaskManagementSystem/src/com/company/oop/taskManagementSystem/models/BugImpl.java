@@ -1,6 +1,7 @@
 package com.company.oop.taskManagementSystem.models;
 
 import com.company.oop.taskManagementSystem.models.contracts.ActivityLog;
+import com.company.oop.taskManagementSystem.models.contracts.AssigneeChangeable;
 import com.company.oop.taskManagementSystem.models.contracts.Bug;
 import com.company.oop.taskManagementSystem.models.contracts.Comment;
 import com.company.oop.taskManagementSystem.models.enums.*;
@@ -10,7 +11,7 @@ import javax.print.attribute.standard.Severity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BugImpl extends TaskImpl implements Bug {
+public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable {
 
     private List<String> stepsToReproduce;
     private Priority priority;
@@ -23,7 +24,7 @@ public class BugImpl extends TaskImpl implements Bug {
     public BugImpl(int id, String title, String description, List<String> stepsToReproduce, Priority priority,
                    BugSeverity severity, String assignee) {
         super(id, title, description);
-        this.stepsToReproduce = new ArrayList<>();
+        this.stepsToReproduce = stepsToReproduce;
         setPriority(priority);
         setSeverity(severity);
         setAssignee(assignee);
@@ -106,5 +107,10 @@ public class BugImpl extends TaskImpl implements Bug {
             }
         }
         throw new IllegalArgumentException("Invalid enum value");
+    }
+
+    @Override
+    public void changeAssignee(String assignee) {
+        this.assignee = assignee;
     }
 }

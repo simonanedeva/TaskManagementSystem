@@ -8,7 +8,7 @@ import com.company.oop.taskManagementSystem.models.enums.Priority;
 import javax.print.attribute.standard.Severity;
 import java.util.List;
 
-public interface Bug extends Task{
+public interface Bug extends Task, AssigneeChangeable, AssigneeGettable{
 
     List<String> getStepsToReproduce();
 
@@ -16,7 +16,7 @@ public interface Bug extends Task{
 
     BugSeverity getSeverity();
 
-    String getAssignee();
+
 
     void changePriority(Priority newPriorityStatus);
 
