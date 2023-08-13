@@ -42,11 +42,6 @@ public class AssignTaskCommand extends BaseCommand {
                     }
                     AssigneeChangeable taskToChange = (AssigneeChangeable) task;
                     Member oldAssignee = getTmsRepository().findMemberByUsername(taskToChange.getAssignee());
-
-                    if (oldAssignee.getUsername().equals(newAssignee)) {
-                        throw new IllegalArgumentException(String.format("Assignee already set to %s!", oldAssignee.getUsername()));
-                    }
-
                     taskToChange.changeAssignee(newAssignee);
                     newAssigneeMember.addTask(task);
                     oldAssignee.removeTask(task);

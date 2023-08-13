@@ -42,8 +42,8 @@ public class ChangeBugSeverityCommand extends BaseCommand {
                     Bug bug = (Bug) task;
                     String oldSeverityStatus = bug.getSeverity().toString();
                     bug.changeSeverity(newSeverityStatus);
-                    board.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldSeverityStatus, newSeverityStatus));
-                    member.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldSeverityStatus, newSeverityStatus));
+                    board.logEvent(String.format("%s changed the severity of bug %s from %s to %s.", member.getUsername(), task.getTitle(), oldSeverityStatus, newSeverityStatus));
+                    member.logEvent(String.format("%s changed the severity of bug %s from %s to %s.", member.getUsername(), task.getTitle(), oldSeverityStatus, newSeverityStatus));
                     return String.format(PRIORITY_SET_SUCCESSFULLY, bugToChange, oldSeverityStatus, newSeverityStatus);
                 }
             }

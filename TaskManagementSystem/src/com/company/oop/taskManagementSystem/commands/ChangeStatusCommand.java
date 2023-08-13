@@ -11,7 +11,8 @@ import java.util.List;
 
 public class ChangeStatusCommand extends BaseCommand {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
-    private static final String PRIORITY_SET_SUCCESSFULLY = "Priority of story %s successfully changed from %s to %s!";
+    private static final String PRIORITY_SET_SUCCESSFULLY = "Status of %s %s successfully changed from %s to %s!";
+
     public ChangeStatusCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
     }
@@ -29,28 +30,27 @@ public class ChangeStatusCommand extends BaseCommand {
         return changeStatus(taskStatusToChange, newStatus);
     }
 
-    private String changeStatus(String storyToChange, StatusValues newStatus) {
+    private String changeStatus(String taskToChange, StatusValues newStatus) {
         Member member = getTmsRepository().getLoggedInMember();
         Team memberTeam = getTmsRepository().findTeamOfMember(member.getUsername());
         List<Board> boardsList = memberTeam.getBoards();
         for (Board board : boardsList) {
             List<Task> tasks = board.getTasks();
             for (Task task : tasks) {
-                if (task.getTitle().equals(storyToChange)) {
+                if (task.getTitle().equals(taskToChange)) {
                     //we need to cast just here; making a validation above to ensure casting success
-                    //Story story = (Story) task;
-                    String oldPriority = task.getStatus();
-                    if (task.isValidStatus(newStatus)){
+                    String oldStatus = task.getStatus();
+                    if (task.isValidStatus(newStatus)) {
                         task.changeStatus(newStatus);
+                        board.logEvent(String.format("%s changed the status of %s %s from %s to %s.",
+                                member.getUsername(), task.getType(), taskToChange, oldStatus, newStatus));
+                        member.logEvent(String.format("%s changed the status of %s %s from %s to %s.", member.getUsername()
+                                , task.getType(), taskToChange, oldStatus, newStatus));
+                        return String.format(PRIORITY_SET_SUCCESSFULLY, task.getType(), taskToChange, oldStatus, newStatus);
                     }
-                    board.logEvent(String.format("%s changed the status of %s %s from %s to %s.",
-                            member.getUsername(), task.getType(), task.getTitle(), oldPriority, newStatus));
-                    member.logEvent(String.format("%s changed the %s of story %s from %s to %s.", member.getUsername()
-                            , task.getType(), task.getTitle(), oldPriority, newStatus));
-                    return String.format(PRIORITY_SET_SUCCESSFULLY, storyToChange, oldPriority, newStatus);
                 }
             }
         }
-        throw new IllegalArgumentException(String.format("There is no story %s in team %s!", storyToChange, memberTeam.getName()));
+        throw new IllegalArgumentException(String.format("There is no task %s in team %s!", taskToChange, memberTeam.getName()));
     }
 }
