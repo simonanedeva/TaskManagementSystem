@@ -31,6 +31,9 @@ public class FeedbackImpl extends TaskImpl implements Feedback {
 
     @Override
     public void changeRating(int newRating) {
+        if (newRating == this.rating){
+            throw new IllegalArgumentException(String.format("Rating already set to %s!", this.rating));
+        }
         setRating(newRating);
     }
 
