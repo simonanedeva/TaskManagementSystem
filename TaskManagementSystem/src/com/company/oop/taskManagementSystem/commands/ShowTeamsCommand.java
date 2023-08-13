@@ -10,6 +10,7 @@ import java.util.List;
 public class ShowTeamsCommand extends BaseCommand {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 0;
+    public static final String NO_TEAMS_MESSAGE = "No teams to show.";
 
     public ShowTeamsCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
@@ -24,6 +25,10 @@ public class ShowTeamsCommand extends BaseCommand {
     private String showTeams() {
         StringBuilder sb = new StringBuilder();
         List<Team> teamList = getTmsRepository().getTeams();
+        if(teamList.isEmpty()) {
+            sb.append(String.format(NO_TEAMS_MESSAGE));
+            return sb.toString();
+        }
         for (Team team : teamList) {
             sb.append(team.getName()).append(", ");
         }
@@ -31,7 +36,6 @@ public class ShowTeamsCommand extends BaseCommand {
         return sb.toString().trim();
     }
     // TODO: 8.08.23 Do a check if there is no activity and return that there is no activity.
-
 
     @Override
     protected boolean requiresLogin() {
