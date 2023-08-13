@@ -34,7 +34,7 @@ public class ChangeStorySizeCommand extends BaseCommand{
             List<Task> tasks = board.getTasks();
 
             for (Task task : tasks) {
-                if (task.getTitle().equals(storyToChange)) {
+                if (task.getTitle().equals(storyToChange) && task.getType().equals("StoryImpl")) {
                     //we need to cast just here; making a validation above to ensure casting success
                     Story story = (Story) task;
                     String oldSize = story.getSize().toString();

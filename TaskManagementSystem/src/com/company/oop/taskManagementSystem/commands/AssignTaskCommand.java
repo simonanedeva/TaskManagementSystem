@@ -42,17 +42,12 @@ public class AssignTaskCommand extends BaseCommand {
                     }
                     AssigneeChangeable taskToChange = (AssigneeChangeable) task;
                     Member oldAssignee = getTmsRepository().findMemberByUsername(taskToChange.getAssignee());
-
-                    if (oldAssignee.getUsername().equals(newAssignee)) {
-                        throw new IllegalArgumentException(String.format("Assignee already set to %s!", oldAssignee.getUsername()));
-                    }
-
                     taskToChange.changeAssignee(newAssignee);
                     newAssigneeMember.addTask(task);
                     oldAssignee.removeTask(task);
 //                    tasks.remove(taskToChange); //shouldn't be removed from board
                     board.logEvent(String.format("%s changed the assignee of task %s from %s to %s.", member.getUsername(), task.getTitle(), oldAssignee.getUsername(), newAssignee));
-                    member.logEvent(String.format("%s changed the priority of task %s from %s to %s.", member.getUsername(), task.getTitle(), oldAssignee.getUsername(), newAssignee));
+                    member.logEvent(String.format("%s changed the assignee of task %s from %s to %s.", member.getUsername(), task.getTitle(), oldAssignee.getUsername(), newAssignee));
                     return String.format(TASK_REASSIGNED_SUCCESSFULLY, taskToReassign, oldAssignee.getUsername(), newAssignee);
                 }
             }

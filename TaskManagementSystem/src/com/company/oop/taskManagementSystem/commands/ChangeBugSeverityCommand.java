@@ -37,13 +37,13 @@ public class ChangeBugSeverityCommand extends BaseCommand {
             List<Task> tasks = board.getTasks();
 
             for (Task task : tasks) {
-                if (task.getTitle().equals(bugToChange)) {
+                if (task.getTitle().equals(bugToChange) && task.getType().equals("BugImpl")) {
                     //we need to cast just here; making a validation above to ensure casting success
                     Bug bug = (Bug) task;
                     String oldSeverityStatus = bug.getSeverity().toString();
                     bug.changeSeverity(newSeverityStatus);
-                    board.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldSeverityStatus, newSeverityStatus));
-                    member.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldSeverityStatus, newSeverityStatus));
+                    board.logEvent(String.format("%s changed the severity of bug %s from %s to %s.", member.getUsername(), task.getTitle(), oldSeverityStatus, newSeverityStatus));
+                    member.logEvent(String.format("%s changed the severity of bug %s from %s to %s.", member.getUsername(), task.getTitle(), oldSeverityStatus, newSeverityStatus));
                     return String.format(PRIORITY_SET_SUCCESSFULLY, bugToChange, oldSeverityStatus, newSeverityStatus);
                 }
             }

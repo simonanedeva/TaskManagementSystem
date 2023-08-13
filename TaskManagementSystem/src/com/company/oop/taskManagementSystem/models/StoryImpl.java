@@ -87,6 +87,9 @@ public class StoryImpl extends TaskImpl implements Story, AssigneeChangeable {
 
     @Override
     public void changeAssignee(String assignee) {
-        this.assignee = assignee;
+        if (this.assignee.equals(assignee)) {
+            throw new IllegalArgumentException(String.format("Assignee already set to %s!", assignee));
+        }
+        setAssignee(assignee);
     }
 }

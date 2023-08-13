@@ -37,9 +37,6 @@ public class ChangeFeedbackRatingCommand extends BaseCommand {
                     //we need to cast just here; making a validation above to ensure casting success
                     Feedback feedback = (Feedback) task;
                     int oldRating = feedback.getRating();
-                    if (newRating == oldRating){
-                        throw new IllegalArgumentException(String.format("Rating already set to %s!", oldRating));
-                    }
                     feedback.changeRating(newRating);
                     board.logEvent(String.format("%s changed the rating of feedback %s from %s to %s.", member.getUsername(), task.getTitle(), oldRating, newRating));
                     member.logEvent(String.format("%s changed the rating of feedback %s from %s to %s.", member.getUsername(), task.getTitle(), oldRating, newRating));
