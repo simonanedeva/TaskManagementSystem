@@ -18,5 +18,18 @@ public class TestHelpers {
             return Arrays.asList(new String[wantedSize]);
         }
 
+    /**
+     * Returns a new String with size equal to length.
+     * Useful when you do not care what the contents of a String are,
+     * for example when testing if a String of given size
+     * would cause an exception being thrown.
+     *
+     * @param length the size of the String to be returned.
+     * @return a new String with size equal to length
+     */
+    public static String getString(int length) {
+        return "x".repeat(length);
+    }
+
     }
 
