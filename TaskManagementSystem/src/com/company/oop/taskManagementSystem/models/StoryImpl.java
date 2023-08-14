@@ -64,6 +64,11 @@ public class StoryImpl extends TaskImpl implements Story, AssigneeChangeable {
     }
 
     @Override
+    public String getType() {
+        return this.getClass().getSimpleName();
+    }
+
+    @Override
     public void changePriority(Priority newPriorityStatus) {
         if (newPriorityStatus.equals(priority)) {
             throw new IllegalArgumentException((String.format("Priority is already set at %s!", priority)));
@@ -77,11 +82,6 @@ public class StoryImpl extends TaskImpl implements Story, AssigneeChangeable {
             throw new IllegalArgumentException((String.format("Size is already set at %s!", size)));
         }
         setSize(newSize);
-    }
-
-    @Override
-    public String getType() {
-        return this.getClass().getSimpleName();
     }
 
 
