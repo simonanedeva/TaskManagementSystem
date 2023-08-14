@@ -78,6 +78,7 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
 
     public void setDescription(String description) {
         ValidationHelpers.validateStringLength(description, MIN_LENGTH_DESCRIPTION, MAX_LENGTH_DESCRIPTION, INVALID_DESCRIPTION_LENGTH_MESSAGE);
+        // TODO: 14.08.23 add a validation here for the Regex pattern of Description - {{ .... }} 
         this.description = description;
     }
 
