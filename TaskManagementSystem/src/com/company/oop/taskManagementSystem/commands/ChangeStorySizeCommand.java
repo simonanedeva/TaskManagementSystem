@@ -31,16 +31,14 @@ public class ChangeStorySizeCommand extends BaseCommand{
         List<Board> boardList = memberTeam.getBoards();
 
         for (Board board : boardList) {
-            List<Task> tasks = board.getTasks();
+            List<Story> stories = board.getStories();
 
-            for (Task task : tasks) {
-                if (task.getTitle().equals(storyToChange) && task.getType().equals("StoryImpl")) {
-                    //we need to cast just here; making a validation above to ensure casting success
-                    Story story = (Story) task;
+            for (Story story : stories) {
+                if (story.getTitle().equals(storyToChange)) {
                     String oldSize = story.getSize().toString();
                     story.changeSize(newSizeStatus);
-                    board.logEvent(String.format("%s changed the size of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldSize, newSizeStatus));
-                    member.logEvent(String.format("%s changed the size of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldSize, newSizeStatus));
+                    story.logEvent(String.format("%s changed the size of story %s from %s to %s.", member.getUsername(), story.getTitle(), oldSize, newSizeStatus));
+                    member.logEvent(String.format("%s changed the size of story %s from %s to %s.", member.getUsername(), story.getTitle(), oldSize, newSizeStatus));
                     return String.format(SIZE_SET_SUCCESSFULLY, storyToChange, oldSize, newSizeStatus);
                 }
             }

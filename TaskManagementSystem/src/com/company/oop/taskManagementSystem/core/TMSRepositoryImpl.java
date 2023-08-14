@@ -148,12 +148,12 @@ public class TMSRepositoryImpl implements TMSRepository {
     }
 
     @Override
-    public Task createStory(String title, String description, Priority priority, StorySize size, String assignee) {
+    public Story createStory(String title, String description, Priority priority, StorySize size, String assignee) {
         return new StoryImpl(++id, title, description, priority, size, assignee);
     }
 
     @Override
-    public Task createBug(String title, String boardToAdd, String description, List<String> stepsToReproduce, Priority priority, BugSeverity severity, String assignee) {
+    public Bug createBug(String title, String boardToAdd, String description, List<String> stepsToReproduce, Priority priority, BugSeverity severity, String assignee) {
         return new BugImpl(++id, title, description, stepsToReproduce, priority, severity, assignee);
     }
 

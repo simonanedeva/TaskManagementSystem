@@ -40,14 +40,11 @@ public class CreateStoryCommand extends BaseCommand{
 
         List<Board> boards= teamOfLoggedInMember.getBoards();
         Board board = findBoardInTeam(boards,boardToAdd);
-        Task taskToAdd = getTmsRepository().createStory(title,description,priority,size,assignee);
-        board.addTask(taskToAdd);
-        Member memberAssignee = getTmsRepository().findMemberByUsername(assignee);
-        memberAssignee.addTask(taskToAdd);
+        Story storyToAdd = getTmsRepository().createStory(title,description,priority,size,assignee);
+        board.addStory(storyToAdd);
 
         member.logEvent(String.format("Story %s created by member %s",title, member.getUsername()));
-        board.logEvent(String.format("Story %s created by member %s",title, member.getUsername()));
-        // TODO: 9.08.23 creating a story through a task may turn out to be an issue.
+        storyToAdd.logEvent(String.format("Story %s created by member %s",title, member.getUsername()));
 
         return String.format(STORY_CREATED, title,boardToAdd);
     }

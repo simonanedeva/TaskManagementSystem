@@ -31,7 +31,7 @@ public class ChangePriorityCommand extends BaseCommand {
         List<Board> boardsList = memberTeam.getBoards();
 
         for (Board board : boardsList) {
-            List<Task> tasks = board.getTasks();
+            List<Task> tasks = board.thinkofsomeAppropriateGetter();
 
             for (Task task : tasks) {
                 if (task.getTitle().equals(taskToChange)) {
@@ -43,7 +43,7 @@ public class ChangePriorityCommand extends BaseCommand {
                         Story story = (Story) task;
                         String oldPriority = story.getPriority().toString();
                         story.changePriority(newPriorityStatus);
-                        board.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
+                        task.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
                         member.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
                         return String.format(PRIORITY_SET_SUCCESSFULLY, taskType, taskToChange, oldPriority, newPriorityStatus);
                     }
@@ -53,7 +53,7 @@ public class ChangePriorityCommand extends BaseCommand {
                         Bug bug = (Bug) task;
                         String oldPriority = bug.getPriority().toString();
                         bug.changePriority(newPriorityStatus);
-                        board.logEvent(String.format("%s changed the priority of bug %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
+                        task.logEvent(String.format("%s changed the priority of bug %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
                         member.logEvent(String.format("%s changed the priority of bug %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
                         return String.format(PRIORITY_SET_SUCCESSFULLY, taskType, taskToChange, oldPriority, newPriorityStatus);
                     }

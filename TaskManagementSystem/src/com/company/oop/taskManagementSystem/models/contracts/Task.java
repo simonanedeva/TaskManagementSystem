@@ -1,5 +1,6 @@
 package com.company.oop.taskManagementSystem.models.contracts;
 
+import com.company.oop.taskManagementSystem.models.ActivityLogImpl;
 import com.company.oop.taskManagementSystem.models.enums.StatusValues;
 
 import java.util.List;
@@ -16,8 +17,9 @@ public interface Task {
     // TODO: 7.08.23 maybe should be string - look at it later.
     //  We can shift this to a new interface Commentable.
 
-    List<ActivityLog> getHistoryOfChanges();
-    // TODO: 7.08.23 same as above.
+    List<ActivityLog> getActivityHistory();
+
+    String displayActivityHistory();
 
     String getStatus();
 
@@ -30,4 +32,6 @@ public interface Task {
     void changeStatus(StatusValues status);
 
     boolean isValidStatus(StatusValues status);
+
+    void logEvent(String event);
 }

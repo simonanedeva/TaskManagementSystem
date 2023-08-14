@@ -42,9 +42,9 @@ public interface TMSRepository {
 
     Team findTeamOfMember(String member);
 
-    Task createStory(String title, String description, Priority priority, StorySize size, String assignee);
+    Story createStory(String title, String description, Priority priority, StorySize size, String assignee);
 
-    Task createBug(String title, String boardToAdd, String description, List<String> stepsToReproduce, Priority priority, BugSeverity severity, String assignee);
+    Bug createBug(String title, String boardToAdd, String description, List<String> stepsToReproduce, Priority priority, BugSeverity severity, String assignee);
 
     //TODO UserImpl ++ квото друго има покрай него
 }

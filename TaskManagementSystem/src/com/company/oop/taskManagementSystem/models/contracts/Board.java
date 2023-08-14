@@ -1,18 +1,23 @@
 package com.company.oop.taskManagementSystem.models.contracts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface Board {
 
-    public String getName();
+    String getName();
 
-    public List<Task> getTasks();
+    String displayBoardActivityHistory();
 
-    public List<ActivityLog> getActivityHistory();
+    List<Bug> getBugs();
 
-    String displayActivityHistory();
+    List<Story> getStories();
 
-    void addTask(Task task);
+    List<Feedback> getFeedbacks();
 
-    void logEvent(String event);
+    void addBug(Bug bug);
+
+    void addFeedback(Feedback feedback);
+
+    void addStory(Story story);
 }

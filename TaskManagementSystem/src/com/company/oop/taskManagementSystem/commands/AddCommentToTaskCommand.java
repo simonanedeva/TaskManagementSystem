@@ -37,7 +37,7 @@ public class AddCommentToTaskCommand extends BaseCommand{
             for (Task task : tasks) {
                 if (task.getTitle().equals(taskToAdd)){
                     task.addComment(commentToAdd);
-                    board.logEvent(String.format("%s added a comment to task %s",member.getUsername(), task.getTitle()));
+                    task.logEvent(String.format("%s added a comment to task %s",member.getUsername(), task.getTitle()));
                     member.logEvent(String.format("%s added a comment to task %s",member.getUsername(),task.getTitle()));
                     taskExist = true;
                     break;

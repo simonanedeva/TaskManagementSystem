@@ -1,10 +1,7 @@
 package com.company.oop.taskManagementSystem.commands;
 
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
-import com.company.oop.taskManagementSystem.models.contracts.Board;
-import com.company.oop.taskManagementSystem.models.contracts.Member;
-import com.company.oop.taskManagementSystem.models.contracts.Task;
-import com.company.oop.taskManagementSystem.models.contracts.Team;
+import com.company.oop.taskManagementSystem.models.contracts.*;
 import com.company.oop.taskManagementSystem.models.enums.BugSeverity;
 import com.company.oop.taskManagementSystem.models.enums.Priority;
 import com.company.oop.taskManagementSystem.utils.ParsingHelpers;
@@ -50,14 +47,11 @@ public class CreateBugCommand extends BaseCommand {
 
         List<Board> boards= teamOfLoggedInMember.getBoards();
         Board board = findBoardInTeam(boards,boardToAdd);
-        Task taskToAdd = getTmsRepository().createBug(title,boardToAdd,description,stepsToReproduce,priority,severity,assignee);
-        board.addTask(taskToAdd);
-        Member memberAssignee = getTmsRepository().findMemberByUsername(assignee);
-        memberAssignee.addTask(taskToAdd);
+        Bug bugToAdd = getTmsRepository().createBug(title,boardToAdd,description,stepsToReproduce,priority,severity,assignee);
+        board.addBug(bugToAdd);
 
         member.logEvent(String.format("Bug %s created by member %s",title, member.getUsername()));
-        board.logEvent(String.format("Bug %s created by member %s",title, member.getUsername()));
-        // TODO: 9.08.23 creating a bug through a task may turn out to be an issue.
+        bugToAdd.logEvent(String.format("Bug %s created by member %s",title, member.getUsername()));
 
         return String.format(BUG_CREATED, title,boardToAdd);
     }

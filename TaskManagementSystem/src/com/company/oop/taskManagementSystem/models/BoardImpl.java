@@ -1,9 +1,6 @@
 package com.company.oop.taskManagementSystem.models;
 
-import com.company.oop.taskManagementSystem.models.contracts.ActivityLog;
-import com.company.oop.taskManagementSystem.models.contracts.Board;
-import com.company.oop.taskManagementSystem.models.contracts.Member;
-import com.company.oop.taskManagementSystem.models.contracts.Task;
+import com.company.oop.taskManagementSystem.models.contracts.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +8,15 @@ import java.util.List;
 public class BoardImpl implements Board {
 
     private String name;
-    private final List<Task> tasks;
-    private final List<ActivityLog> activityHistory;
+    private final List<Bug> bugs;
+    private final List<Feedback> feedbacks;
+    private final List<Story> stories;
 
     public BoardImpl(String name) {
         setName(name);
-        tasks = new ArrayList<>();
-        activityHistory = new ArrayList<>();
+        bugs = new ArrayList<>();
+        feedbacks = new ArrayList<>();
+        stories = new ArrayList<>();
     }
 
     private void setName(String name) {
@@ -30,29 +29,44 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public List<Task> getTasks() {
-        return new ArrayList<>(tasks);
+    public List<Bug> getBugs() {
+        return new ArrayList<>(bugs);
     }
 
-    @Override
-    public List<ActivityLog> getActivityHistory() {
-        return new ArrayList<>(activityHistory);
+    public List<Story> getStories() {
+        return new ArrayList<>(stories);
     }
 
-    public String displayActivityHistory() {
+    public List<Feedback> getFeedbacks() {
+        return new ArrayList<>(feedbacks);
+    }
+
+    public String displayBoardActivityHistory() {
         StringBuilder sb = new StringBuilder();
-        for (ActivityLog log : activityHistory) {
-            sb.append(log.viewInfo()).append(System.lineSeparator());
+        for (Bug bug : getBugs()) {
+            sb.append(bug.getTitle()).append(System.lineSeparator());
+            sb.append(bug.displayActivityHistory()).append(System.lineSeparator());
+        }
+        for (Feedback feedback : getFeedbacks()) {
+            sb.append(feedback.getTitle()).append(System.lineSeparator());
+            sb.append(feedback.displayActivityHistory()).append(System.lineSeparator());
+        }
+        for (Story story : getStories()) {
+            sb.append(story.getTitle()).append(System.lineSeparator());
+            sb.append(story.displayActivityHistory()).append(System.lineSeparator());
         }
         return sb.toString();
     }
 
-    public void addTask(Task task) {
-        tasks.add(task);
-    }
-    public void logEvent(String event) {
-        this.activityHistory.add(new ActivityLogImpl(event));
+    public void addBug(Bug bug) {
+        bugs.add(bug);
     }
 
+    public void addFeedback(Feedback feedback) {
+        feedbacks.add(feedback);
+    }
 
+    public void addStory(Story story) {
+        stories.add(story);
+    }
 }

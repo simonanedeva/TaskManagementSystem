@@ -30,16 +30,14 @@ public class ChangeFeedbackRatingCommand extends BaseCommand {
         List<Board> boardList = memberTeam.getBoards();
 
         for (Board board : boardList) {
-            List<Task> tasks = board.getTasks();
+            List<Feedback> feedbacks = board.getFeedbacks();
 
-            for (Task task : tasks) {
-                if (task.getTitle().equals(feedbackToChange) && task.getType().equals("FeedbackImpl")) {
-                    //we need to cast just here; making a validation above to ensure casting success
-                    Feedback feedback = (Feedback) task;
+            for (Feedback feedback : feedbacks) {
+                if (feedback.getTitle().equals(feedbackToChange)) {
                     int oldRating = feedback.getRating();
                     feedback.changeRating(newRating);
-                    board.logEvent(String.format("%s changed the rating of feedback %s from %s to %s.", member.getUsername(), task.getTitle(), oldRating, newRating));
-                    member.logEvent(String.format("%s changed the rating of feedback %s from %s to %s.", member.getUsername(), task.getTitle(), oldRating, newRating));
+                    feedback.logEvent(String.format("%s changed the rating of feedback %s from %s to %s.", member.getUsername(), feedback.getTitle(), oldRating, newRating));
+                    member.logEvent(String.format("%s changed the rating of feedback %s from %s to %s.", member.getUsername(), feedback.getTitle(), oldRating, newRating));
                     return String.format(RATING_SET_SUCCESSFULLY, feedbackToChange, oldRating, newRating);
                 }
             }

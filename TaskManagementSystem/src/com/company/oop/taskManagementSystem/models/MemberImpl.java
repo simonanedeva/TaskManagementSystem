@@ -21,12 +21,10 @@ public class MemberImpl implements Member {
             USERNAME_LEN_MAX);
 
     private String username;
-    private final List<Task> tasks; // TODO: 14.08.23 remove and search for this list through the board 
     private final List<ActivityLog> activityHistory;
 
     public MemberImpl(String username) {
         setUsername(username);
-        tasks = new ArrayList<>();
         activityHistory = new ArrayList<>();
     }
 
@@ -41,20 +39,18 @@ public class MemberImpl implements Member {
         return this.username;
     }
 
-    public List<Task> getTasks(){
-        return new ArrayList<>(tasks);
-    }
-
-    public List<ActivityLog> getActivityHistory(){
+    public List<ActivityLog> getActivityHistory() {
         return new ArrayList<>(activityHistory);
     }
+
     public String displayActivityHistory() {
         StringBuilder sb = new StringBuilder();
         for (ActivityLog log : activityHistory) {
-           sb.append(log.viewInfo()).append(System.lineSeparator());
+            sb.append(log.viewInfo()).append(System.lineSeparator());
         }
         return sb.toString();
     }
+
     @Override
     public void addSteps(String steps) {
     }
@@ -67,17 +63,6 @@ public class MemberImpl implements Member {
 
     public void logEvent(String event) {
         this.activityHistory.add(new ActivityLogImpl(event));
-    }
-
-    @Override
-    // TODO: 14.08.23 no validation here if the person is in the given team - maybe remove this method?
-    public void addTask(Task task) {
-        tasks.add(task);
-    }
-
-    @Override
-    public void removeTask(Task task) {
-        tasks.remove(task);
     }
 
 }

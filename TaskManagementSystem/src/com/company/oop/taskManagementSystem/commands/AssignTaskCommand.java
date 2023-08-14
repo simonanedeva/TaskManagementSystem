@@ -33,7 +33,7 @@ public class AssignTaskCommand extends BaseCommand {
         List<Board> boardsList = memberTeam.getBoards();
 
         for (Board board : boardsList) {
-            List<Task> tasks = board.getTasks();
+            List<Task> tasks = board.thinkOfSomeAppropriteGetter();
         //направи го през Board и си направи един метод за changeAssignee в Бъг и Стори, който да променя. Пак ще трябва да се каства :(.
             for (Task task : tasks) {
                 if (task.getTitle().equals(taskToReassign)) {
@@ -46,7 +46,7 @@ public class AssignTaskCommand extends BaseCommand {
                     newAssigneeMember.addTask(task);
                     oldAssignee.removeTask(task);
 //                    tasks.remove(taskToChange); //shouldn't be removed from board
-                    board.logEvent(String.format("%s changed the assignee of task %s from %s to %s.", member.getUsername(), task.getTitle(), oldAssignee.getUsername(), newAssignee));
+                    task.logEvent(String.format("%s changed the assignee of task %s from %s to %s.", member.getUsername(), task.getTitle(), oldAssignee.getUsername(), newAssignee));
                     member.logEvent(String.format("%s changed the assignee of task %s from %s to %s.", member.getUsername(), task.getTitle(), oldAssignee.getUsername(), newAssignee));
                     return String.format(TASK_REASSIGNED_SUCCESSFULLY, taskToReassign, oldAssignee.getUsername(), newAssignee);
                 }

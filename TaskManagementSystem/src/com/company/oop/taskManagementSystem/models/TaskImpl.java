@@ -27,7 +27,7 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
     private String title;
     private String description;
     private final List<Comment> comments;
-    private final List<ActivityLog> historyOfChanges;
+    private final List<ActivityLog> activityHistory;
     protected StatusValues status;
 
     public TaskImpl(int id, String title, String description) {
@@ -35,7 +35,7 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
         setTitle(title);
         setDescription(description);
         comments = new ArrayList<>();
-        historyOfChanges = new ArrayList<>();
+        activityHistory = new ArrayList<>();
     }
 
 //    private void setStatus(StatusValues status) {
@@ -63,8 +63,20 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
     }
 
     @Override
-    public List<ActivityLog> getHistoryOfChanges() {
-        return new ArrayList<>(historyOfChanges);
+    public List<ActivityLog> getActivityHistory() {
+        return new ArrayList<>(activityHistory);
+    }
+
+    public String displayActivityHistory() {
+        StringBuilder sb = new StringBuilder();
+        for (ActivityLog log : activityHistory) {
+            if (activityHistory.isEmpty()){
+                sb.append("No activity to show.");
+                return sb.toString();
+            }
+            sb.append(log.viewInfo()).append(System.lineSeparator());
+        }
+        return sb.toString();
     }
 
     private void setId(int id) {
@@ -96,5 +108,7 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
 
         this.status = status;
     }
-
+    public void logEvent(String event) {
+        this.activityHistory.add(new ActivityLogImpl(event));
+    }
 }

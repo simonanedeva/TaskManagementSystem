@@ -35,11 +35,11 @@ public class ShowBoardActivityCommand extends BaseCommand {
             for (Board board : boards) {
                 if (board.getName().equals(boardName)){
                     stringBuilder.append(board.getName()).append(System.lineSeparator());
-                    if (board.getActivityHistory().isEmpty()){
+                    if (board.displayBoardActivityHistory().isEmpty()){
                         stringBuilder.append(String.format(NO_ACTIVITY_FOR_BOARD,board.getName()));
                         stringBuilder.append(System.lineSeparator());
                     } else {
-                        stringBuilder.append(board.displayActivityHistory());
+                        stringBuilder.append(board.displayBoardActivityHistory());
                     }
                 }
             }
