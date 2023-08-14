@@ -41,6 +41,14 @@ public class BoardImpl implements Board {
         return new ArrayList<>(feedbacks);
     }
 
+    public List<Task> getTasks() {
+        ArrayList<Task> arrayList = new ArrayList<>();
+        arrayList.addAll(getBugs());
+        arrayList.addAll(getFeedbacks());
+        arrayList.addAll(getStories());
+        return arrayList;
+    }
+
     public String displayBoardActivityHistory() {
         StringBuilder sb = new StringBuilder();
         for (Bug bug : getBugs()) {

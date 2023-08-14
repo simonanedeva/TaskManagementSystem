@@ -20,4 +20,6 @@ public interface Board {
     void addFeedback(Feedback feedback);
 
     void addStory(Story story);
+
+    List<Task> getTasks();
 }

@@ -47,15 +47,7 @@ public class AddCommentToTaskCommand extends BaseCommand{
         if (!taskExist){
             throw new IllegalArgumentException(String.format("Such a task does not exit in team %s",memberTeam.getName()));
         }
-        List<Member> memberList = memberTeam.getMembers();
-        for (Member teamMember : memberList) {
-            List<Task> tasks = teamMember.getTasks();
-            for (Task task : tasks) {
-                if (task.getTitle().equals(taskToAdd)) {
-                    task.addComment(commentToAdd);
-                }
-            }
-        }
+
         return String.format(COMMENT_ADDED_TO_TASK, taskToAdd);
     }
 

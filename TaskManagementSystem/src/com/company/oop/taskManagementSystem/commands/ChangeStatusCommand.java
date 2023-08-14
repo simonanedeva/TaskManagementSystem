@@ -38,7 +38,6 @@ public class ChangeStatusCommand extends BaseCommand {
             List<Task> tasks = board.getTasks();
             for (Task task : tasks) {
                 if (task.getTitle().equals(taskToChange)) {
-                    //we need to cast just here; making a validation above to ensure casting success
                     String oldStatus = task.getStatus();
                     if (task.isValidStatus(newStatus)) {
                         task.changeStatus(newStatus);
