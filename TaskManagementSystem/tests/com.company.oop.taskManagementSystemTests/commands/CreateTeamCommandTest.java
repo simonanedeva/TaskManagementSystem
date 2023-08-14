@@ -1,4 +1,4 @@
-package com.company.oop.TaskManagementSystem.tests.commands;
+package com.company.oop.taskManagementSystemTests.commands;
 
 import com.company.oop.taskManagementSystem.commands.contracts.Command;
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;

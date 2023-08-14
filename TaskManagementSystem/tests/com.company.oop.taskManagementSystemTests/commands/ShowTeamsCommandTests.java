@@ -7,7 +7,7 @@ import com.company.oop.taskManagementSystem.models.MemberImpl;
 import com.company.oop.taskManagementSystem.models.TeamImpl;
 import com.company.oop.taskManagementSystem.models.contracts.Member;
 import com.company.oop.taskManagementSystem.models.contracts.Team;
-import helpers.TestHelpers;
+import com.company.oop.taskManagementSystemTests.utils.TestHelpers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

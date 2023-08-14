@@ -7,7 +7,6 @@ import com.company.oop.taskManagementSystem.models.MemberImpl;
 import com.company.oop.taskManagementSystem.models.TeamImpl;
 import com.company.oop.taskManagementSystem.models.contracts.Member;
 import com.company.oop.taskManagementSystem.models.contracts.Team;
-import helpers.TestHelpers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +46,6 @@ public class ShowTeamMembersCommandTests {
         List<String>params = new ArrayList<>();
         params.add("String1");
         params.add("String1");
-        // TODO: 13-Aug-23 it works but not as expected :(
         Assertions.assertThrows(IllegalArgumentException.class, () -> showTeamMembersCommand.execute(params));
     }
 
