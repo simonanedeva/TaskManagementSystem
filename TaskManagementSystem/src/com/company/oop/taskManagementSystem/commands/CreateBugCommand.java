@@ -16,7 +16,7 @@ public class CreateBugCommand extends BaseCommand {
 
     private static final String BUG_CREATED = "Bug %s created successfully in board %s!";
 
-    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 6;
+    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 7;
     public static final String ASSIGNEE_ERR_MESSAGE = "Assignee %s is not part of team %s!";
 
     public CreateBugCommand(TMSRepository tmsRepository) {
@@ -48,12 +48,23 @@ public class CreateBugCommand extends BaseCommand {
         List<Board> boards= teamOfLoggedInMember.getBoards();
         Board board = findBoardInTeam(boards,boardToAdd);
         Bug bugToAdd = getTmsRepository().createBug(title,boardToAdd,description,stepsToReproduce,priority,severity,assignee);
+        List<Task> taskList = board.getTasks();
+        throwIfTaskExist(title, taskList);
+
         board.addBug(bugToAdd);
 
         member.logEvent(String.format("Bug %s created by member %s",title, member.getUsername()));
         bugToAdd.logEvent(String.format("Bug %s created by member %s",title, member.getUsername()));
 
         return String.format(BUG_CREATED, title,boardToAdd);
+    }
+
+    private static void throwIfTaskExist(String nameOfTask, List<Task> taskList) {
+        for (Task task : taskList) {
+            if (task.getTitle().equals(nameOfTask)) {
+                throw new IllegalArgumentException("Task with such a title already exists");
+            }
+        }
     }
 
     private static void throwIfInvalidAssignee(String assignee, Team teamOfLoggedInMember, List<Member> membersInTeam) {

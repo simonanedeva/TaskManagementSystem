@@ -41,12 +41,23 @@ public class CreateStoryCommand extends BaseCommand{
         List<Board> boards= teamOfLoggedInMember.getBoards();
         Board board = findBoardInTeam(boards,boardToAdd);
         Story storyToAdd = getTmsRepository().createStory(title,description,priority,size,assignee);
+        List<Task> taskList = board.getTasks();
+        throwIfTaskExist(title, taskList);
+
         board.addStory(storyToAdd);
 
         member.logEvent(String.format("Story %s created by member %s",title, member.getUsername()));
         storyToAdd.logEvent(String.format("Story %s created by member %s",title, member.getUsername()));
 
         return String.format(STORY_CREATED, title,boardToAdd);
+    }
+
+    private static void throwIfTaskExist(String nameOfTask, List<Task> taskList) {
+        for (Task task : taskList) {
+            if (task.getTitle().equals(nameOfTask)) {
+                throw new IllegalArgumentException("Task with such a title already exists");
+            }
+        }
     }
 
     private static void throwIfInvalidAssignee(String assignee, Team teamOfLoggedInMember, List<Member> membersInTeam) {

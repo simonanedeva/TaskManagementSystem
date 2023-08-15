@@ -31,32 +31,29 @@ public class ChangePriorityCommand extends BaseCommand {
         List<Board> boardsList = memberTeam.getBoards();
 
         for (Board board : boardsList) {
-            List<Task> tasks = board.thinkofsomeAppropriateGetter();
+            List<Bug> bugs = board.getBugs();
 
-            for (Task task : tasks) {
-                if (task.getTitle().equals(taskToChange)) {
-                    String taskType;
+            for (Bug bug : bugs) {
+                if (bug.getTitle().equals(taskToChange)) {
 
-                    if (task.getType().equals("StoryImpl")) {
-                        //we need to cast just here; making a validation above to ensure casting success
-                        taskType = "story";
-                        Story story = (Story) task;
-                        String oldPriority = story.getPriority().toString();
-                        story.changePriority(newPriorityStatus);
-                        task.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
-                        member.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
-                        return String.format(PRIORITY_SET_SUCCESSFULLY, taskType, taskToChange, oldPriority, newPriorityStatus);
-                    }
+                    String oldPriority = bug.getPriority().toString();
+                    bug.changePriority(newPriorityStatus);
+                    bug.logEvent(String.format("%s changed the priority of bug %s from %s to %s.", member.getUsername(), bug.getTitle(), oldPriority, newPriorityStatus));
+                    member.logEvent(String.format("%s changed the priority of bug %s from %s to %s.", member.getUsername(), bug.getTitle(), oldPriority, newPriorityStatus));
+                    return String.format(PRIORITY_SET_SUCCESSFULLY, "bug", taskToChange, oldPriority, newPriorityStatus);
+                }
+            }
 
-                    if (task.getType().equals("BugImpl")) {
-                        taskType = "bug";
-                        Bug bug = (Bug) task;
-                        String oldPriority = bug.getPriority().toString();
-                        bug.changePriority(newPriorityStatus);
-                        task.logEvent(String.format("%s changed the priority of bug %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
-                        member.logEvent(String.format("%s changed the priority of bug %s from %s to %s.", member.getUsername(), task.getTitle(), oldPriority, newPriorityStatus));
-                        return String.format(PRIORITY_SET_SUCCESSFULLY, taskType, taskToChange, oldPriority, newPriorityStatus);
-                    }
+            List<Story> stories = board.getStories();
+
+            for (Story story : stories) {
+                if (story.getTitle().equals(taskToChange)) {
+
+                    String oldPriority = story.getPriority().toString();
+                    story.changePriority(newPriorityStatus);
+                    story.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), story.getTitle(), oldPriority, newPriorityStatus));
+                    member.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), story.getTitle(), oldPriority, newPriorityStatus));
+                    return String.format(PRIORITY_SET_SUCCESSFULLY, "story", taskToChange, oldPriority, newPriorityStatus);
                 }
             }
         }
@@ -69,3 +66,4 @@ public class ChangePriorityCommand extends BaseCommand {
     }
 
 }
+

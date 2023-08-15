@@ -35,19 +35,22 @@ public class CreateFeedbackCommand extends BaseCommand {
         // TODO: 9.08.23 We should consider optimizing here - the error message from FinTeamOfMember is too generic.
         List<Board> boards = teamOfLoggedInMember.getBoards();
         Board board = findBoardInTeam(boards, boardToAdd);
-        List<Feedback> feedbackList = board.getFeedbacks();
-        for (Feedback feedback : feedbackList) {
-            if (feedback.getTitle().equals(title)) {
-                throw new IllegalArgumentException("Feedback with such a title already exists");
-                // TODO: 14.08.23 do some formatting here.
-            }
-        }
+        List<Task> taskList = board.getTasks();
+        throwIfTaskExist(title, taskList);
         Feedback feedbackToAdd = getTmsRepository().createFeedback(title, description, rating);
         board.addFeedback(feedbackToAdd);
         member.logEvent(String.format("Feedback %s created by member %s", title, member.getUsername()));
         feedbackToAdd.logEvent(String.format("Feedback %s created by member %s", title, member.getUsername()));
 
         return String.format(FEEDBACK_CREATED, title, boardToAdd);
+    }
+
+    private static void throwIfTaskExist(String nameOfTask, List<Task> taskList) {
+        for (Task task : taskList) {
+            if (task.getTitle().equals(nameOfTask)) {
+                throw new IllegalArgumentException("Task with such a title already exists");
+            }
+        }
     }
 
     private Board findBoardInTeam(List<Board> boardList, String board) {

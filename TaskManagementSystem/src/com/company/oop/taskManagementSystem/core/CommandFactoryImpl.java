@@ -56,8 +56,10 @@ public class CommandFactoryImpl implements CommandFactory {
                 return new ChangeStorySizeCommand(tmsRepository);
             case CHANGEFEEDBACKRATING:
                 return new ChangeFeedbackRatingCommand(tmsRepository);
-            case ASSIGNTASK:
-                return new AssignTaskCommand(tmsRepository);
+            case ASSIGNBUG:
+                return new AssignBugCommand(tmsRepository);
+            case ASSIGNSTORY:
+                return new AssignStoryCommand(tmsRepository);
             default:
                 throw new IllegalArgumentException();
         }
