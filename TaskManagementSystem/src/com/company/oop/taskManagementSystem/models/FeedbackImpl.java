@@ -56,4 +56,11 @@ public class FeedbackImpl extends TaskImpl implements Feedback {
         }
         throw new IllegalArgumentException("Invalid enum value for this class");
     }
+
+    public String toString() {
+        return String.format("""
+                %s
+                Feedback Rating: %s
+                """, super.toString(),getRating());
+    }
 }

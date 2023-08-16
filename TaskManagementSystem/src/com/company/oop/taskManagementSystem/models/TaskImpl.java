@@ -70,7 +70,7 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
     public String displayActivityHistory() {
         StringBuilder sb = new StringBuilder();
         for (ActivityLog log : activityHistory) {
-            if (activityHistory.isEmpty()){
+            if (activityHistory.isEmpty()) {
                 sb.append("No activity to show.");
                 return sb.toString();
             }
@@ -94,21 +94,41 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
         this.description = description;
     }
 
-    public void addComment(Comment comment){
+    public void addComment(Comment comment) {
         this.comments.add(comment);
-    };
+    }
 
-    public void removeComment(Comment comment){
+    ;
+
+    public void removeComment(Comment comment) {
         this.comments.remove(comment);
-    };
+    }
+
+    ;
 
     public abstract boolean isValidStatus(StatusValues value);
 
-    public void changeStatus(StatusValues status){
+    public void changeStatus(StatusValues status) {
 
         this.status = status;
     }
+
     public void logEvent(String event) {
         this.activityHistory.add(new ActivityLogImpl(event));
+    }
+
+    public String returnTaskSimpleInfo(){
+        return String.format("""
+                Task Title: %s
+                Task Description: %s
+                """, getTitle(), getDescription());
+    }
+
+    public String toString() {
+        return String.format("""
+                %s Title: %s
+                %s Description: %s
+                %s Status: %s
+                """,getType(), getTitle(),getType(), getDescription(),getType(),getStatus());
     }
 }

@@ -6,9 +6,8 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
-public class FilterCommand extends BaseCommand{
+public class FilterCommand extends BaseCommand {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 3;
 
     public FilterCommand(TMSRepository tmsRepository) {
@@ -23,7 +22,7 @@ public class FilterCommand extends BaseCommand{
         String pattern = parameters.get(2);
 
         return switch (taskType) {
-            case "allTasks" -> filterAllTask(filterBy, pattern);
+            case "allTasks" -> filterAllTask(pattern);
             case "Bugs" -> filterBug(filterBy, pattern);
             case "Stories" -> filterStory(filterBy, pattern);
             case "Feedbacks" -> filterFeedback(filterBy, pattern);
@@ -34,27 +33,25 @@ public class FilterCommand extends BaseCommand{
         };
     }
 
-    private <T extends Task & AssigneeGettable> String filterTasks(List<T> taskList, String filterBy, String pattern) {
-        Predicate<T> predicate;
-
-        switch (filterBy) {
-            case "Status":
-                predicate = task -> task.getStatus().equals(pattern);
-                break;
-            case "Assignee":
-                predicate = task -> task.getAssignee().equals(pattern);
-                break;
-            case "StatusAndAssignee":
-                String[] filterParams = pattern.split("/");
-                predicate = task -> task.getAssignee().equals(filterParams[1]) && task.getStatus().equals(filterParams[0]);
-                break;
-            default:
-                throw new IllegalArgumentException("Unable to filter this way.");
+    private String filterAllTask(String pattern) {
+        List<Task> taskList = new ArrayList<>();
+        Member member = getTmsRepository().getLoggedInMember();
+        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
+        for (Board b : teamOfLoggedInMember.getBoards()) {
+            taskList.addAll(b.getTasks());
         }
+        return listMatchingTitle(pattern, taskList);
     }
 
-    private String filterAllTask(String filterBy, String pattern) {
-        return null;
+    private String listMatchingTitle(String pattern, List<Task> taskList) {
+        return taskList.stream()
+                .filter(task -> task.getTitle().contains(pattern))
+                .collect(StringBuilder::new,
+                        (stringBuilder, task) -> {
+                            stringBuilder.append(task.returnTaskSimpleInfo());
+                            stringBuilder.append(System.lineSeparator());
+                        },
+                        StringBuilder::append).toString();
     }
 
     private String filterBug(String filterBy, String pattern) {
@@ -66,46 +63,48 @@ public class FilterCommand extends BaseCommand{
         }
         switch (filterBy) {
             case "Status" -> {
-                return listBugsMatchingStatus(pattern, bugList);
+                return listMatchingStatus(pattern, bugList);
             }
             case "Assignee" -> {
-                return listBugsMatchingAssignee(pattern, bugList);
+                return listMatchingAssignee(pattern, bugList);
             }
             case "StatusAndAssignee" -> {
                 String[] filterParams = pattern.split("/");
-                return listBugsMatchingAssigneeAndStatus(bugList, filterParams);
+                return listMatchingAssigneeAndStatus(bugList, filterParams);
             }
             default -> throw new IllegalArgumentException("Unable to filter this way.");
         }
     }
 
-    private static String listBugsMatchingStatus(String pattern, List<Bug> bugList) {
-        return bugList.stream().filter(bug -> bug.getStatus().equals(pattern))
+    private <T extends Task> String listMatchingStatus(String pattern, List<T> genericList) {
+        return genericList.stream()
+                .filter(taskType -> taskType.getStatus().equals(pattern))
                 .collect(StringBuilder::new,
-                        (stringBuilder, bug) -> {
-                            stringBuilder.append(bug);
+                        (stringBuilder, taskType) -> {
+                            stringBuilder.append(taskType);
                             stringBuilder.append(System.lineSeparator());
                         },
                         StringBuilder::append).toString();
     }
 
-    private static String listBugsMatchingAssignee(String pattern, List<Bug> bugList) {
-        return bugList.stream()
-                .filter(bug -> bug.getAssignee().equals(pattern))
+
+    private <T extends Task & AssigneeGettable> String listMatchingAssignee(String pattern, List<T> genericList) {
+        return genericList.stream()
+                .filter(taskType -> taskType.getAssignee().equals(pattern))
                 .collect(StringBuilder::new,
-                        ((stringBuilder, bug) -> {
-                            stringBuilder.append(bug);
+                        ((stringBuilder, taskType) -> {
+                            stringBuilder.append(taskType);
                             stringBuilder.append(System.lineSeparator());
                         }), StringBuilder::append).toString();
     }
 
-    private static String listBugsMatchingAssigneeAndStatus(List<Bug> bugList, String[] filterParams) {
-        return bugList.stream()
-                .filter(bug -> bug.getAssignee().equals(filterParams[1]))
-                .filter(bug -> bug.getStatus().equals(filterParams[0]))
+    private <T extends Task & AssigneeGettable> String listMatchingAssigneeAndStatus(List<T> genericList, String[] filterParams) {
+        return genericList.stream()
+                .filter(taskType -> taskType.getAssignee().equals(filterParams[1]))
+                .filter(taskType -> taskType.getStatus().equals(filterParams[0]))
                 .collect(StringBuilder::new,
-                        (stringBuilder, bug) -> {
-                            stringBuilder.append(bug);
+                        (stringBuilder, taskType) -> {
+                            stringBuilder.append(taskType);
                             stringBuilder.append(System.lineSeparator());
                         },
                         StringBuilder::append).toString();
@@ -118,6 +117,7 @@ public class FilterCommand extends BaseCommand{
     //Filter Bug StatusAndAssignee FIXED/Simona
     //Filter Task Title kotka
 
+    // TODO: 16.08.23 to be implemented.
     private String filterFeedback(String filterBy, String pattern) {
         return null;
     }
@@ -131,51 +131,21 @@ public class FilterCommand extends BaseCommand{
         }
         switch (filterBy) {
             case "Status" -> {
-                return listStoriesMatchingStatus(pattern, storyList);
+                return listMatchingStatus(pattern, storyList);
             }
             case "Assignee" -> {
-                return listStoriesMatchingAssignee(pattern, storyList);
+                return listMatchingAssignee(pattern, storyList);
             }
             case "StatusAndAssignee" -> {
                 String[] filterParams = pattern.split("/");
-                return listStoriesMatchingAssigneeAndStatus(storyList, filterParams);
+                return listMatchingAssigneeAndStatus(storyList, filterParams);
             }
             default -> throw new IllegalArgumentException("Unable to filter this way.");
         }
     }
 
-    private String listStoriesMatchingAssigneeAndStatus(List<Story> storyList, String[] filterParams) {
-        return storyList.stream()
-                .filter(story -> story.getAssignee().equals(filterParams[1]))
-                .filter(story -> story.getStatus().equals(filterParams[0]))
-                .collect(StringBuilder::new,
-                        (stringBuilder, story) -> {
-                            stringBuilder.append(story);
-                            stringBuilder.append(System.lineSeparator());
-                        },
-                        StringBuilder::append).toString();
-    }
-
-    private String listStoriesMatchingAssignee(String pattern, List<Story> storyList) {
-        return storyList.stream().filter(story -> story.getAssignee().equals(pattern))
-                .collect(StringBuilder::new,
-                        ((stringBuilder, story) -> {
-                            stringBuilder.append(story);
-                            stringBuilder.append(System.lineSeparator());
-                        }), StringBuilder::append).toString();
-    }
-
-    private String listStoriesMatchingStatus(String pattern, List<Story> storyList) {
-        return storyList.stream().filter(story -> story.getStatus().equals(pattern))
-                .collect(StringBuilder::new,
-                        (stringBuilder, story) -> {
-                            stringBuilder.append(story);
-                            stringBuilder.append(System.lineSeparator());
-                        },
-                        StringBuilder::append).toString();
-    }
-
-    private String filterTask(String filterBy, String pattern){
+    // TODO: 16.08.23 Filter all tasks with assignee.
+    private String filterTask(String filterBy, String pattern) {
         return null;
     }
 

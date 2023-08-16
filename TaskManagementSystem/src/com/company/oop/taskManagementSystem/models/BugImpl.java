@@ -117,12 +117,11 @@ public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable{
     @Override
     public String toString() {
         return String.format("""
-                Bug Title: %s
-                Bug Description: %s
+                %s
                 Steps to Reproduce: %s
                 Bug Priority: %s
                 Bug Severity: %s
                 Bug Assignee: %s
-                """, getTitle(), getDescription(), getStepsToReproduce(), getPriority(), getSeverity(), getAssignee());
+                """, super.toString(), getStepsToReproduce(), getPriority(), getSeverity(), getAssignee());
     }
 }

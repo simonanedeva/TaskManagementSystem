@@ -92,4 +92,14 @@ public class StoryImpl extends TaskImpl implements Story, AssigneeChangeable {
         }
         setAssignee(assignee);
     }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                %s
+                Story Priority: %s
+                Story Size: %s
+                Story Assignee: %s
+                """,super.toString(), getPriority(), getSize(), getAssignee());
+    }
 }
