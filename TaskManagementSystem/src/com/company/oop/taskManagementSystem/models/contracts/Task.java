@@ -1,6 +1,6 @@
 package com.company.oop.taskManagementSystem.models.contracts;
 
-import com.company.oop.taskManagementSystem.models.ActivityLogImpl;
+import com.company.oop.taskManagementSystem.models.enums.Priority;
 import com.company.oop.taskManagementSystem.models.enums.StatusValues;
 
 import java.util.List;

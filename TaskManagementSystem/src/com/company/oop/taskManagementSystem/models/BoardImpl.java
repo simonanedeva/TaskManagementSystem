@@ -1,8 +1,10 @@
 package com.company.oop.taskManagementSystem.models;
 
 import com.company.oop.taskManagementSystem.models.contracts.*;
+import com.company.oop.taskManagementSystem.models.enums.Priority;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class BoardImpl implements Board {

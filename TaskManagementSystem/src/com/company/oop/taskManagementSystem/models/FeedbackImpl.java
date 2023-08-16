@@ -1,6 +1,5 @@
 package com.company.oop.taskManagementSystem.models;
 
-import com.company.oop.taskManagementSystem.commands.ChangeFeedbackRatingCommand;
 import com.company.oop.taskManagementSystem.models.contracts.Feedback;
 import com.company.oop.taskManagementSystem.models.enums.contracts.StatusFeedback;
 import com.company.oop.taskManagementSystem.models.enums.StatusValues;

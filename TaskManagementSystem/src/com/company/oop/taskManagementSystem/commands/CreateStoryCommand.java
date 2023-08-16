@@ -9,7 +9,7 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.List;
 
-public class CreateStoryCommand extends BaseCommand{
+public class CreateStoryCommand extends BaseCommand {
 
     private static final String STORY_CREATED = "Story %s created successfully in board %s!";
 
@@ -29,7 +29,7 @@ public class CreateStoryCommand extends BaseCommand{
         Priority priority = ParsingHelpers.tryParseEnum(parameters.get(3), Priority.class);
         StorySize size = ParsingHelpers.tryParseEnum(parameters.get(4), StorySize.class);
         String assignee = parameters.get(5);
-        return createStory(title,boardToAdd,description,priority, size, assignee);
+        return createStory(title, boardToAdd, description, priority, size, assignee);
     }
 
     private String createStory(String title, String boardToAdd, String description, Priority priority, StorySize size, String assignee) {
@@ -38,47 +38,57 @@ public class CreateStoryCommand extends BaseCommand{
         List<Member> membersInTeam = teamOfLoggedInMember.getMembers();
         throwIfInvalidAssignee(assignee, teamOfLoggedInMember, membersInTeam);
 
-        List<Board> boards= teamOfLoggedInMember.getBoards();
-        Board board = findBoardInTeam(boards,boardToAdd);
-        Story storyToAdd = getTmsRepository().createStory(title,description,priority,size,assignee);
+        List<Board> boards = teamOfLoggedInMember.getBoards();
+        Board board = findBoardInTeam(boards, boardToAdd);
+        Story storyToAdd = getTmsRepository().createStory(title, description, priority, size, assignee);
         List<Task> taskList = board.getTasks();
         throwIfTaskExist(title, taskList);
 
         board.addStory(storyToAdd);
 
-        member.logEvent(String.format("Story %s created by member %s",title, member.getUsername()));
-        storyToAdd.logEvent(String.format("Story %s created by member %s",title, member.getUsername()));
+        member.logEvent(String.format("Story %s created by member %s", title, member.getUsername()));
+        storyToAdd.logEvent(String.format("Story %s created by member %s", title, member.getUsername()));
 
-        return String.format(STORY_CREATED, title,boardToAdd);
+        return String.format(STORY_CREATED, title, boardToAdd);
     }
 
     private static void throwIfTaskExist(String nameOfTask, List<Task> taskList) {
-        for (Task task : taskList) {
-            if (task.getTitle().equals(nameOfTask)) {
-                throw new IllegalArgumentException("Task with such a title already exists");
-            }
+//        for (Task task : taskList) {
+//            if (task.getTitle().equals(nameOfTask)) {
+//                throw new IllegalArgumentException("Task with such a title already exists");
+//            }
+//        }
+
+        if (taskList.stream().anyMatch(task -> task.getTitle().equals(nameOfTask))) {
+            throw new IllegalArgumentException("Task with such a title already exists");
         }
     }
 
     private static void throwIfInvalidAssignee(String assignee, Team teamOfLoggedInMember, List<Member> membersInTeam) {
-        boolean isMember = false;
-        for (Member member1 : membersInTeam) {
-            if(member1.getUsername().equals(assignee)) {
-                isMember=true;
-            }
-        }
+//        boolean isMember=false;
+//        for (Member member1 : membersInTeam) {
+//            if(member1.getUsername().equals(assignee)) {
+//                isMember=true;
+//            }
+//        }
+//        throw new IllegalArgumentException(String.format(ASSIGNEE_ERR_MESSAGE, assignee, teamOfLoggedInMember.getName()));
+
+        boolean isMember = membersInTeam.stream().anyMatch(member -> member.getUsername().equals(assignee));
         if (!isMember) {
             throw new IllegalArgumentException(String.format(ASSIGNEE_ERR_MESSAGE, assignee, teamOfLoggedInMember.getName()));
         }
     }
 
-    private Board findBoardInTeam (List<Board> boardList, String board){
-        for (Board board1 : boardList) {
-            if (board1.getName().equals(board)){
-                return board1;
-            }
-        }
-        throw new IllegalArgumentException("Board does not exist in this team");
+    private Board findBoardInTeam(List<Board> boardList, String board) {
+//        for (Board board1 : boardList) {
+//            if (board1.getName().equals(board)){
+//                return board1;
+//            }
+//        }
+//        throw new IllegalArgumentException("Board does not exist in this team");
+
+        return boardList.stream().filter(board1 -> board1.getName().equals(board)).findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Board does not exist in this team"));
     }
 
     @Override

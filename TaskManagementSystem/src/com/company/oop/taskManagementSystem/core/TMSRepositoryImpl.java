@@ -4,7 +4,6 @@ import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
 import com.company.oop.taskManagementSystem.models.*;
 import com.company.oop.taskManagementSystem.models.contracts.*;
 import com.company.oop.taskManagementSystem.models.enums.BugSeverity;
-import com.company.oop.taskManagementSystem.models.enums.FeedbackStatus;
 import com.company.oop.taskManagementSystem.models.enums.Priority;
 import com.company.oop.taskManagementSystem.models.enums.StorySize;
 
@@ -160,6 +159,5 @@ public class TMSRepositoryImpl implements TMSRepository {
     public Feedback createFeedback(String title, String description, int rating){
         return new FeedbackImpl(++id,title, description,rating);
     }
-
 }
 

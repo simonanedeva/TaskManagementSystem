@@ -45,6 +45,4 @@ public interface TMSRepository {
     Story createStory(String title, String description, Priority priority, StorySize size, String assignee);
 
     Bug createBug(String title, String boardToAdd, String description, List<String> stepsToReproduce, Priority priority, BugSeverity severity, String assignee);
-
-    //TODO UserImpl ++ квото друго има покрай него
 }
