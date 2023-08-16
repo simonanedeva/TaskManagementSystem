@@ -60,6 +60,8 @@ public class CommandFactoryImpl implements CommandFactory {
                 return new AssignBugCommand(tmsRepository);
             case ASSIGNSTORY:
                 return new AssignStoryCommand(tmsRepository);
+            case FILTER:
+                return new FilterCommand(tmsRepository);
             default:
                 throw new IllegalArgumentException();
         }

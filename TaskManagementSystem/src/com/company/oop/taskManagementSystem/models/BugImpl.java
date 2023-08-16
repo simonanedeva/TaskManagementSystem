@@ -1,9 +1,6 @@
 package com.company.oop.taskManagementSystem.models;
 
-import com.company.oop.taskManagementSystem.models.contracts.ActivityLog;
-import com.company.oop.taskManagementSystem.models.contracts.AssigneeChangeable;
-import com.company.oop.taskManagementSystem.models.contracts.Bug;
-import com.company.oop.taskManagementSystem.models.contracts.Comment;
+import com.company.oop.taskManagementSystem.models.contracts.*;
 import com.company.oop.taskManagementSystem.models.enums.*;
 import com.company.oop.taskManagementSystem.models.enums.contracts.StatusBug;
 
@@ -11,7 +8,7 @@ import javax.print.attribute.standard.Severity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable {
+public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable{
 
     private List<String> stepsToReproduce;
     private Priority priority;
@@ -115,5 +112,17 @@ public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable {
             throw new IllegalArgumentException(String.format("Assignee already set to %s!", assignee));
         }
         setAssignee(assignee);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                Bug Title: %s
+                Bug Description: %s
+                Steps to Reproduce: %s
+                Bug Priority: %s
+                Bug Severity: %s
+                Bug Assignee: %s
+                """, getTitle(), getDescription(), getStepsToReproduce(), getPriority(), getSeverity(), getAssignee());
     }
 }

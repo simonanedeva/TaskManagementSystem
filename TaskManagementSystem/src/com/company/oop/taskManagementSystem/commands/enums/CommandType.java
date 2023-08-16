@@ -24,5 +24,6 @@ public enum CommandType {
     CHANGESTORYSIZE,
     CHANGEFEEDBACKRATING,
     ASSIGNBUG,
-    ASSIGNSTORY;
+    ASSIGNSTORY,
+    FILTER;
 }
