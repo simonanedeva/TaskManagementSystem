@@ -7,11 +7,13 @@ import com.company.oop.taskManagementSystem.models.enums.StatusValues;
 import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class SortCommand extends BaseCommand{
+public class SortCommand extends BaseCommand {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
+
     public SortCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
     }
@@ -25,9 +27,9 @@ public class SortCommand extends BaseCommand{
         return switch (taskType) {
             case "allTasks" -> sortAllTasks();
             case "Bugs" -> sortBug(sortBy);
-            case "Stories" -> sortStory(filterBy);
-            case "Feedbacks" -> sortFeedback();
-            case "Tasks" -> sortTask(filterBy);
+            case "Stories" -> sortStory(sortBy);
+            case "Feedbacks" -> sortFeedback(sortBy);
+            case "allTasksWithAssignee" -> sortTasksWithAssignee();
             default ->
                     throw new IllegalArgumentException("What you are searching for might exist in some other space-time " +
                             "continuum");
@@ -42,26 +44,200 @@ public class SortCommand extends BaseCommand{
             bugList.addAll(b.getBugs());
         }
         switch (sortBy) {
+
+            case "Title" -> {
+                return bugList.stream()
+                        .sorted(Comparator.comparing(Bug::getTitle))
+                        .collect(StringBuilder::new,
+                                (stringBuilder, bug) -> {
+                                    stringBuilder.append(bug);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
+            }
             case "Status" -> {
                 return bugList.stream()
                         .sorted(Comparator.comparing(Bug::getStatus))
                         .collect(StringBuilder::new,
-                        (stringBuilder, bug) -> {
-                            stringBuilder.append(bug);
-                            stringBuilder.append(System.lineSeparator());
-                        },
-                        StringBuilder::append).toString();
+                                (stringBuilder, bug) -> {
+                                    stringBuilder.append(bug);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
 
             }
-            case "Assignee" -> {
-                return listMatchingAssignee(pattern, bugList);
+            case "Priority" -> {
+                return bugList.stream()
+                        .sorted(Comparator.comparing(Bug::getPriority))
+                        .collect(StringBuilder::new,
+                                (stringBuilder, bug) -> {
+                                    stringBuilder.append(bug);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
             }
-            case "StatusAndAssignee" -> {
-                String[] filterParams = pattern.split("/");
-                return listMatchingAssigneeAndStatus(bugList, filterParams);
+            case "Severity" -> {
+                return bugList.stream()
+                        .sorted(Comparator.comparing(Bug::getSeverity))
+                        .collect(StringBuilder::new,
+                                (stringBuilder, bug) -> {
+                                    stringBuilder.append(bug);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
+            }
+            case "Assignee" -> {
+                return bugList.stream()
+                        .sorted(Comparator.comparing(Bug::getAssignee))
+                        .collect(StringBuilder::new,
+                                (stringBuilder, bug) -> {
+                                    stringBuilder.append(bug);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
             }
             default -> throw new IllegalArgumentException("Unable to filter this way.");
         }
+    }
+
+    private String sortStory(String sortBy) {
+        List<Story> storyList = new ArrayList<>();
+        Member member = getTmsRepository().getLoggedInMember();
+        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
+        for (Board b : teamOfLoggedInMember.getBoards()) {
+            storyList.addAll(b.getStories());
+        }
+
+        switch (sortBy) {
+
+            case "Title" -> {
+                return storyList.stream()
+                        .sorted(Comparator.comparing(Story::getTitle))
+                        .collect(StringBuilder::new,
+                                (stringBuilder, story) -> {
+                                    stringBuilder.append(story);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
+            }
+            case "Status" -> {
+                return storyList.stream()
+                        .sorted(Comparator.comparing(Story::getStatus))
+                        .collect(StringBuilder::new,
+                                (stringBuilder, story) -> {
+                                    stringBuilder.append(story);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
+
+            }
+            case "Priority" -> {
+                return storyList.stream()
+                        .sorted(Comparator.comparing(Story::getPriority))
+                        .collect(StringBuilder::new,
+                                (stringBuilder, story) -> {
+                                    stringBuilder.append(story);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
+            }
+            case "Size" -> {
+                return storyList.stream()
+                        .sorted(Comparator.comparing(Story::getSize))
+                        .collect(StringBuilder::new,
+                                (stringBuilder, story) -> {
+                                    stringBuilder.append(story);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
+            }
+            case "Assignee" -> {
+                return storyList.stream()
+                        .sorted(Comparator.comparing(Story::getAssignee))
+                        .collect(StringBuilder::new,
+                                (stringBuilder, story) -> {
+                                    stringBuilder.append(story);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
+            }
+            default -> throw new IllegalArgumentException("Unable to filter this way.");
+        }
+    }
+
+    private String sortFeedback(String sortBy) {
+
+        List<Feedback> feedbackList = new ArrayList<>();
+        Member member = getTmsRepository().getLoggedInMember();
+        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
+        for (Board b : teamOfLoggedInMember.getBoards()) {
+            feedbackList.addAll(b.getFeedbacks());
+        }
+        switch (sortBy) {
+
+            case "Title" -> {
+                return feedbackList.stream()
+                        .sorted(Comparator.comparing(Feedback::getTitle))
+                        .collect(StringBuilder::new,
+                                (stringBuilder, feedback) -> {
+                                    stringBuilder.append(feedback);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
+            }
+            case "Status" -> {
+                return feedbackList.stream()
+                        .sorted(Comparator.comparing(Feedback::getStatus))
+                        .collect(StringBuilder::new,
+                                (stringBuilder, feedback) -> {
+                                    stringBuilder.append(feedback);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
+
+            }
+            case "Rating" -> {
+                return feedbackList.stream()
+                        .sorted(Comparator.comparing(Feedback::getRating))
+                        .collect(StringBuilder::new,
+                                (stringBuilder, feedback) -> {
+                                    stringBuilder.append(feedback);
+                                    stringBuilder.append(System.lineSeparator());
+                                },
+                                StringBuilder::append).toString();
+
+            }
+            default -> throw new IllegalArgumentException("Unable to filter this way.");
+        }
+    }
+
+    private String sortTasksWithAssignee() {
+
+        List<Story> storyList = new ArrayList<>();
+        List<Bug> bugList = new ArrayList<>();
+        Member member = getTmsRepository().getLoggedInMember();
+        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
+
+
+        for (Board b : teamOfLoggedInMember.getBoards()) {
+            storyList.addAll(b.getStories());
+            bugList.addAll(b.getBugs());
+        }
+
+        List<Task> combinedTasks = new ArrayList<>();
+        combinedTasks.addAll(storyList);
+        combinedTasks.addAll(bugList);
+
+        Collections.sort(combinedTasks, Comparator.comparing(Task::getTitle));
+
+        StringBuilder sb = new StringBuilder();
+
+        for (Task task : combinedTasks) {
+            sb.append(task.toString()); // Assuming the Task class has a meaningful toString method
+            sb.append(System.lineSeparator());
+        }
+
+        return sb.toString();
     }
 
     private String sortAllTasks() {
@@ -71,16 +247,37 @@ public class SortCommand extends BaseCommand{
         for (Board b : teamOfLoggedInMember.getBoards()) {
             taskList.addAll(b.getTasks());
         }
-        return taskList.stream().sorted().collect(StringBuilder::new,
-                (stringBuilder, task) -> {
-                    stringBuilder.append(task.returnTaskSimpleInfo());
-                    stringBuilder.append(System.lineSeparator());
-                },
-                StringBuilder::append).toString();
+
+        Comparator<Task> taskComparator = Comparator.comparing(Task::returnTaskSimpleInfo);
+
+        StringBuilder sb = new StringBuilder();
+        taskList.stream()
+                .sorted(taskComparator)
+                .forEach(task -> {
+                    sb.append(task.returnTaskSimpleInfo());
+                    sb.append(System.lineSeparator());
+                });
+
+        return sb.toString();
     }
+
+//    private String sortAllTasks() {
+//        List<Task> taskList = new ArrayList<>();
+//        Member member = getTmsRepository().getLoggedInMember();
+//        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
+//        for (Board b : teamOfLoggedInMember.getBoards()) {
+//            taskList.addAll(b.getTasks());
+//        }
+//        return taskList.stream().sorted().collect(StringBuilder::new,
+//                (stringBuilder, task) -> {
+//                    stringBuilder.append(task.returnTaskSimpleInfo());
+//                    stringBuilder.append(System.lineSeparator());
+//                },
+//                StringBuilder::append).toString();
+//    }
 
     @Override
     protected boolean requiresLogin() {
-        return false;
+        return true;
     }
 }

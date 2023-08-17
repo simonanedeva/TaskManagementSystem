@@ -1,0 +1,93 @@
+
+            case CREATEMEMBER:
+                CREATEMEMBER Victor
+                CREATEMEMBER Nikolay
+                CREATEMEMBER Simona
+
+            case LOGIN:
+                LOGIN Victor
+                LOGIN Nikolay
+                LOGIN Simona
+
+            case CREATETEAM:
+                CREATETEAM JavaHolics
+                CREATETEAM CatHolics
+
+            case ADDMEMBERTOTEAM:
+                ADDMEMBERTOTEAM Victor JavaHolics
+                ADDMEMBERTOTEAM Simona JavaHolics
+                ADDMEMBERTOTEAM Nikolay CatHolics
+
+            case CREATEBOARDINTEAM:
+                CREATEBOARDINTEAM BoardOne JavaHolics
+
+            case SHOWMEMBERS:
+                a
+
+            case SHOWMEMBERACTIVITY:
+                a
+
+            case SHOWTEAMS:
+                a
+
+            case SHOWTEAMACTIVITY:
+                a
+
+            case SHOWTEAMMEMBERS:
+                a
+
+            case SHOWTEAMBOARDS:
+                a
+
+            case SHOWBOARDACTIVITY:
+                a
+
+            case CREATESTORY:
+                CREATESTORY TitleOfStory BoardOne {{Description of the board}} HIGH LARGE Simona
+                CREATESTORY AnotherStory BoardOne {{Description of the board}} HIGH LARGE Victor
+
+            case CREATEBUG:
+                CREATEBUG TitleOfTheBug BoardOne {{Description of bug}} {{1. Open the application; 2. Click "Log In"; 3. The application freezes!}} HIGH CRITICAL Simona
+                CREATEBUG AnotherNewBug BoardOne {{Description of bug}} {{1. Open the application; 2. Click "Log In"; 3. The application freezes!}} HIGH CRITICAL Victor
+
+            case CREATEFEEDBACK:
+                CREATEFEEDBACK TitleOfFeedback BoardOne {{Description of feedback}} 5
+
+            case ADDCOMMENTTOTASK:
+                a
+
+            case CHANGEPRIORITY:
+                a
+
+            case CHANGESTATUS:
+                a
+
+            case CHANGEBUGSEVERITY:
+                a
+
+            case CHANGESTORYSIZE:
+                a
+
+            case CHANGEFEEDBACKRATING:
+                a
+
+            case ASSIGNBUG:
+                a
+
+            case ASSIGNSTORY:
+                a
+
+            case FILTER:
+                a
+
+            case SORT:
+                SORT Bug Title
+                SORT Bug Status
+                SORT Bug Priority
+                SORT Bug Severity
+                SORT Bug Assignee
+
+            case LOGOUT:
+                LOGOUT Victor
+                LOGOUT Nikolay
+                LOGOUT Simona
