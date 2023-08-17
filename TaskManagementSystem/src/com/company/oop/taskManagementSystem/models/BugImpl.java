@@ -64,8 +64,8 @@ public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable{
     }
 
     @Override
-    public String getStatus() {
-        return status.toString();
+    public StatusValues getStatus() {
+        return status;
     }
 
     @Override

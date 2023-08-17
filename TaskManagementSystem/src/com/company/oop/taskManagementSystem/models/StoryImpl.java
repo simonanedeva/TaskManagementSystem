@@ -54,8 +54,8 @@ public class StoryImpl extends TaskImpl implements Story, AssigneeChangeable {
     }
 
     @Override
-    public String getStatus() {
-        return status.toString();
+    public StatusValues getStatus() {
+        return status;
     }
 
     @Override

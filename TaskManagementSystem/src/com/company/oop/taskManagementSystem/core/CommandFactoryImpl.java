@@ -62,6 +62,8 @@ public class CommandFactoryImpl implements CommandFactory {
                 return new AssignStoryCommand(tmsRepository);
             case FILTER:
                 return new FilterCommand(tmsRepository);
+            case SORT:
+                return new SortCommand(tmsRepository);
             default:
                 throw new IllegalArgumentException();
         }

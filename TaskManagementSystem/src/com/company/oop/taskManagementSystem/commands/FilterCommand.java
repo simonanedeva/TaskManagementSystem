@@ -6,7 +6,6 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FilterCommand extends BaseCommand {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 3;
@@ -79,7 +78,7 @@ public class FilterCommand extends BaseCommand {
 
     private <T extends Task> String listMatchingStatus(String pattern, List<T> genericList) {
         return genericList.stream()
-                .filter(taskType -> taskType.getStatus().equals(pattern))
+                .filter(taskType -> taskType.getStatus().toString().equals(pattern))
                 .collect(StringBuilder::new,
                         (stringBuilder, taskType) -> {
                             stringBuilder.append(taskType);
@@ -102,7 +101,7 @@ public class FilterCommand extends BaseCommand {
     private <T extends Task & AssigneeGettable> String listMatchingAssigneeAndStatus(List<T> genericList, String[] filterParams) {
         return genericList.stream()
                 .filter(taskType -> taskType.getAssignee().equals(filterParams[1]))
-                .filter(taskType -> taskType.getStatus().equals(filterParams[0]))
+                .filter(taskType -> taskType.getStatus().toString().equals(filterParams[0]))
                 .collect(StringBuilder::new,
                         (stringBuilder, taskType) -> {
                             stringBuilder.append(taskType);
@@ -110,13 +109,6 @@ public class FilterCommand extends BaseCommand {
                         },
                         StringBuilder::append).toString();
     }
-
-
-    //Filter allTasks Title kotka;
-    //Filter Bug Status FIXED
-    //Filter Bug Assignee Simona
-    //Filter Bug StatusAndAssignee FIXED/Simona
-    //Filter Task Title kotka
 
     // TODO: 16.08.23 to be implemented.
     private String filterFeedback(String pattern) {
@@ -188,7 +180,6 @@ public class FilterCommand extends BaseCommand {
                 throw new IllegalArgumentException("Unable to filter this way.");
         }
     }
-
 
     @Override
     protected boolean requiresLogin() {

@@ -80,7 +80,7 @@ public class StoryImplTests {
 //        Assertions.assertEquals(title, feedback.getTitle());
 //        Assertions.assertEquals(description, feedback.getDescription());
 //        Assertions.assertEquals(rating, feedback.getRating());
-//        Assertions.assertEquals(FeedbackStatus.NEW.toString().toUpperCase(), feedback.getStatus());
+//        Assertions.assertEquals(StatusValues.NEW.toString().toUpperCase(), feedback.getStatus());
 //    }
 //
 //    @Test

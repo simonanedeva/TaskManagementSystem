@@ -2,7 +2,7 @@ package com.company.oop.taskManagementSystemTests.models;
 
 import com.company.oop.taskManagementSystem.models.FeedbackImpl;
 import com.company.oop.taskManagementSystem.models.contracts.Feedback;
-import com.company.oop.taskManagementSystem.models.enums.FeedbackStatus;
+import com.company.oop.taskManagementSystem.models.enums.StatusValues;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ public class FeedbackImplTests {
         Assertions.assertEquals(title, feedback.getTitle());
         Assertions.assertEquals(description, feedback.getDescription());
         Assertions.assertEquals(rating, feedback.getRating());
-        Assertions.assertEquals(FeedbackStatus.NEW.toString().toUpperCase(), feedback.getStatus());
+        Assertions.assertEquals(StatusValues.NEW.toString(), feedback.getStatus().toString());
     }
 
     @Test

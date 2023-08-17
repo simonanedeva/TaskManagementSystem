@@ -38,7 +38,7 @@ public class ChangeStatusCommand extends BaseCommand {
             List<Task> tasks = board.getTasks();
             for (Task task : tasks) {
                 if (task.getTitle().equals(taskToChange)) {
-                    String oldStatus = task.getStatus();
+                    String oldStatus = task.getStatus().toString();
                     if (task.isValidStatus(newStatus)) {
                         task.changeStatus(newStatus);
                         task.logEvent(String.format("%s changed the status of %s %s from %s to %s.",

@@ -128,6 +128,6 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
         return String.format("""
                 %s Title: %s
                 %s Description: %s
-                %s Status: %s""",getType(), getTitle(),getType(), getDescription(),getType(),getStatus());
+                %s Status: %s""",getType(), getTitle(),getType(), getDescription(),getType(),getStatus().toString());
     }
 }

@@ -20,7 +20,7 @@ public interface Task {
 
     String displayActivityHistory();
 
-    String getStatus();
+    StatusValues getStatus();
 
     void addComment(Comment comment);
 
