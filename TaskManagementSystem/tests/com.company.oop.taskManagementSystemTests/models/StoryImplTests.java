@@ -19,7 +19,7 @@ public class StoryImplTests {
     public static final String VALID_ASSIGNEE = "Victor";
 
     @Test
-    public void should_CreateStory_When_PassedValidInput() {
+    public void should_CreateStory_When_ValidInput() {
         StoryImpl story = initialize_Story();
 
         Assertions.assertAll(
@@ -47,8 +47,6 @@ public class StoryImplTests {
                 new StoryImpl(TaskImplTests.VALID_TASK_ID, TaskImplTests.VALID_TASK_TITLE, "Short", VALID_PRIORITY, VALID_SIZE, VALID_ASSIGNEE));
     }
 
-    // TODO: 14.08.23 do we need to test what happens if assignee is not part of the team here, or in the commands?
-
     @Test
     public void getter_Should_Return_ValidPriority() {
         StoryImpl story = initialize_Story();
@@ -72,3 +70,47 @@ public class StoryImplTests {
 
 
 }
+
+
+//    @Test
+//    public void should_CreateFeedback_When_ValidInput() {
+//        int rating = 1;
+//        Feedback feedback = new FeedbackImpl(id, title, description, rating);
+//        Assertions.assertEquals(id, feedback.getId());
+//        Assertions.assertEquals(title, feedback.getTitle());
+//        Assertions.assertEquals(description, feedback.getDescription());
+//        Assertions.assertEquals(rating, feedback.getRating());
+//        Assertions.assertEquals(FeedbackStatus.NEW.toString().toUpperCase(), feedback.getStatus());
+//    }
+//
+//    @Test
+//    public void should_ThrowException_When_NegativeRating() {
+//        int rating = -1;
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> new FeedbackImpl(id, title, description, rating));
+//    }
+//
+//    @Test
+//    public void should_ThrowException_When_NewRatingSameAsOld() {
+//        int oldRating = 3;
+//        int newRating = 3;
+//        Feedback feedback = new FeedbackImpl(id, title, description, oldRating);
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> feedback.changeRating(newRating));
+//    }
+//
+//    @Test
+//    public void should_ChangeRating_When_ValidNewRating(){
+//        int oldRating = 3;
+//        int newRating = 4;
+//        Feedback feedback = new FeedbackImpl(id, title, description, oldRating);
+//        feedback.changeRating(newRating);
+//        Assertions.assertEquals(newRating, feedback.getRating());
+//    }
+//
+//    @Test
+//    public void should_ReturnType_When_Prompted(){
+//        int rating = 3;
+//        Feedback feedback = new FeedbackImpl(id, title, description, rating);
+//        // TODO: 14-Aug-23 change to "Feedback" when fixed in Commands
+//        Assertions.assertEquals("FeedbackImpl", feedback.getType());
+//    }
+//}

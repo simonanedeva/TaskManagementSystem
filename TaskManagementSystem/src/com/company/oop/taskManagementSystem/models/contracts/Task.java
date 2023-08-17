@@ -35,4 +35,5 @@ public interface Task {
     void logEvent(String event);
 
     String returnTaskSimpleInfo();
+
 }

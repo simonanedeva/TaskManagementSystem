@@ -6,6 +6,7 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FilterCommand extends BaseCommand {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 3;
@@ -152,14 +153,45 @@ public class FilterCommand extends BaseCommand {
         }
     }
 
-    // TODO: 16.08.23 Filter all tasks with assignee.
     private String filterTask(String filterBy, String pattern) {
-        return null;
+
+        List<Story> storyList = new ArrayList<>();
+        List<Bug> bugList = new ArrayList<>();
+        Member member = getTmsRepository().getLoggedInMember();
+        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
+
+
+        for (Board b : teamOfLoggedInMember.getBoards()) {
+            storyList.addAll(b.getStories());
+            bugList.addAll(b.getBugs());
+        }
+
+        StringBuilder sb = new StringBuilder();
+        String storyString;
+        String bugString;
+
+        switch (filterBy) {
+            case "Status":
+                storyString = listMatchingStatus(pattern, storyList);
+                bugString = listMatchingStatus(pattern, bugList);
+                return sb.append(storyString).append(System.lineSeparator()).append(bugString).toString();
+            case "Assignee":
+                storyString = listMatchingAssignee(pattern, storyList);
+                bugString = listMatchingAssignee(pattern, bugList);
+                return sb.append(storyString).append(System.lineSeparator()).append(bugString).toString();
+            case "StatusAndAssignee":
+                String[] filterParams = pattern.split("/");
+                storyString = listMatchingAssigneeAndStatus(storyList, filterParams);
+                bugString = listMatchingAssigneeAndStatus(bugList, filterParams);
+                return sb.append(storyString).append(System.lineSeparator()).append(bugString).toString();
+            default:
+                throw new IllegalArgumentException("Unable to filter this way.");
+        }
     }
 
 
     @Override
     protected boolean requiresLogin() {
-        return false;
+        return true;
     }
 }
