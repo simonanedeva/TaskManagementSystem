@@ -25,7 +25,7 @@ public class FilterCommand extends BaseCommand {
             case "allTasks" -> filterAllTask(pattern);
             case "Bugs" -> filterBug(filterBy, pattern);
             case "Stories" -> filterStory(filterBy, pattern);
-            case "Feedbacks" -> filterFeedback(filterBy, pattern);
+            case "Feedbacks" -> filterFeedback(pattern);
             case "Tasks" -> filterTask(filterBy, pattern);
             default ->
                     throw new IllegalArgumentException("What you are searching for might exist in some other space-time " +
@@ -118,8 +118,16 @@ public class FilterCommand extends BaseCommand {
     //Filter Task Title kotka
 
     // TODO: 16.08.23 to be implemented.
-    private String filterFeedback(String filterBy, String pattern) {
-        return null;
+    private String filterFeedback(String pattern) {
+        List<Feedback> feedbackList = new ArrayList<>();
+        Member member = getTmsRepository().getLoggedInMember();
+        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
+        for (Board b : teamOfLoggedInMember.getBoards()) {
+            feedbackList.addAll(b.getFeedbacks());
+        }
+
+        return listMatchingStatus(pattern, feedbackList);
+
     }
 
     private String filterStory(String filterBy, String pattern) {
