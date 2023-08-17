@@ -7,10 +7,6 @@ public interface Member {
 
     public List<ActivityLog> getActivityHistory();
 
-    void addSteps(String steps);
-
-    String printMembers();
-
     String displayActivityHistory();
 
     void logEvent(String event);

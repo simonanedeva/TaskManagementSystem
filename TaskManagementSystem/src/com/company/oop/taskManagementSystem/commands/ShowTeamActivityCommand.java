@@ -20,7 +20,7 @@ public class ShowTeamActivityCommand extends BaseCommand{
     @Override
     protected String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
-        String teamName = parameters.get(0); //extract the team name
+        String teamName = parameters.get(0);
         return showTeamActivity(teamName);
     }
 
@@ -30,17 +30,14 @@ public class ShowTeamActivityCommand extends BaseCommand{
 
         StringBuilder sb = new StringBuilder();
 
-        for (Member teamMember : teamMembers) {
+        teamMembers.forEach(teamMember -> {
             sb.append(teamMember.getUsername()).append(System.lineSeparator()); //add member username for readability
-            if (teamMember.getActivityHistory().isEmpty()){
-                sb.append(String.format(NO_ACTIVITY_FOR_MEMBER,teamMember.getUsername()));
+            if (teamMember.getActivityHistory().isEmpty()) {
+                sb.append(String.format(NO_ACTIVITY_FOR_MEMBER, teamMember.getUsername()));
             } else {
                 sb.append(teamMember.displayActivityHistory());
             }
-            //This command above replaces the code below and updates current functionality so that it returns a formatted string of activity and not a list
-            //as well as a message in case there is no activity to show. Should test when we have same activity to add.
-//            sb.append(teamMember.getActivityHistory()).append(System.lineSeparator()); //add member history
-        }
+        });
         return sb.toString();
     }
 

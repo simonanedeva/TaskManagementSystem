@@ -51,16 +51,6 @@ public class MemberImpl implements Member {
         return sb.toString();
     }
 
-    @Override
-    public void addSteps(String steps) {
-    }
-
-    @Override
-    public String printMembers() {
-        return null;
-        // TODO: 7.08.23 finish the method
-    }
-
     public void logEvent(String event) {
         this.activityHistory.add(new ActivityLogImpl(event));
     }

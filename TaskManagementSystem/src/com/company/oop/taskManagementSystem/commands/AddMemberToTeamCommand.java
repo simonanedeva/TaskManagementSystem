@@ -38,11 +38,12 @@ public class AddMemberToTeamCommand extends BaseCommand{
         List<Team> teams = getTmsRepository().getTeams();
         for (Team team : teams) {
             List<Member> memberList = team.getMembers();
-            for (Member member : memberList) {
-                if (member.getUsername().equals(memberToAdd)) {
-                    throw new IllegalArgumentException(String.format(MEMBER_IS_PART_OF_TEAM_ERR_MESSAGE, memberToAdd, team.getName()));
-                }
-            }
+            memberList.stream()
+                    .filter(member -> member.getUsername().equals(memberToAdd))
+                    .forEach(member -> {
+                throw new IllegalArgumentException(
+                        String.format(MEMBER_IS_PART_OF_TEAM_ERR_MESSAGE, memberToAdd, team.getName()));
+            });
         }
     }
 

@@ -29,7 +29,8 @@ public class ShowBoardActivityCommand extends BaseCommand {
     private String showBoardActivity(String boardName) {
         List<Team> teams = getTmsRepository().getTeams();
         StringBuilder stringBuilder = new StringBuilder();
-        // TODO: 9.08.23 maybe we can optimize this one bellow with a separate method (a variety of it is also repetitive among other classes).
+        // TODO: 9.08.23 maybe we can optimize this one bellow with a separate method (a variety of it is also
+        //  repetitive among other classes).
         for (Team team : teams) {
             List<Board> boards = team.getBoards();
             for (Board board : boards) {
@@ -45,23 +46,6 @@ public class ShowBoardActivityCommand extends BaseCommand {
             }
         }
 
-//        Team team = getTmsRepository().findTeamByName(teamName);
-//        List<Board> boardItems = team.getBoards();
-//
-//        StringBuilder sb = new StringBuilder();
-//
-//        for (Board boardItem : boardItems) {
-//            sb.append(boardItem.getName()).append(System.lineSeparator()); //add member username for readability
-//            if (boardItem.getActivityHistory().isEmpty()){
-//                sb.append(String.format(NO_ACTIVITY_FOR_BOARD,boardItem.getName()));
-//                sb.append(System.lineSeparator());
-//            } else {
-//                sb.append(boardItem.displayActivityHistory());
-//            }
-            //This command above replaces the code below and updates current functionality so that it returns a formatted string of activity and not a list
-            //as well as a message in case there is no activity to show. Should test when we have same activity to add.
-//            sb.append(boardItem.getActivityHistory()).append(System.lineSeparator());
-//        }
         return stringBuilder.toString();
     }
 

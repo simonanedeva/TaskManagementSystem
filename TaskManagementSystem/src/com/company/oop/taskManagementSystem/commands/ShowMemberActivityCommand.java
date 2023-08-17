@@ -27,13 +27,6 @@ public class ShowMemberActivityCommand extends BaseCommand{
             return String.format(NO_ACTIVITY_FOR_MEMBER, member.getUsername());
         }
         return member.displayActivityHistory();
-        //this command above replaces the code below. Should test when we have same activity to add.
-//        List<ActivityLog> list = member.getActivityHistory();
-//        StringBuilder sb = new StringBuilder();
-//        for (ActivityLog activityLog : list) {
-//            sb.append(activityLog.viewInfo()).append(System.lineSeparator());
-//        }
-//        return sb.toString();
     }
 
     @Override

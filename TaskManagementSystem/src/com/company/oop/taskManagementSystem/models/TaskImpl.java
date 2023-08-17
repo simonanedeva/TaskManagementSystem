@@ -38,10 +38,6 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
         activityHistory = new ArrayList<>();
     }
 
-//    private void setStatus(StatusValues status) {
-//        this.status = isValidStatus(status);
-//    }
-
     @Override
     public int getId() {
         return this.id;

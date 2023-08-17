@@ -1,7 +1,7 @@
 package com.company.oop.taskManagementSystem.models.contracts;
 
 public interface ActivityLog {
-    public String getDescription();
+    String getDescription();
 
-    public String viewInfo();
+    String viewInfo();
 }

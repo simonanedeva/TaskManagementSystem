@@ -21,18 +21,12 @@ public class LoginCommand extends BaseCommand {
         throwIfMemberLoggedIn();
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String username = parameters.get(0);
-        //String password = parameters.get(1);
 
-        return login(username); //don't forget to add password here if needed
+        return login(username);
     }
 
     private String login(String username) {
         Member memberFound = getTmsRepository().findMemberByUsername(username);
-
- /*       if (!userFound.getPassword().equals(password)) {
-            throw new IllegalArgumentException(WRONG_USERNAME_OR_PASSWORD);
-        }*/
-
         getTmsRepository().login(memberFound);
         return String.format(MEMBER_LOGGED_IN, username);
     }

@@ -2,8 +2,6 @@ package com.company.oop.taskManagementSystem.commands;
 
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
 import com.company.oop.taskManagementSystem.models.contracts.*;
-import com.company.oop.taskManagementSystem.models.enums.EnumComparator;
-import com.company.oop.taskManagementSystem.models.enums.StatusValues;
 import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.ArrayList;
@@ -233,7 +231,7 @@ public class SortCommand extends BaseCommand {
         StringBuilder sb = new StringBuilder();
 
         for (Task task : combinedTasks) {
-            sb.append(task.toString()); // Assuming the Task class has a meaningful toString method
+            sb.append(task.toString());
             sb.append(System.lineSeparator());
         }
 
@@ -248,11 +246,9 @@ public class SortCommand extends BaseCommand {
             taskList.addAll(b.getTasks());
         }
 
-        Comparator<Task> taskComparator = Comparator.comparing(Task::returnTaskSimpleInfo);
-
         StringBuilder sb = new StringBuilder();
         taskList.stream()
-                .sorted(taskComparator)
+                .sorted(Comparator.comparing(Task::getTitle))
                 .forEach(task -> {
                     sb.append(task.returnTaskSimpleInfo());
                     sb.append(System.lineSeparator());
@@ -260,21 +256,6 @@ public class SortCommand extends BaseCommand {
 
         return sb.toString();
     }
-
-//    private String sortAllTasks() {
-//        List<Task> taskList = new ArrayList<>();
-//        Member member = getTmsRepository().getLoggedInMember();
-//        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
-//        for (Board b : teamOfLoggedInMember.getBoards()) {
-//            taskList.addAll(b.getTasks());
-//        }
-//        return taskList.stream().sorted().collect(StringBuilder::new,
-//                (stringBuilder, task) -> {
-//                    stringBuilder.append(task.returnTaskSimpleInfo());
-//                    stringBuilder.append(System.lineSeparator());
-//                },
-//                StringBuilder::append).toString();
-//    }
 
     @Override
     protected boolean requiresLogin() {

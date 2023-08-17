@@ -53,26 +53,12 @@ public class CreateStoryCommand extends BaseCommand {
     }
 
     private static void throwIfTaskExist(String nameOfTask, List<Task> taskList) {
-//        for (Task task : taskList) {
-//            if (task.getTitle().equals(nameOfTask)) {
-//                throw new IllegalArgumentException("Task with such a title already exists");
-//            }
-//        }
-
         if (taskList.stream().anyMatch(task -> task.getTitle().equals(nameOfTask))) {
             throw new IllegalArgumentException("Task with such a title already exists");
         }
     }
 
     private static void throwIfInvalidAssignee(String assignee, Team teamOfLoggedInMember, List<Member> membersInTeam) {
-//        boolean isMember=false;
-//        for (Member member1 : membersInTeam) {
-//            if(member1.getUsername().equals(assignee)) {
-//                isMember=true;
-//            }
-//        }
-//        throw new IllegalArgumentException(String.format(ASSIGNEE_ERR_MESSAGE, assignee, teamOfLoggedInMember.getName()));
-
         boolean isMember = membersInTeam.stream().anyMatch(member -> member.getUsername().equals(assignee));
         if (!isMember) {
             throw new IllegalArgumentException(String.format(ASSIGNEE_ERR_MESSAGE, assignee, teamOfLoggedInMember.getName()));
@@ -80,13 +66,6 @@ public class CreateStoryCommand extends BaseCommand {
     }
 
     private Board findBoardInTeam(List<Board> boardList, String board) {
-//        for (Board board1 : boardList) {
-//            if (board1.getName().equals(board)){
-//                return board1;
-//            }
-//        }
-//        throw new IllegalArgumentException("Board does not exist in this team");
-
         return boardList.stream().filter(board1 -> board1.getName().equals(board)).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Board does not exist in this team"));
     }

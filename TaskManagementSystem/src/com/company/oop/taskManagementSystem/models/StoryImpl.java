@@ -39,7 +39,7 @@ public class StoryImpl extends TaskImpl implements Story, AssigneeChangeable {
                     return true;
                 }
             }
-            //return false;
+
             throw new IllegalArgumentException("Invalid enum value for this class");
         }
 

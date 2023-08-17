@@ -34,21 +34,26 @@ public class AddCommentToTaskCommand extends BaseCommand{
         boolean taskExist = false;
         for (Board board : boardsList) {
             List<Task> tasks = board.getTasks();
-            for (Task task : tasks) {
-                if (task.getTitle().equals(taskToAdd)){
-                    task.addComment(commentToAdd);
-                    task.logEvent(String.format("%s added a comment to task %s",member.getUsername(), task.getTitle()));
-                    member.logEvent(String.format("%s added a comment to task %s",member.getUsername(),task.getTitle()));
-                    taskExist = true;
-                    break;
-                }
+            taskExist = isTaskExist(taskToAdd, member, commentToAdd, taskExist, tasks);
+        }
+        if (taskExist) {
+            return String.format(COMMENT_ADDED_TO_TASK, taskToAdd);
+        }
+        throw new IllegalArgumentException(String.format("Such a task does not exit in team %s",memberTeam.getName()));
+
+    }
+
+    private static boolean isTaskExist(String taskToAdd, Member member, Comment commentToAdd, boolean taskExist, List<Task> tasks) {
+        for (Task task : tasks) {
+            if (task.getTitle().equals(taskToAdd)){
+                task.addComment(commentToAdd);
+                task.logEvent(String.format("%s added a comment to task %s", member.getUsername(), task.getTitle()));
+                member.logEvent(String.format("%s added a comment to task %s", member.getUsername(),task.getTitle()));
+                taskExist = true;
+                break;
             }
         }
-        if (!taskExist){
-            throw new IllegalArgumentException(String.format("Such a task does not exit in team %s",memberTeam.getName()));
-        }
-
-        return String.format(COMMENT_ADDED_TO_TASK, taskToAdd);
+        return taskExist;
     }
 
     @Override
