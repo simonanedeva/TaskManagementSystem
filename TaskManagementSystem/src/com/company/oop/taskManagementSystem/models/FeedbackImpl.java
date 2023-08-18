@@ -15,14 +15,6 @@ public class FeedbackImpl extends TaskImpl implements Feedback {
         status = StatusValues.NEW;
     }
 
-    private void setRating(int rating) {
-        if (rating >= 0) {
-            this.rating = rating;
-        } else {
-            throw new IllegalArgumentException(FEEDBACK_RATING_NEG_ERR_MESSAGE);
-        }
-    }
-
     @Override
     public int getRating() {
         return this.rating;
@@ -30,7 +22,7 @@ public class FeedbackImpl extends TaskImpl implements Feedback {
 
     @Override
     public void changeRating(int newRating) {
-        if (newRating == this.rating){
+        if (newRating == this.rating) {
             throw new IllegalArgumentException(String.format("Rating already set to %s!", this.rating));
         }
         setRating(newRating);
@@ -61,6 +53,15 @@ public class FeedbackImpl extends TaskImpl implements Feedback {
         return String.format("""
                 %s
                 Feedback Rating: %s
-                """, super.toString(),getRating());
+                """, super.toString(), getRating());
     }
+
+    private void setRating(int rating) {
+        if (rating >= 0) {
+            this.rating = rating;
+        } else {
+            throw new IllegalArgumentException(FEEDBACK_RATING_NEG_ERR_MESSAGE);
+        }
+    }
+
 }

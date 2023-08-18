@@ -11,8 +11,14 @@ public class ShowTeamMembersCommand extends BaseCommand {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
     public static final String NO_MEMBERS_MESSAGE = "Currently there are no members in %s.";
+
     public ShowTeamMembersCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
+    }
+
+    @Override
+    protected boolean requiresLogin() {
+        return true;
     }
 
     @Override
@@ -34,13 +40,9 @@ public class ShowTeamMembersCommand extends BaseCommand {
         for (Member member : teamMembers) {
             sb.append(member.getUsername()).append(", ");
         }
-        sb.deleteCharAt(sb.length()-2);
+        sb.deleteCharAt(sb.length() - 2);
         return sb.toString().trim();
         // TODO: 8.08.23 think about implementing a print method here as well, we have a repetition (ShowMembersCommand)
     }
 
-    @Override
-    protected boolean requiresLogin() {
-        return true;
-    }
 }

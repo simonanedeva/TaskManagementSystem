@@ -17,6 +17,11 @@ public class CreateTeamCommand extends BaseCommand {
     }
 
     @Override
+    protected boolean requiresLogin() {
+        return true;
+    }
+
+    @Override
     protected String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String teamName = parameters.get(0);
@@ -38,8 +43,4 @@ public class CreateTeamCommand extends BaseCommand {
         }
     }
 
-    @Override
-    protected boolean requiresLogin() {
-        return false;
-    }
 }

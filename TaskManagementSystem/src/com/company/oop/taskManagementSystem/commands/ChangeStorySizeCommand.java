@@ -8,7 +8,7 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.List;
 
-public class ChangeStorySizeCommand extends BaseCommand{
+public class ChangeStorySizeCommand extends BaseCommand {
 
     private static final String SIZE_SET_SUCCESSFULLY = "Size of story %s successfully changed from %s to %s!";
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
@@ -23,6 +23,11 @@ public class ChangeStorySizeCommand extends BaseCommand{
         String storyToChange = parameters.get(0);
         StorySize newSizeStatus = ParsingHelpers.tryParseEnum(parameters.get(1), StorySize.class);
         return changeSize(storyToChange, newSizeStatus);
+    }
+
+    @Override
+    protected boolean requiresLogin() {
+        return true;
     }
 
     private String changeSize(String storyToChange, StorySize newSizeStatus) {
@@ -45,9 +50,6 @@ public class ChangeStorySizeCommand extends BaseCommand{
         }
         throw new IllegalArgumentException(String.format("There is no story %s in team %s!", storyToChange, memberTeam.getName()));
     }
-    @Override
-    protected boolean requiresLogin() {
-        return true;
-    }
+
 
 }

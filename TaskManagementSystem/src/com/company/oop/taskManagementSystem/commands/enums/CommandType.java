@@ -25,5 +25,6 @@ public enum CommandType {
     CHANGEFEEDBACKRATING,
     ASSIGNBUG,
     ASSIGNSTORY,
-    FILTER, SORT;
+    FILTER,
+    SORT;
 }

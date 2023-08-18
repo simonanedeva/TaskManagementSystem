@@ -28,7 +28,7 @@ public interface TMSRepository {
 
     Team createTeam(String teamName);
 
-    void addTeam (Team teamToAdd);
+    void addTeam(Team teamToAdd);
 
     boolean teamExists(String teamName);
 

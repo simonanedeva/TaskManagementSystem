@@ -28,12 +28,6 @@ public class MemberImpl implements Member {
         activityHistory = new ArrayList<>();
     }
 
-    private void setUsername(String username) {
-        ValidationHelpers.validateIntRange(username.length(), USERNAME_LEN_MIN, USERNAME_LEN_MAX, USERNAME_LEN_ERR);
-        ValidationHelpers.validatePattern(username, USERNAME_REGEX_PATTERN, USERNAME_PATTERN_ERR);
-        this.username = username;
-    }
-
     @Override
     public String getUsername() {
         return this.username;
@@ -53,6 +47,12 @@ public class MemberImpl implements Member {
 
     public void logEvent(String event) {
         this.activityHistory.add(new ActivityLogImpl(event));
+    }
+
+    private void setUsername(String username) {
+        ValidationHelpers.validateIntRange(username.length(), USERNAME_LEN_MIN, USERNAME_LEN_MAX, USERNAME_LEN_ERR);
+        ValidationHelpers.validatePattern(username, USERNAME_REGEX_PATTERN, USERNAME_PATTERN_ERR);
+        this.username = username;
     }
 
 }

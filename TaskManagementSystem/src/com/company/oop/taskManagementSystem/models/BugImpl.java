@@ -8,7 +8,7 @@ import javax.print.attribute.standard.Severity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable{
+public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable {
 
     private List<String> stepsToReproduce;
     private Priority priority;
@@ -28,19 +28,6 @@ public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable{
         comments = new ArrayList<>();
         historyOfChanges = new ArrayList<>();
         status = StatusValues.ACTIVE;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
-    }
-
-    public void setSeverity(BugSeverity severity) {
-        this.severity = severity;
-    }
-
-    private void setAssignee(String assignee) {
-        this.assignee = assignee;
-        // TODO: 7.08.23 make a validation, assignee muse be a member from the team
     }
 
     // TODO: 7.08.23  TBC if in BugImpl or UserImpl
@@ -124,4 +111,18 @@ public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable{
                 Bug Assignee: %s
                 """, super.toString(), getStepsToReproduce(), getPriority(), getSeverity(), getAssignee());
     }
+
+    private void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    private void setSeverity(BugSeverity severity) {
+        this.severity = severity;
+    }
+
+    private void setAssignee(String assignee) {
+        this.assignee = assignee;
+        // TODO: 7.08.23 make a validation, assignee muse be a member from the team
+    }
+
 }

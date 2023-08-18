@@ -16,6 +16,11 @@ public class ChangeFeedbackRatingCommand extends BaseCommand {
     }
 
     @Override
+    protected boolean requiresLogin() {
+        return true;
+    }
+
+    @Override
     protected String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String feedbackToChange = parameters.get(0);
@@ -45,8 +50,4 @@ public class ChangeFeedbackRatingCommand extends BaseCommand {
         throw new IllegalArgumentException(String.format("There is no feedback %s in team %s!", feedbackToChange, memberTeam.getName()));
     }
 
-    @Override
-    protected boolean requiresLogin() {
-        return true;
-    }
 }

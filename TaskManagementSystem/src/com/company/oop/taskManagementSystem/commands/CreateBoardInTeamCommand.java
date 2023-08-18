@@ -14,8 +14,14 @@ public class CreateBoardInTeamCommand extends BaseCommand {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
     public static final String BOARD_IS_PART_OF_TEAM_ERR_MESSAGE = "Board %s is already a part of team %s!";
+
     public CreateBoardInTeamCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
+    }
+
+    @Override
+    protected boolean requiresLogin() {
+        return true;
     }
 
     @Override
@@ -46,8 +52,4 @@ public class CreateBoardInTeamCommand extends BaseCommand {
         }
     }
 
-    @Override
-    protected boolean requiresLogin() {
-        return false;
-    }
 }

@@ -14,16 +14,16 @@ public abstract class BaseCommand implements Command {
         this.tmsRepository = tmsRepository;
     }
 
-    protected TMSRepository getTmsRepository(){
-        return tmsRepository;
-    }
-
     @Override
     public String execute(List<String> parameters) {
         if (requiresLogin() && !tmsRepository.hasLoggedInMember()) {
             throw new IllegalArgumentException(MEMBER_NOT_LOGGED);
         }
         return executeCommand(parameters);
+    }
+
+    protected TMSRepository getTmsRepository() {
+        return tmsRepository;
     }
 
     protected abstract boolean requiresLogin();

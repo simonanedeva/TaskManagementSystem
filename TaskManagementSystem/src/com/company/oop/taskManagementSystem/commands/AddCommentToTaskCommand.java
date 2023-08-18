@@ -8,13 +8,18 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 import java.util.List;
 
 // TODO: 10.08.23 Test whether this allows the logged-in member to add comments to boards of other teams!
-public class AddCommentToTaskCommand extends BaseCommand{
+public class AddCommentToTaskCommand extends BaseCommand {
     private static final String COMMENT_ADDED_TO_TASK = "Comment added to task %s!";
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
 
     public AddCommentToTaskCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
+    }
+
+    @Override
+    protected boolean requiresLogin() {
+        return true;
     }
 
     @Override
@@ -29,7 +34,7 @@ public class AddCommentToTaskCommand extends BaseCommand{
     private String addToTask(String stringCommentToAdd, String taskToAdd) {
         Member member = getTmsRepository().getLoggedInMember();
         Team memberTeam = getTmsRepository().findTeamOfMember(member.getUsername());
-        Comment commentToAdd = new CommentImpl(stringCommentToAdd,member.getUsername());
+        Comment commentToAdd = new CommentImpl(stringCommentToAdd, member.getUsername());
         List<Board> boardsList = memberTeam.getBoards();
         boolean taskExist = false;
         for (Board board : boardsList) {
@@ -39,16 +44,15 @@ public class AddCommentToTaskCommand extends BaseCommand{
         if (taskExist) {
             return String.format(COMMENT_ADDED_TO_TASK, taskToAdd);
         }
-        throw new IllegalArgumentException(String.format("Such a task does not exit in team %s",memberTeam.getName()));
-
+        throw new IllegalArgumentException(String.format("Such a task does not exit in team %s", memberTeam.getName()));
     }
 
     private static boolean isTaskExist(String taskToAdd, Member member, Comment commentToAdd, boolean taskExist, List<Task> tasks) {
         for (Task task : tasks) {
-            if (task.getTitle().equals(taskToAdd)){
+            if (task.getTitle().equals(taskToAdd)) {
                 task.addComment(commentToAdd);
                 task.logEvent(String.format("%s added a comment to task %s", member.getUsername(), task.getTitle()));
-                member.logEvent(String.format("%s added a comment to task %s", member.getUsername(),task.getTitle()));
+                member.logEvent(String.format("%s added a comment to task %s", member.getUsername(), task.getTitle()));
                 taskExist = true;
                 break;
             }
@@ -56,8 +60,4 @@ public class AddCommentToTaskCommand extends BaseCommand{
         return taskExist;
     }
 
-    @Override
-    protected boolean requiresLogin() {
-        return false;
-    }
 }

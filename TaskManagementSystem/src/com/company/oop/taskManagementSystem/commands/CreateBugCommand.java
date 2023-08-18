@@ -24,6 +24,11 @@ public class CreateBugCommand extends BaseCommand {
     }
 
     @Override
+    protected boolean requiresLogin() {
+        return true;
+    }
+
+    @Override
     protected String executeCommand(List<String> parameters) {
         // TODO: 9.08.23 change extractDescriptionParameters to fit this command (suggestion in comment in class)
 
@@ -36,7 +41,7 @@ public class CreateBugCommand extends BaseCommand {
         BugSeverity severity = ParsingHelpers.tryParseEnum(parameters.get(5), BugSeverity.class);
         String assignee = parameters.get(6);
 
-        return createBug(title,boardToAdd,description,stepsToReproduce,priority,severity,assignee);
+        return createBug(title, boardToAdd, description, stepsToReproduce, priority, severity, assignee);
     }
 
     private String createBug(String title, String boardToAdd, String description, List<String> stepsToReproduce, Priority priority, BugSeverity severity, String assignee) {
@@ -45,18 +50,18 @@ public class CreateBugCommand extends BaseCommand {
         List<Member> membersInTeam = teamOfLoggedInMember.getMembers();
         throwIfInvalidAssignee(assignee, teamOfLoggedInMember, membersInTeam);
 
-        List<Board> boards= teamOfLoggedInMember.getBoards();
-        Board board = findBoardInTeam(boards,boardToAdd);
-        Bug bugToAdd = getTmsRepository().createBug(title,boardToAdd,description,stepsToReproduce,priority,severity,assignee);
+        List<Board> boards = teamOfLoggedInMember.getBoards();
+        Board board = findBoardInTeam(boards, boardToAdd);
+        Bug bugToAdd = getTmsRepository().createBug(title, boardToAdd, description, stepsToReproduce, priority, severity, assignee);
         List<Task> taskList = board.getTasks();
         throwIfTaskExist(title, taskList);
 
         board.addBug(bugToAdd);
 
-        member.logEvent(String.format("Bug %s created by member %s",title, member.getUsername()));
-        bugToAdd.logEvent(String.format("Bug %s created by member %s",title, member.getUsername()));
+        member.logEvent(String.format("Bug %s created by member %s", title, member.getUsername()));
+        bugToAdd.logEvent(String.format("Bug %s created by member %s", title, member.getUsername()));
 
-        return String.format(BUG_CREATED, title,boardToAdd);
+        return String.format(BUG_CREATED, title, boardToAdd);
     }
 
     private static void throwIfTaskExist(String nameOfTask, List<Task> taskList) {
@@ -70,8 +75,8 @@ public class CreateBugCommand extends BaseCommand {
     private static void throwIfInvalidAssignee(String assignee, Team teamOfLoggedInMember, List<Member> membersInTeam) {
         boolean isMember = false;
         for (Member member1 : membersInTeam) {
-            if(member1.getUsername().equals(assignee)) {
-                isMember=true;
+            if (member1.getUsername().equals(assignee)) {
+                isMember = true;
             }
         }
         if (!isMember) {
@@ -79,17 +84,13 @@ public class CreateBugCommand extends BaseCommand {
         }
     }
 
-    private Board findBoardInTeam (List<Board> boardList, String board){
+    private Board findBoardInTeam(List<Board> boardList, String board) {
         for (Board board1 : boardList) {
-            if (board1.getName().equals(board)){
+            if (board1.getName().equals(board)) {
                 return board1;
             }
         }
         throw new IllegalArgumentException("Board does not exist in this team");
     }
 
-    @Override
-    protected boolean requiresLogin() {
-        return false;
-    }
 }

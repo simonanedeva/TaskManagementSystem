@@ -7,7 +7,7 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.List;
 
-public class ShowTeamActivityCommand extends BaseCommand{
+public class ShowTeamActivityCommand extends BaseCommand {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
@@ -15,6 +15,11 @@ public class ShowTeamActivityCommand extends BaseCommand{
 
     public ShowTeamActivityCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
+    }
+
+    @Override
+    protected boolean requiresLogin() {
+        return true;
     }
 
     @Override
@@ -41,8 +46,4 @@ public class ShowTeamActivityCommand extends BaseCommand{
         return sb.toString();
     }
 
-    @Override
-    protected boolean requiresLogin() {
-        return false;
-    }
 }

@@ -17,6 +17,11 @@ public class ShowTeamsCommand extends BaseCommand {
     }
 
     @Override
+    protected boolean requiresLogin() {
+        return true;
+    }
+
+    @Override
     protected String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         return showTeams();
@@ -25,21 +30,16 @@ public class ShowTeamsCommand extends BaseCommand {
     private String showTeams() {
         StringBuilder sb = new StringBuilder();
         List<Team> teamList = getTmsRepository().getTeams();
-        if(teamList.isEmpty()) {
+        if (teamList.isEmpty()) {
             sb.append(String.format(NO_TEAMS_MESSAGE));
             return sb.toString();
         }
         for (Team team : teamList) {
             sb.append(team.getName()).append(", ");
         }
-        sb.deleteCharAt(sb.length()-2);
+        sb.deleteCharAt(sb.length() - 2);
         return sb.toString().trim();
     }
     // TODO: 8.08.23 Do a check if there is no activity and return that there is no activity.
-
-    @Override
-    protected boolean requiresLogin() {
-        return true;
-    }
 
 }

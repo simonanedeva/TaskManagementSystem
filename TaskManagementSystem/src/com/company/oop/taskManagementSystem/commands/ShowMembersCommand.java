@@ -17,6 +17,11 @@ public class ShowMembersCommand extends BaseCommand {
     }
 
     @Override
+    protected boolean requiresLogin() {
+        return true;
+    }
+
+    @Override
     protected String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         return showMembers();
@@ -31,11 +36,6 @@ public class ShowMembersCommand extends BaseCommand {
         }
         sb.deleteCharAt(sb.length() - 2);
         return sb.toString().trim();
-    }
-
-    @Override
-    protected boolean requiresLogin() {
-        return true;
     }
 
 }

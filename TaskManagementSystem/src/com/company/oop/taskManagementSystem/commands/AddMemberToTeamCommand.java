@@ -7,7 +7,7 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.List;
 
-public class AddMemberToTeamCommand extends BaseCommand{
+public class AddMemberToTeamCommand extends BaseCommand {
 
     private static final String MEMBER_ADDED_TO_TEAM = "Member %s added to team %s!";
 
@@ -19,12 +19,18 @@ public class AddMemberToTeamCommand extends BaseCommand{
     }
 
     @Override
+    protected boolean requiresLogin() {
+        return true;
+    }
+
+    @Override
     protected String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String memberToAdd = parameters.get(0);
         String teamToAdd = parameters.get(1);
         return addToTeam(memberToAdd, teamToAdd);
     }
+
     private String addToTeam(String memberToAdd, String teamToAdd) {
         Member member = getTmsRepository().findMemberByUsername(memberToAdd);
         Team team = getTmsRepository().findTeamByName(teamToAdd);
@@ -41,14 +47,10 @@ public class AddMemberToTeamCommand extends BaseCommand{
             memberList.stream()
                     .filter(member -> member.getUsername().equals(memberToAdd))
                     .forEach(member -> {
-                throw new IllegalArgumentException(
-                        String.format(MEMBER_IS_PART_OF_TEAM_ERR_MESSAGE, memberToAdd, team.getName()));
-            });
+                        throw new IllegalArgumentException(
+                                String.format(MEMBER_IS_PART_OF_TEAM_ERR_MESSAGE, memberToAdd, team.getName()));
+                    });
         }
     }
 
-    @Override
-    protected boolean requiresLogin() {
-        return true;
-    }
 }

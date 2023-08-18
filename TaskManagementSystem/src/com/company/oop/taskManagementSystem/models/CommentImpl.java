@@ -21,15 +21,6 @@ public class CommentImpl implements Comment {
         setContent(content);
     }
 
-    private void setAuthor(String author) {
-        this.author = author;
-    }
-
-    private void setContent(String content) {
-        ValidationHelpers.validateStringLength(content, CONTENT_LEN_MIN, CONTENT_LEN_MAX, CONTENT_LEN_ERR);
-        this.content = content;
-    }
-
     @Override
     public String getContent() {
         return this.content;
@@ -39,4 +30,14 @@ public class CommentImpl implements Comment {
     public String getAuthor() {
         return this.author;
     }
+
+    private void setAuthor(String author) {
+        this.author = author;
+    }
+
+    private void setContent(String content) {
+        ValidationHelpers.validateStringLength(content, CONTENT_LEN_MIN, CONTENT_LEN_MAX, CONTENT_LEN_ERR);
+        this.content = content;
+    }
+
 }

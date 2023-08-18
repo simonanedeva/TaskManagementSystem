@@ -133,7 +133,7 @@ public class TMSRepositoryImpl implements TMSRepository {
 
     // TODO: 9.08.23 this method bellow may be unnecessary in the repo - it can be added to the CreateFeedbackCommand class;
     // TODO: 10.08.23 Maybe try to extend it using generics as this Find method is repetitive in different createCommand classes;
-    public Team findTeamOfMember(String member){
+    public Team findTeamOfMember(String member) {
         List<Team> teams = this.teams;
         for (Team team : teams) {
             List<Member> memberList = team.getMembers();
@@ -156,8 +156,8 @@ public class TMSRepositoryImpl implements TMSRepository {
         return new BugImpl(++id, title, description, stepsToReproduce, priority, severity, assignee);
     }
 
-    public Feedback createFeedback(String title, String description, int rating){
-        return new FeedbackImpl(++id,title, description,rating);
+    public Feedback createFeedback(String title, String description, int rating) {
+        return new FeedbackImpl(++id, title, description, rating);
     }
 }
 

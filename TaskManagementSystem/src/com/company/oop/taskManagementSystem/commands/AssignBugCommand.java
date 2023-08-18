@@ -14,7 +14,11 @@ public class AssignBugCommand extends BaseCommand {
 
     public AssignBugCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
+    }
 
+    @Override
+    protected boolean requiresLogin() {
+        return true;
     }
 
     @Override
@@ -50,17 +54,13 @@ public class AssignBugCommand extends BaseCommand {
     private static void throwIfInvalidAssignee(String assignee, Team teamOfLoggedInMember, List<Member> membersInTeam) {
         boolean isMember = false;
         for (Member member1 : membersInTeam) {
-            if(member1.getUsername().equals(assignee)) {
-                isMember=true;
+            if (member1.getUsername().equals(assignee)) {
+                isMember = true;
             }
         }
         if (!isMember) {
             throw new IllegalArgumentException(String.format(ASSIGNEE_ERR_MESSAGE, assignee, teamOfLoggedInMember.getName()));
         }
-    }
-    @Override
-    protected boolean requiresLogin() {
-        return true;
     }
 
 }

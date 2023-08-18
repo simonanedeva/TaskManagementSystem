@@ -1,3 +1,4 @@
+Commands to be used for manual testing of the application functionalities:
 
             case CREATEMEMBER:
                 CREATEMEMBER Victor
@@ -22,28 +23,28 @@
                 CREATEBOARDINTEAM BoardOne JavaHolics
 
             case SHOWMEMBERS:
-                a
+                SHOWMEMBERS
 
             case SHOWMEMBERACTIVITY:
-                a
+                SHOWMEMBERACTIVITY Simona
 
             case SHOWTEAMS:
-                a
+                SHOWTEAMS
 
             case SHOWTEAMACTIVITY:
-                a
+                SHOWTEAMACTIVITY JavaHolics
 
             case SHOWTEAMMEMBERS:
-                a
+                SHOWTEAMMEMBERS JavaHolics
 
             case SHOWTEAMBOARDS:
-                a
+                SHOWTEAMBOARDS JavaHolics
 
             case SHOWBOARDACTIVITY:
-                a
+                SHOWBOARDACTIVITY BoardOne
 
             case CREATESTORY:
-                CREATESTORY TitleOfStory BoardOne {{Description of the board}} HIGH LARGE Simona
+                CREATESTORY TitleOfStory BoardOne {{Description of the board}} LOW LARGE Simona
                 CREATESTORY AnotherStory BoardOne {{Description of the board}} HIGH LARGE Victor
 
             case CREATEBUG:
@@ -54,38 +55,66 @@
                 CREATEFEEDBACK TitleOfFeedback BoardOne {{Description of feedback}} 5
 
             case ADDCOMMENTTOTASK:
-                a
+                ADDCOMMENTTOTASK CommentToAdd TitleOfTheBug
 
             case CHANGEPRIORITY:
-                a
+                CHANGEPRIORITY TitleOfStory HIGH
+                CHANGEPRIORITY TitleOfBug MEDIUM
+                CHANGEPRIORITY TitleOfStory LOW
 
             case CHANGESTATUS:
-                a
+                CHANGESTATUS TitleOfStory NOTDONE
+                CHANGESTATUS TitleOfStory INPROGRESS
+                CHANGESTATUS TitleOfStory DONE
+
+                CHANGESTATUS TitleOfTheBug ACTIVE
+                CHANGESTATUS TitleOfTheBug FIXED
+
+                CHANGESTATUS TitleOfFeedback NEW
+                CHANGESTATUS TitleOfFeedback UNSCHEDULED
+                CHANGESTATUS TitleOfFeedback SCHEDULED
+                CHANGESTATUS TitleOfFeedback DONE
 
             case CHANGEBUGSEVERITY:
-                a
+                CHANGEBUGSEVERITY TitleOfTheBug CRITICAL
+                CHANGEBUGSEVERITY TitleOfTheBug MAJOR
+                CHANGEBUGSEVERITY TitleOfTheBug MINOR
 
             case CHANGESTORYSIZE:
-                a
+                CHANGEPRIORITY TitleOfStory LOW
 
             case CHANGEFEEDBACKRATING:
-                a
+                CHANGEFEEDBACKRATING TitleOfFeedback 1
 
             case ASSIGNBUG:
-                a
+                ASSIGNBUG TitleOfTheBug Victor
 
             case ASSIGNSTORY:
-                a
+                ASSIGNSTORY TitleOfStory Victor
 
             case FILTER:
-                a
+                FILTER Tasks Assignee Simona
 
             case SORT:
-                SORT Bug Title
-                SORT Bug Status
-                SORT Bug Priority
-                SORT Bug Severity
-                SORT Bug Assignee
+                SORT allTasks Title
+                SORT allTasksWithAssignee Title
+
+                 SORT Bugs Title
+                 SORT Bugs Status
+                 SORT Bugs Priority
+                 SORT Bugs Severity
+                 SORT Bugs Assignee
+
+                 SORT Stories Title
+                 SORT Stories Status
+                 SORT Stories Priority
+                 SORT Stories Size
+                 SORT Stories Assignee
+
+                SORT Feedbacks Title
+                SORT Feedbacks Status
+                SORT Feedbacks Rating
+
 
             case LOGOUT:
                 LOGOUT Victor

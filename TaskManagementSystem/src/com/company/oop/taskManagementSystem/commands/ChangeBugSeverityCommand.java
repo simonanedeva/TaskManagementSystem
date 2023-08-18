@@ -21,6 +21,11 @@ public class ChangeBugSeverityCommand extends BaseCommand {
     }
 
     @Override
+    protected boolean requiresLogin() {
+        return true;
+    }
+
+    @Override
     protected String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String bugToChange = parameters.get(0);
@@ -49,8 +54,4 @@ public class ChangeBugSeverityCommand extends BaseCommand {
         throw new IllegalArgumentException(String.format("There is no bug %s in team %s!", bugToChange, memberTeam.getName()));
     }
 
-    @Override
-    protected boolean requiresLogin() {
-        return true;
-    }
 }

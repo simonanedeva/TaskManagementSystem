@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 public class ValidationHelpers {
     private static final String INVALID_NUMBER_OF_ARGUMENTS = "Invalid number of arguments. Expected: %d; received: %d.";
+
     public static void validatePattern(String value, String pattern, String message) {
         Pattern patternToMatch = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         Matcher matcher = patternToMatch.matcher(value);
@@ -13,6 +14,7 @@ public class ValidationHelpers {
             throw new IllegalArgumentException(message);
         }
     }
+
     public static void validateStringLength(String stringToValidate, int minLength, int maxLength, String message) {
         validateIntRange(stringToValidate.length(), minLength, maxLength, message);
     }
@@ -30,4 +32,5 @@ public class ValidationHelpers {
             );
         }
     }
+
 }

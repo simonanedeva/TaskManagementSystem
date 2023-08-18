@@ -75,15 +75,6 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
         return sb.toString();
     }
 
-    private void setId(int id) {
-        this.id = id;
-    }
-
-    private void setTitle(String title) {
-        ValidationHelpers.validateStringLength(title, MIN_LENGTH_TITLE, MAX_LENGTH_TITLE, INVALID_TITLE_LENGTH_MESSAGE);
-        this.title = title;
-    }
-
     public void setDescription(String description) {
         ValidationHelpers.validateStringLength(description, MIN_LENGTH_DESCRIPTION, MAX_LENGTH_DESCRIPTION, INVALID_DESCRIPTION_LENGTH_MESSAGE);
         // TODO: 14.08.23 add a validation here for the Regex pattern of Description - {{ .... }} 
@@ -94,13 +85,9 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
         this.comments.add(comment);
     }
 
-    ;
-
     public void removeComment(Comment comment) {
         this.comments.remove(comment);
     }
-
-    ;
 
     public abstract boolean isValidStatus(StatusValues value);
 
@@ -113,7 +100,7 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
         this.activityHistory.add(new ActivityLogImpl(event));
     }
 
-    public String returnTaskSimpleInfo(){
+    public String returnTaskSimpleInfo() {
         return String.format("""
                 Task Title: %s
                 Task Description: %s
@@ -124,6 +111,16 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
         return String.format("""
                 %s Title: %s
                 %s Description: %s
-                %s Status: %s""",getType(), getTitle(),getType(), getDescription(),getType(),getStatus().toString());
+                %s Status: %s""", getType(), getTitle(), getType(), getDescription(), getType(), getStatus().toString());
     }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    private void setTitle(String title) {
+        ValidationHelpers.validateStringLength(title, MIN_LENGTH_TITLE, MAX_LENGTH_TITLE, INVALID_TITLE_LENGTH_MESSAGE);
+        this.title = title;
+    }
+
 }

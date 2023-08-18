@@ -1,10 +1,10 @@
 package com.company.oop.taskManagementSystem.models.contracts;
 
 
-public interface Feedback extends Task{
+public interface Feedback extends Task {
 
-     int getRating();
+    int getRating();
 
-     void changeRating(int newRating);
+    void changeRating(int newRating);
 
 }

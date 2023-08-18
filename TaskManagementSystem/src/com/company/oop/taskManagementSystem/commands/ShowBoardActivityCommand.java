@@ -20,6 +20,11 @@ public class ShowBoardActivityCommand extends BaseCommand {
     }
 
     @Override
+    protected boolean requiresLogin() {
+        return true;
+    }
+
+    @Override
     protected String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String boardName = parameters.get(0);
@@ -34,10 +39,10 @@ public class ShowBoardActivityCommand extends BaseCommand {
         for (Team team : teams) {
             List<Board> boards = team.getBoards();
             for (Board board : boards) {
-                if (board.getName().equals(boardName)){
+                if (board.getName().equals(boardName)) {
                     stringBuilder.append(board.getName()).append(System.lineSeparator());
-                    if (board.displayBoardActivityHistory().isEmpty()){
-                        stringBuilder.append(String.format(NO_ACTIVITY_FOR_BOARD,board.getName()));
+                    if (board.displayBoardActivityHistory().isEmpty()) {
+                        stringBuilder.append(String.format(NO_ACTIVITY_FOR_BOARD, board.getName()));
                         stringBuilder.append(System.lineSeparator());
                     } else {
                         stringBuilder.append(board.displayBoardActivityHistory());
@@ -47,11 +52,6 @@ public class ShowBoardActivityCommand extends BaseCommand {
         }
 
         return stringBuilder.toString();
-    }
-
-    @Override
-    protected boolean requiresLogin() {
-        return false;
     }
 
 }

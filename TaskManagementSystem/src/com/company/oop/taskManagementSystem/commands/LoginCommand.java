@@ -12,8 +12,14 @@ public class LoginCommand extends BaseCommand {
     public final static String MEMBER_LOGGED_IN_ALREADY = "Member %s is logged in! Please log out first!";
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1; //switch to 2 if password implemented!!!
+
     public LoginCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
+    }
+
+    @Override
+    protected boolean requiresLogin() {
+        return false;
     }
 
     @Override
@@ -31,11 +37,6 @@ public class LoginCommand extends BaseCommand {
         return String.format(MEMBER_LOGGED_IN, username);
     }
 
-    @Override
-    protected boolean requiresLogin() {
-        return false;
-    }
-
     private void throwIfMemberLoggedIn() {
         if (getTmsRepository().hasLoggedInMember()) {
             throw new IllegalArgumentException(
@@ -43,4 +44,5 @@ public class LoginCommand extends BaseCommand {
             );
         }
     }
+
 }

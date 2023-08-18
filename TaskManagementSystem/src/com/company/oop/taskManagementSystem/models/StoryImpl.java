@@ -6,7 +6,7 @@ import com.company.oop.taskManagementSystem.models.enums.*;
 import com.company.oop.taskManagementSystem.models.enums.contracts.StatusStory;
 
 public class StoryImpl extends TaskImpl implements Story, AssigneeChangeable {
-    
+
     private Priority priority;
     private StorySize size;
     private String assignee;
@@ -33,15 +33,15 @@ public class StoryImpl extends TaskImpl implements Story, AssigneeChangeable {
 
     @Override
     public boolean isValidStatus(StatusValues value) {
-            StatusValues[] allowedValues = StatusStory.allowedValues;
-            for (StatusValues allowedValue : allowedValues) {
-                if (allowedValue == value) {
-                    return true;
-                }
+        StatusValues[] allowedValues = StatusStory.allowedValues;
+        for (StatusValues allowedValue : allowedValues) {
+            if (allowedValue == value) {
+                return true;
             }
-
-            throw new IllegalArgumentException("Invalid enum value for this class");
         }
+
+        throw new IllegalArgumentException("Invalid enum value for this class");
+    }
 
     @Override
     public Priority getPriority() {
@@ -100,6 +100,6 @@ public class StoryImpl extends TaskImpl implements Story, AssigneeChangeable {
                 Story Priority: %s
                 Story Size: %s
                 Story Assignee: %s
-                """,super.toString(), getPriority(), getSize(), getAssignee());
+                """, super.toString(), getPriority(), getSize(), getAssignee());
     }
 }

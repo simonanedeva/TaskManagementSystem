@@ -21,6 +21,11 @@ public class CreateStoryCommand extends BaseCommand {
     }
 
     @Override
+    protected boolean requiresLogin() {
+        return true;
+    }
+
+    @Override
     protected String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String description = parameters.get(0);
@@ -70,8 +75,4 @@ public class CreateStoryCommand extends BaseCommand {
                 .orElseThrow(() -> new IllegalArgumentException("Board does not exist in this team"));
     }
 
-    @Override
-    protected boolean requiresLogin() {
-        return false;
-    }
 }

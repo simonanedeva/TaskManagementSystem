@@ -18,6 +18,11 @@ public class ChangePriorityCommand extends BaseCommand {
     }
 
     @Override
+    protected boolean requiresLogin() {
+        return true;
+    }
+
+    @Override
     protected String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String taskToChange = parameters.get(0);
@@ -58,11 +63,6 @@ public class ChangePriorityCommand extends BaseCommand {
             }
         }
         throw new IllegalArgumentException(String.format("There is no story/bug %s in team %s!", taskToChange, memberTeam.getName()));
-    }
-
-    @Override
-    protected boolean requiresLogin() {
-        return true;
     }
 
 }

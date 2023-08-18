@@ -21,10 +21,6 @@ public class BoardImpl implements Board {
         stories = new ArrayList<>();
     }
 
-    private void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public String getName() {
         return name;
@@ -79,4 +75,9 @@ public class BoardImpl implements Board {
     public void addStory(Story story) {
         stories.add(story);
     }
+
+    private void setName(String name) {
+        this.name = name;
+    }
+
 }

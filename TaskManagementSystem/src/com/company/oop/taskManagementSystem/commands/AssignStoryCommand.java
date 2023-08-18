@@ -17,6 +17,11 @@ public class AssignStoryCommand extends BaseCommand {
     }
 
     @Override
+    protected boolean requiresLogin() {
+        return true;
+    }
+
+    @Override
     protected String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String storyToReassign = parameters.get(0);
@@ -49,18 +54,13 @@ public class AssignStoryCommand extends BaseCommand {
     private static void throwIfInvalidAssignee(String assignee, Team teamOfLoggedInMember, List<Member> membersInTeam) {
         boolean isMember = false;
         for (Member member1 : membersInTeam) {
-            if(member1.getUsername().equals(assignee)) {
-                isMember=true;
+            if (member1.getUsername().equals(assignee)) {
+                isMember = true;
             }
         }
         if (!isMember) {
             throw new IllegalArgumentException(String.format(ASSIGNEE_ERR_MESSAGE, assignee, teamOfLoggedInMember.getName()));
         }
-    }
-
-    @Override
-    protected boolean requiresLogin() {
-        return true;
     }
 
 }

@@ -16,7 +16,7 @@ public class FeedbackImplTests {
     @BeforeEach
     public void setUp() {
         id = 1;
-        title = "Valid Title";
+        title = "ValidTitle";
         description = "This should be a valid description";
     }
 
