@@ -29,6 +29,7 @@ public class ShowTeamMembersCommand extends BaseCommand {
         return showTeamMembers(teamName);
     }
 
+    // TODO: 18.08.23 implement a method in Member for optimization (Viki knows)
     private String showTeamMembers(String teamName) {
         Team team = getTmsRepository().findTeamByName(teamName);
         List<Member> teamMembers = team.getMembers();
@@ -43,7 +44,6 @@ public class ShowTeamMembersCommand extends BaseCommand {
         }
         sb.deleteCharAt(sb.length() - 2);
         return sb.toString().trim();
-        // TODO: 8.08.23 think about implementing a print method here as well, we have a repetition (ShowMembersCommand)
     }
 
 }

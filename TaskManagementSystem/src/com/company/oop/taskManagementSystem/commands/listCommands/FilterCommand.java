@@ -116,7 +116,6 @@ public class FilterCommand extends BaseCommand {
                         StringBuilder::append).toString();
     }
 
-    // TODO: 16.08.23 to be implemented.
     private String filterFeedback(String pattern) {
         List<Feedback> feedbackList = new ArrayList<>();
         Member member = getTmsRepository().getLoggedInMember();

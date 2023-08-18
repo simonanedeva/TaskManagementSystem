@@ -30,11 +30,6 @@ public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable{
         status = StatusValues.ACTIVE;
     }
 
-    // TODO: 7.08.23  TBC if in BugImpl or UserImpl
-    public void addStepToReproduce(String step) {
-        stepsToReproduce.add(step);
-    }
-
     @Override
     public List<String> getStepsToReproduce() {
         return new ArrayList<>(stepsToReproduce);
@@ -82,7 +77,6 @@ public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable{
     }
 
     @Override
-    // TODO: 11.08.23 improve; make boolean for the Change status validation
     public boolean isValidStatus(StatusValues value) {
         StatusValues[] allowedValues = StatusBug.allowedValues;
         for (StatusValues allowedValue : allowedValues) {
@@ -122,6 +116,6 @@ public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable{
 
     private void setAssignee(String assignee) {
         this.assignee = assignee;
-        // TODO: 7.08.23 make a validation, assignee muse be a member from the team
+        // TODO: 7.08.23 make a validation, assignee muse be a member from the team (separate method validateAssignee)
     }
 }

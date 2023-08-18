@@ -25,7 +25,6 @@ public class ChangeFeedbackRatingCommand extends BaseCommand {
     protected String executeCommand(List<String> parameters) {
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String feedbackToChange = parameters.get(0);
-        // TODO: 12.08.23 this one bellow has to to made to throw in case of inputing s-th different from integer.
         int newRating = ParsingHelpers.tryParseInt(parameters.get(1), "Please provide a valid whole number!");
         return changeRating(feedbackToChange, newRating);
     }

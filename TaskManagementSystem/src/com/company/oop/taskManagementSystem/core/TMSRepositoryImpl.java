@@ -42,22 +42,17 @@ public class TMSRepositoryImpl implements TMSRepository {
 
     @Override
     public Member findMemberByUsername(String username) {
-        Member member = members
+        return members
                 .stream()
-                .filter(u -> u.getUsername().equalsIgnoreCase(username))
+                .filter(u -> u.getUsername().equals(username))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(String.format(NO_SUCH_MEMBER, username)));
-        return member;
     }
 
-    // TODO: 7.08.23 not sure how the above one works and made this one but we can rewrite it later. Also added to the interface.
     public boolean memberExists(String username) {
-        for (Member member : members) {
-            if (member.getUsername().equalsIgnoreCase(username)) {
-                return true;
-            }
-        }
-        return false;
+        return members.
+                stream()
+                .anyMatch(u -> u.getUsername().equals(username));
     }
 
     @Override
@@ -131,19 +126,13 @@ public class TMSRepositoryImpl implements TMSRepository {
         return new BoardImpl(boardName);
     }
 
-    // TODO: 9.08.23 this method bellow may be unnecessary in the repo - it can be added to the CreateFeedbackCommand class;
-    // TODO: 10.08.23 Maybe try to extend it using generics as this Find method is repetitive in different createCommand classes;
     public Team findTeamOfMember(String member) {
-        List<Team> teams = this.teams;
-        for (Team team : teams) {
-            List<Member> memberList = team.getMembers();
-            for (Member member1 : memberList) {
-                if (member1.getUsername().equals(member)) {
-                    return team;
-                }
-            }
-        }
-        throw new IllegalArgumentException(String.format("Command is not supported as member %s is not part of any team!", loggedMember.getUsername()));
+        return teams
+                .stream()
+                .filter(team -> team.getMembers().stream()
+                        .anyMatch(member1 -> member1.getUsername().equals(member)))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Command is not supported as member %s is not part of any team!", loggedMember.getUsername())));
     }
 
     @Override

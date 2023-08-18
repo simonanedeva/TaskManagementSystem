@@ -51,6 +51,7 @@ public class AddCommentToTaskCommand extends BaseCommand {
     private static boolean isTaskExist(String taskToAdd, Member member, Comment commentToAdd, boolean taskExist, List<Task> tasks) {
         for (Task task : tasks) {
             if (task.getTitle().equals(taskToAdd)) {
+                // TODO: 18.08.23 see if the 3 rows below can be added above (single responsibility principle)
                 task.addComment(commentToAdd);
                 task.logEvent(String.format("%s added a comment to task %s", member.getUsername(), task.getTitle()));
                 member.logEvent(String.format("%s added a comment to task %s", member.getUsername(), task.getTitle()));

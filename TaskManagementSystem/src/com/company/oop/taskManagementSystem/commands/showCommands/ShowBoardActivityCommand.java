@@ -34,8 +34,6 @@ public class ShowBoardActivityCommand extends BaseCommand {
     private String showBoardActivity(String boardName) {
         List<Team> teams = getTmsRepository().getTeams();
         StringBuilder stringBuilder = new StringBuilder();
-        // TODO: 9.08.23 maybe we can optimize this one bellow with a separate method (a variety of it is also
-        //  repetitive among other classes).
         for (Team team : teams) {
             List<Board> boards = team.getBoards();
             for (Board board : boards) {
@@ -50,7 +48,6 @@ public class ShowBoardActivityCommand extends BaseCommand {
                 }
             }
         }
-
         return stringBuilder.toString();
     }
 

@@ -27,6 +27,7 @@ public class ShowTeamsCommand extends BaseCommand {
         return showTeams();
     }
 
+    // TODO: 18.08.23 implement a method in Member for optimization (Viki knows)
     private String showTeams() {
         StringBuilder sb = new StringBuilder();
         List<Team> teamList = getTmsRepository().getTeams();
@@ -40,6 +41,5 @@ public class ShowTeamsCommand extends BaseCommand {
         sb.deleteCharAt(sb.length() - 2);
         return sb.toString().trim();
     }
-    // TODO: 8.08.23 Do a check if there is no activity and return that there is no activity.
 
 }

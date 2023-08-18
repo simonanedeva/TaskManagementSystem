@@ -13,8 +13,6 @@ import java.util.List;
 
 public class CreateBugCommand extends BaseCommand {
 
-    // TODO: 9.08.23 implementation works ONLY when extractDescriptionParameters V.2 method in TMS Engine is uncommented
-
     private static final String BUG_CREATED = "Bug %s created successfully in board %s!";
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 7;
@@ -31,7 +29,6 @@ public class CreateBugCommand extends BaseCommand {
 
     @Override
     protected String executeCommand(List<String> parameters) {
-        // TODO: 9.08.23 change extractDescriptionParameters to fit this command (suggestion in comment in class)
 
         ValidationHelpers.validateArgumentsCount(parameters, EXPECTED_NUMBER_OF_ARGUMENTS);
         String description = parameters.get(0);
