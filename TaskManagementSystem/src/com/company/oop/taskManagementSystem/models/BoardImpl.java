@@ -5,6 +5,7 @@ import com.company.oop.taskManagementSystem.models.enums.Priority;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class BoardImpl implements Board {
@@ -80,4 +81,8 @@ public class BoardImpl implements Board {
         this.name = name;
     }
 
+    @Override
+    public List getItem() {
+        return new ArrayList<>();
+    }
 }

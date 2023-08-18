@@ -2,7 +2,7 @@ package com.company.oop.taskManagementSystem.models.contracts;
 
 import java.util.List;
 
-public interface Board {
+public interface Board extends ItemGettable {
 
     String getName();
 

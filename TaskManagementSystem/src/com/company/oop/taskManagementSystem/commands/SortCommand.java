@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class SortCommand extends BaseCommand {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
@@ -37,6 +38,16 @@ public class SortCommand extends BaseCommand {
                     throw new IllegalArgumentException("What you are searching for might exist in some other space-time " +
                             "continuum");
         };
+    }
+
+    public <T> String filter(List<T>list , Predicate<T> predicate){
+        List<T> someList = new ArrayList<>();
+        Member member = getTmsRepository().getLoggedInMember();
+        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
+        for (Board b : teamOfLoggedInMember.getBoards()) {
+            someList.addAll(b.getBugs());
+        }
+        return null;
     }
 
     private String sortBug(String sortBy) {
