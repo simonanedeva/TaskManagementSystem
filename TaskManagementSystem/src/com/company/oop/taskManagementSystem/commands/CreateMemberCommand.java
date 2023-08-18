@@ -18,7 +18,7 @@ public class CreateMemberCommand extends BaseCommand {
 
     @Override
     protected boolean requiresLogin() {
-        return true;
+        return false;
     }
 
     @Override

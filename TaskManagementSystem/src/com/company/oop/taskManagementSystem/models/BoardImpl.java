@@ -81,8 +81,4 @@ public class BoardImpl implements Board {
         this.name = name;
     }
 
-    @Override
-    public List getItem() {
-        return new ArrayList<>();
-    }
 }
