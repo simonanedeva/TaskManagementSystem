@@ -1,6 +1,15 @@
 package com.company.oop.taskManagementSystem.core;
 
+import com.company.oop.taskManagementSystem.commands.assignCommands.AssignBugCommand;
+import com.company.oop.taskManagementSystem.commands.assignCommands.AssignStoryCommand;
 import com.company.oop.taskManagementSystem.commands.*;
+import com.company.oop.taskManagementSystem.commands.addCommands.AddCommentToTaskCommand;
+import com.company.oop.taskManagementSystem.commands.addCommands.AddMemberToTeamCommand;
+import com.company.oop.taskManagementSystem.commands.changeCommands.*;
+import com.company.oop.taskManagementSystem.commands.createCommands.*;
+import com.company.oop.taskManagementSystem.commands.listCommands.FilterCommand;
+import com.company.oop.taskManagementSystem.commands.listCommands.SortCommand;
+import com.company.oop.taskManagementSystem.commands.showCommands.*;
 import com.company.oop.taskManagementSystem.commands.contracts.Command;
 import com.company.oop.taskManagementSystem.commands.enums.CommandType;
 import com.company.oop.taskManagementSystem.core.contracts.CommandFactory;

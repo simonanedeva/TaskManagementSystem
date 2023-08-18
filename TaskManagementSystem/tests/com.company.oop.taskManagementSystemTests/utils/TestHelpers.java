@@ -27,9 +27,11 @@ public class TestHelpers {
      * @param length the size of the String to be returned.
      * @return a new String with size equal to length
      */
+
     public static String getString(int length) {
         return "x".repeat(length);
     }
+
 
     }
 
