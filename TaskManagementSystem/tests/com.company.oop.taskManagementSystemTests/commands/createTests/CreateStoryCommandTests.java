@@ -30,7 +30,7 @@ import java.util.List;
 public class CreateStoryCommandTests {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = CreateStoryCommand.EXPECTED_NUMBER_OF_ARGUMENTS;
-    public static final String VALID_TITLE = TestHelpers.getString(TaskImpl.TITLE_MAX_LENGTH + 1);
+    public static final String VALID_TITLE = TestHelpers.getString(TaskImpl.TITLE_MIN_LENGTH + 1);
     public static final String INVALID_TITLE_TOO_SHORT = TestHelpers.getString(TaskImpl.TITLE_MIN_LENGTH - 1);
     public static final String INVALID_TITLE_TOO_LONG = TestHelpers.getString(TaskImpl.TITLE_MAX_LENGTH + 1);
     public static final String VALID_DESCRIPTION = TestHelpers.getString(TaskImpl.DESCRIPTION_MIN_LENGTH + 1);
@@ -70,12 +70,13 @@ public class CreateStoryCommandTests {
         boardInTeamCommand.execute(List.of(board.getName(), team.getName()));
     }
 
-//    @Test
+    @Test
     // TODO: 19.08.23 uncomment when logic fixed
-//    public void should_CreateNewStory_When_PassedValidInput() {
-//        List<String> parameters = List.of(VALID_ID, VALID_TITLE, VALID_DESCRIPTION, VALID_PRIORITY, VALID_SIZE, VALID_ASSIGNEE);
-//
-//        String storyCreatedMessage = command.execute(parameters);
+    public void should_CreateNewStory_When_PassedValidInput() {
+        List<String> parameters = List.of(VALID_TITLE,VALID_DESCRIPTION, "BoardOne", VALID_PRIORITY, VALID_SIZE, VALID_ASSIGNEE);
+
+        String storyCreatedMessage = command.execute(parameters);
+    }
 //
 //        // TODO: 19.08.23 think of a way to assert that the story was indeed created
 //        //Assertions.assertEquals(1, BoardImpl.getStories());

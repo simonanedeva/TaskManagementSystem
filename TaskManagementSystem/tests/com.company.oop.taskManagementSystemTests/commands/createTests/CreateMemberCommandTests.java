@@ -3,11 +3,9 @@ package com.company.oop.taskManagementSystemTests.commands.createTests;
 import com.company.oop.taskManagementSystem.commands.createCommands.CreateMemberCommand;
 
 import com.company.oop.taskManagementSystem.commands.contracts.Command;
-import com.company.oop.taskManagementSystem.commands.createCommands.CreateTeamCommand;
 import com.company.oop.taskManagementSystem.core.TMSRepositoryImpl;
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
 import com.company.oop.taskManagementSystem.models.MemberImpl;
-import com.company.oop.taskManagementSystem.models.TeamImpl;
 import com.company.oop.taskManagementSystemTests.utils.TestHelpers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -77,7 +75,7 @@ public class CreateMemberCommandTests {
     }
 
     @Test
-    public void should_ThrowException_When_UsernameConstainsInvalidSymbol() {
+    public void should_ThrowException_When_UsernameContainsInvalidSymbol() {
         List<String> parameters = List.of(INVALID_USERNAME_SYMBOL);
 
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
