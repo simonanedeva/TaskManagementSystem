@@ -7,6 +7,10 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.List;
 
+/**
+ * CreateTeamCommand params: TeamName
+ */
+
 public class CreateTeamCommand extends BaseCommand {
     public final static String TEAM_REGISTERED = "Team %s registered successfully!";
     public final static String TEAM_ALREADY_EXIST = "Team %s already exist. Choose a different name for a team!";

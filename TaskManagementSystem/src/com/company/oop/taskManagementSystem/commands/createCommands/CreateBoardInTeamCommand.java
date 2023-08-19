@@ -10,8 +10,9 @@ import java.util.List;
 
 public class CreateBoardInTeamCommand extends BaseCommand {
 
-    private static final String BOARD_ADDED_TO_TEAM = "Board %s added to team %s!";
+    // TODO: 19.08.23 in this command we don't check if loggedInMember is part of the team he adds board to
 
+    public static final String BOARD_ADDED_TO_TEAM = "Board %s added to team %s!";
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
     public static final String BOARD_IS_PART_OF_TEAM_ERR_MESSAGE = "Board %s is already a part of team %s!";
 

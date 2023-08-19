@@ -12,9 +12,8 @@ import java.util.List;
 
 public class CreateStoryCommand extends BaseCommand {
 
-    private static final String STORY_CREATED = "Story %s created successfully in board %s!";
-
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 6;
+    public static final String STORY_CREATED = "Story %s created successfully in board %s!";
     public static final String ASSIGNEE_ERR_MESSAGE = "Assignee %s is not part of team %s!";
 
     public CreateStoryCommand(TMSRepository tmsRepository) {

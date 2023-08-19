@@ -13,14 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFeedback {
-    public static final int MAX_LENGTH_TITLE = 50;
-    public static final int MIN_LENGTH_TITLE = 10;
-    public static final int MIN_LENGTH_DESCRIPTION = 10;
-    public static final int MAX_LENGTH_DESCRIPTION = 500;
+    public static final int TITLE_MAX_LENGTH = 50;
+    public static final int TITLE_MIN_LENGTH = 10;
+    public static final int DESCRIPTION_MIN_LENGTH = 10;
+    public static final int DESCRIPTION_MAX_LENGTH = 500;
     public static final String INVALID_TITLE_LENGTH_MESSAGE = String.format("Title length should be between %d and %d characters long"
-            , MIN_LENGTH_TITLE, MAX_LENGTH_TITLE);
+            , TITLE_MIN_LENGTH, TITLE_MAX_LENGTH);
     public static final String INVALID_DESCRIPTION_LENGTH_MESSAGE = String.format("Description length should be between %d and %d characters long"
-            , MIN_LENGTH_DESCRIPTION, MAX_LENGTH_DESCRIPTION);
+            , DESCRIPTION_MIN_LENGTH, DESCRIPTION_MAX_LENGTH);
 
 
     private int id;
@@ -76,7 +76,7 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
     }
 
     public void setDescription(String description) {
-        ValidationHelpers.validateStringLength(description, MIN_LENGTH_DESCRIPTION, MAX_LENGTH_DESCRIPTION, INVALID_DESCRIPTION_LENGTH_MESSAGE);
+        ValidationHelpers.validateStringLength(description, DESCRIPTION_MIN_LENGTH, DESCRIPTION_MAX_LENGTH, INVALID_DESCRIPTION_LENGTH_MESSAGE);
         // TODO: 14.08.23 add a validation here for the Regex pattern of Description - {{ .... }} 
         this.description = description;
     }
@@ -119,7 +119,7 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
     }
 
     private void setTitle(String title) {
-        ValidationHelpers.validateStringLength(title, MIN_LENGTH_TITLE, MAX_LENGTH_TITLE, INVALID_TITLE_LENGTH_MESSAGE);
+        ValidationHelpers.validateStringLength(title, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH, INVALID_TITLE_LENGTH_MESSAGE);
         this.title = title;
     }
 
