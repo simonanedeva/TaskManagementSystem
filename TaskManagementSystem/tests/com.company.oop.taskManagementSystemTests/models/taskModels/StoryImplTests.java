@@ -152,7 +152,7 @@ public class StoryImplTests {
     }
 
 
-    public StoryImpl initializeStory() {
+    public static StoryImpl initializeStory() {
         return new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE);
     }
 
