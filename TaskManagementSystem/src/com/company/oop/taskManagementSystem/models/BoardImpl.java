@@ -2,6 +2,7 @@ package com.company.oop.taskManagementSystem.models;
 
 import com.company.oop.taskManagementSystem.models.contracts.*;
 import com.company.oop.taskManagementSystem.models.enums.Priority;
+import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,6 +10,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class BoardImpl implements Board {
+
+    public static final int BOARD_NAME_MIN_LENGTH = 5;
+    public static final int BOARD_NAME_MAX_LENGTH = 10;
+    public static final String BOARD_NAME_LEN_ERR = String.format("Board name must be between %d and %d characters long!",
+            BOARD_NAME_MIN_LENGTH, BOARD_NAME_MAX_LENGTH);
 
     private String name;
     private final List<Bug> bugs;
@@ -78,6 +84,8 @@ public class BoardImpl implements Board {
     }
 
     private void setName(String name) {
+        ValidationHelpers.validateStringLength(name, BOARD_NAME_MIN_LENGTH, BOARD_NAME_MAX_LENGTH,
+                BOARD_NAME_LEN_ERR);
         this.name = name;
     }
 

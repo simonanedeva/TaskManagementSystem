@@ -8,8 +8,9 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 import java.util.List;
 
 public class CreateTeamCommand extends BaseCommand {
-    private final static String TEAM_REGISTERED = "Team %s registered successfully!";
-    private final static String TEAM_ALREADY_EXIST = "Team %s already exist. Choose a different name for a team!";
+    public final static String TEAM_REGISTERED = "Team %s registered successfully!";
+    public final static String TEAM_ALREADY_EXIST = "Team %s already exist. Choose a different name for a team!";
+
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
     public CreateTeamCommand(TMSRepository tmsRepository) {

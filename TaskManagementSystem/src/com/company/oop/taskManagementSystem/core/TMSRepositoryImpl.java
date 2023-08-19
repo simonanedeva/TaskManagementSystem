@@ -141,7 +141,8 @@ public class TMSRepositoryImpl implements TMSRepository {
     }
 
     @Override
-    public Bug createBug(String title, String boardToAdd, String description, List<String> stepsToReproduce, Priority priority, BugSeverity severity, String assignee) {
+    public Bug createBug(String title, String boardToAdd, String description, List<String> stepsToReproduce,
+                         Priority priority, BugSeverity severity, String assignee) {
         return new BugImpl(++id, title, description, stepsToReproduce, priority, severity, assignee);
     }
 

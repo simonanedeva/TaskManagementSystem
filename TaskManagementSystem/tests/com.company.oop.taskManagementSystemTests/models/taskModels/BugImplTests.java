@@ -1,10 +1,8 @@
-package com.company.oop.taskManagementSystemTests.models;
+package com.company.oop.taskManagementSystemTests.models.taskModels;
 
 import com.company.oop.taskManagementSystem.models.BugImpl;
-import com.company.oop.taskManagementSystem.models.StoryImpl;
 import com.company.oop.taskManagementSystem.models.enums.Priority;
 import com.company.oop.taskManagementSystem.models.enums.StatusValues;
-import com.company.oop.taskManagementSystem.models.enums.StorySize;
 import com.company.oop.taskManagementSystemTests.utils.TaskConstants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,15 +31,52 @@ public class BugImplTests {
     public void constructor_Should_ThrowException_When_TitleTooShort() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-                new BugImpl(TaskConstants.VALID_TASK_ID, "Short", TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_STEPS_TO_REPRODUCE, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SEVERITY, TaskConstants.VALID_TASK_ASSIGNEE));
+                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.INVALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_STEPS_TO_REPRODUCE, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SEVERITY, TaskConstants.VALID_TASK_ASSIGNEE));
     }
 
     @Test
     public void constructor_Should_ThrowException_When_DescriptionTooShort() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, "Short", TaskConstants.VALID_STEPS_TO_REPRODUCE, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SEVERITY, TaskConstants.VALID_TASK_ASSIGNEE));
+                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.INVALID_TASK_DESCRIPTION, TaskConstants.VALID_STEPS_TO_REPRODUCE, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SEVERITY, TaskConstants.VALID_TASK_ASSIGNEE));
     }
+
+    @Test
+    public void constructor_Should_ThrowException_When_TitleIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->
+                new BugImpl(TaskConstants.VALID_TASK_ID, null, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_STEPS_TO_REPRODUCE, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SEVERITY, TaskConstants.VALID_TASK_ASSIGNEE));
+    }
+
+    @Test
+    public void constructor_Should_ThrowException_When_DescriptionIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->
+                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, null, TaskConstants.VALID_STEPS_TO_REPRODUCE, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SEVERITY, TaskConstants.VALID_TASK_ASSIGNEE));
+    }
+
+    @Test
+    public void constructor_Should_ThrowException_When_StepsToReproduceIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->
+                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, null, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SEVERITY, TaskConstants.VALID_TASK_ASSIGNEE));
+    }
+
+    @Test
+    public void constructor_Should_ThrowException_When_PriorityIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->
+                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_STEPS_TO_REPRODUCE, null, TaskConstants.VALID_SEVERITY, TaskConstants.VALID_TASK_ASSIGNEE));
+    }
+
+    @Test
+    public void constructor_Should_ThrowException_When_SeverityIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->
+                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_STEPS_TO_REPRODUCE, TaskConstants.VALID_PRIORITY, null, TaskConstants.VALID_TASK_ASSIGNEE));
+    }
+
+    @Test
+    public void constructor_Should_ThrowException_When_AssigneeIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->
+                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_STEPS_TO_REPRODUCE, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SEVERITY, null));
+    }
+
 
     @Test
     public void getter_Should_Return_ValidPriority() {
@@ -88,7 +123,7 @@ public class BugImplTests {
     }
 
     @Test
-    public void should_Change_Priority() {
+    public void method_Should_Change_Priority() {
         BugImpl bug = initializeBug();
 
         bug.changePriority(Priority.LOW);
@@ -98,7 +133,7 @@ public class BugImplTests {
 
 
     @Test
-    public void should_Change_Assignee_WhenValidArgument() {
+    public void method_Should_Change_Assignee_WhenValidArgument() {
         BugImpl bug = initializeBug();
 
         bug.changeAssignee("Simona");
@@ -107,7 +142,7 @@ public class BugImplTests {
     }
 
     @Test
-    public void should_ThrowException_When_NewAssigneeSameAsOld() {
+    public void method_Should_ThrowException_When_NewAssigneeSameAsOld() {
         BugImpl bug = initializeBug();
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> bug.changeAssignee("Victor"));

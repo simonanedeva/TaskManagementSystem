@@ -15,14 +15,11 @@ public class TaskConstants {
     private static final int DESCRIPTION_MIN_LENGTH = 10;
     private static final int DESCRIPTION_MAX_LENGTH = 500;
 
-    private static final String VALID_TITLE = TestHelpers.getString(TITLE_MIN_LENGTH + 1);
-    private static final String INVALID_TITLE = TestHelpers.getString(TITLE_MAX_LENGTH + 1);
-    private static final String VALID_DESCRIPTION = TestHelpers.getString(DESCRIPTION_MIN_LENGTH + 1);
-    private static final String INVALID_DESCRIPTION = TestHelpers.getString(DESCRIPTION_MAX_LENGTH + 1);
-
     public static final int VALID_TASK_ID = 1;
-    public static final String VALID_TASK_TITLE = "ThisIsAValidTitle";
-    public static final String VALID_TASK_DESCRIPTION = "{{Description of task}}";
+    public static final String VALID_TASK_TITLE = TestHelpers.getString(TITLE_MIN_LENGTH + 1);
+    public static final String INVALID_TASK_TITLE = TestHelpers.getString(TITLE_MAX_LENGTH + 1);;
+    public static final String VALID_TASK_DESCRIPTION = TestHelpers.getString(DESCRIPTION_MIN_LENGTH + 1);
+    public static final String INVALID_TASK_DESCRIPTION = TestHelpers.getString(DESCRIPTION_MAX_LENGTH + 1);
     public static final String VALID_TASK_ASSIGNEE = "Victor";
 
 
@@ -33,7 +30,7 @@ public class TaskConstants {
 
 
     //Feedback
-    public static final int VALID_RATING = 1;
+    public static final int VALID_FEEDBACK_RATING = 1;
 
     //Bug
     public static final List<String> VALID_STEPS_TO_REPRODUCE = Arrays.asList(

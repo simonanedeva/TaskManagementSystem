@@ -1,4 +1,4 @@
-package com.company.oop.taskManagementSystemTests.models;
+package com.company.oop.taskManagementSystemTests.models.taskModels;
 
 import com.company.oop.taskManagementSystem.models.StoryImpl;
 import com.company.oop.taskManagementSystem.models.enums.Priority;
@@ -9,13 +9,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StoryImplTests {
 
+    // TODO: 19.08.23 add validations for the null cases in the code
 
     @Test
-    public void should_CreateStory_When_ValidInput() {
+    public void constructor_Should_CreateStory_When_ValidInput() {
         StoryImpl story = initializeStory();
 
         Assertions.assertAll(
@@ -32,15 +32,46 @@ public class StoryImplTests {
     public void constructor_Should_ThrowException_When_TitleTooShort() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-                new StoryImpl(TaskConstants.VALID_TASK_ID, "Short", TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
+                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.INVALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
     }
 
     @Test
     public void constructor_Should_ThrowException_When_DescriptionTooShort() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
-                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, "Short", TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
+                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.INVALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
     }
+
+    @Test
+    public void constructor_Should_ThrowException_When_TitleIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->
+                new StoryImpl(TaskConstants.VALID_TASK_ID, null, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
+    }
+
+    @Test
+    public void constructor_Should_ThrowException_When_DescriptionIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->
+                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, null, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
+    }
+
+    @Test
+    public void constructor_Should_ThrowException_When_PriorityIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->
+                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, null, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
+    }
+
+    @Test
+    public void constructor_Should_ThrowException_When_SizeIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->
+                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY, null, TaskConstants.VALID_TASK_ASSIGNEE));
+    }
+
+    @Test
+    public void constructor_Should_ThrowException_When_AssigneeIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->
+                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, null));
+    }
+
 
     @Test
     public void getter_Should_Return_ValidPriority() {
@@ -64,15 +95,6 @@ public class StoryImplTests {
     }
 
     @Test
-    public void getter_Should_Return_ValidChangedStatus() {
-        StoryImpl story = initializeStory();
-
-        story.changeStatus(StatusValues.DONE);
-
-        assertEquals(StatusValues.DONE, story.getStatus());
-    }
-
-    @Test
     public void getter_Should_Return_ValidAssignee() {
         StoryImpl story = initializeStory();
 
@@ -87,7 +109,7 @@ public class StoryImplTests {
     }
 
     @Test
-    public void should_Change_Priority() {
+    public void method_Should_Change_Priority() {
         StoryImpl story = initializeStory();
 
         story.changePriority(Priority.LOW);
@@ -96,7 +118,7 @@ public class StoryImplTests {
     }
 
     @Test
-    public void should_Change_Size() {
+    public void method_Should_Change_Size() {
         StoryImpl story = initializeStory();
 
         story.changeSize(StorySize.MEDIUM);
@@ -105,7 +127,16 @@ public class StoryImplTests {
     }
 
     @Test
-    public void should_Change_Assignee_WhenValidArgument() {
+    public void method_Should_Change_Status() {
+        StoryImpl story = initializeStory();
+
+        story.changeStatus(StatusValues.INPROGRESS);
+
+        assertEquals(StatusValues.INPROGRESS, story.getStatus());
+    }
+
+    @Test
+    public void method_Should_Change_Assignee_WhenValidArgument() {
         StoryImpl story = initializeStory();
 
         story.changeAssignee("Simona");
@@ -114,14 +145,13 @@ public class StoryImplTests {
     }
 
     @Test
-    public void should_ThrowException_When_NewAssigneeSameAsOld() {
+    public void method_Should_ThrowException_When_NewAssigneeSameAsOld() {
         StoryImpl story = initializeStory();
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> story.changeAssignee("Victor"));
     }
 
 
-    //Helpers method to initialize a valid StoryImpl
     public StoryImpl initializeStory() {
         return new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE);
     }

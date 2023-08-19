@@ -107,7 +107,6 @@ public class SortCommand extends BaseCommand {
             }
             case "Status" -> {
                 return sort(storyList, Comparator.comparing(Story::getStatus));
-
             }
             case "Priority" -> {
                 return sort(storyList, Comparator.comparing(Story::getPriority));

@@ -3,9 +3,11 @@ package com.company.oop.taskManagementSystemTests.commands.createTests;
 import com.company.oop.taskManagementSystem.commands.createCommands.CreateMemberCommand;
 
 import com.company.oop.taskManagementSystem.commands.contracts.Command;
+import com.company.oop.taskManagementSystem.commands.createCommands.CreateTeamCommand;
 import com.company.oop.taskManagementSystem.core.TMSRepositoryImpl;
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
 import com.company.oop.taskManagementSystem.models.MemberImpl;
+import com.company.oop.taskManagementSystem.models.TeamImpl;
 import com.company.oop.taskManagementSystemTests.utils.TestHelpers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CreateMemberCommandTests {
 
-    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
-    public static final String VALID_USERNAME = "Victor";
-    public static final String INVALID_USERNAME_TOO_SHORT = "Vic";
-    public static final String INVALID_USERNAME_TOO_LONG = "VictorSimonaNikolayAreTheBestTeamInTheWorld";
+    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = CreateMemberCommand.EXPECTED_NUMBER_OF_ARGUMENTS;
+    public static final String VALID_USERNAME = TestHelpers.getString(MemberImpl.USERNAME_MIN_LENGTH + 1);
+    public static final String INVALID_USERNAME_TOO_SHORT = TestHelpers.getString(MemberImpl.USERNAME_MIN_LENGTH - 1);
+    public static final String INVALID_USERNAME_TOO_LONG = TestHelpers.getString(MemberImpl.USERNAME_MAX_LENGTH + 1);
     public static final String INVALID_USERNAME_SYMBOL = "Vic$$$";
 
 
