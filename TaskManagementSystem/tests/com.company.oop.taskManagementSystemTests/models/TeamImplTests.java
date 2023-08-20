@@ -1,6 +1,5 @@
 package com.company.oop.taskManagementSystemTests.models;
 
-import com.company.oop.taskManagementSystem.models.MemberImpl;
 import com.company.oop.taskManagementSystem.models.TeamImpl;
 import com.company.oop.taskManagementSystem.models.contracts.Board;
 import com.company.oop.taskManagementSystem.models.contracts.Member;
@@ -9,8 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class TeamImplTests {
-
-    // TODO: 18.08.23 implement 
 
     private static final int NAME_MIN_LENGTH = 5;
     private static final int NAME_MAX_LENGTH = 15;

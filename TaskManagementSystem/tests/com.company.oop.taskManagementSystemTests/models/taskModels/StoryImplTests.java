@@ -57,19 +57,24 @@ public class StoryImplTests {
     @Test
     public void constructor_Should_ThrowException_When_PriorityIsNull() {
         Assertions.assertThrows(NullPointerException.class, () ->
-                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, null, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
+                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE,
+                        TaskConstants.VALID_TASK_DESCRIPTION, null, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
     }
 
     @Test
     public void constructor_Should_ThrowException_When_SizeIsNull() {
         Assertions.assertThrows(NullPointerException.class, () ->
-                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY, null, TaskConstants.VALID_TASK_ASSIGNEE));
+                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE,
+                        TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY,
+                        null, TaskConstants.VALID_TASK_ASSIGNEE));
     }
 
     @Test
     public void constructor_Should_ThrowException_When_AssigneeIsNull() {
         Assertions.assertThrows(NullPointerException.class, () ->
-                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, null));
+                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE,
+                        TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY,
+                        TaskConstants.VALID_SIZE, null));
     }
 
 

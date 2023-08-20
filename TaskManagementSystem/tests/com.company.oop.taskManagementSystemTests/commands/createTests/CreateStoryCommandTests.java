@@ -60,19 +60,22 @@ public class CreateStoryCommandTests {
         CreateBoardInTeamCommand boardInTeamCommand = new CreateBoardInTeamCommand(repository);
         board = repository.createBoard("BoardOne");
         boardInTeamCommand.execute(List.of(board.getName(), team.getName()));
-        team.addBoard(board);
+        //team.addBoard(board);
     }
 
     @Test
     public void should_CreateNewStory_When_PassedValidInput() {
-        List<String> parameters = List.of(VALID_TITLE, board.getName(), VALID_DESCRIPTION, VALID_PRIORITY, VALID_SIZE, VALID_ASSIGNEE);
+        List<String> parameters = List.of( VALID_DESCRIPTION, VALID_TITLE, board.getName(), VALID_PRIORITY,
+                VALID_SIZE, VALID_ASSIGNEE);
 
         String storyCreatedMessage = command.execute(parameters);
 
         // TODO: 19.08.23 think of a way to assert that the story was indeed created
         //Assertions.assertEquals(1, BoardImpl.getStories());
 
-        Assertions.assertEquals(String.format(CreateStoryCommand.STORY_CREATED, VALID_TITLE, member, parameters.get(0)), storyCreatedMessage);
+        Assertions.assertEquals(String.format(CreateStoryCommand.STORY_CREATED, VALID_TITLE, board.getName(),
+                        parameters.get(0)),
+                storyCreatedMessage);
     }
 
     //add test if assignee is not part of team of logged in member

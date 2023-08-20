@@ -25,19 +25,22 @@ public class FeedbackImplTests {
     @Test
     public void constructor_Should_ThrowException_When_TitleTooShort() {
         assertThrows(IllegalArgumentException.class, () ->
-                new FeedbackImpl(TaskConstants.VALID_TASK_ID, TaskConstants.INVALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_FEEDBACK_RATING));
+                new FeedbackImpl(TaskConstants.VALID_TASK_ID, TaskConstants.INVALID_TASK_TITLE,
+                        TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_FEEDBACK_RATING));
     }
 
     @Test
     public void constructor_Should_ThrowException_When_DescriptionTooShort() {
         assertThrows(IllegalArgumentException.class, () ->
-                new FeedbackImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.INVALID_TASK_DESCRIPTION, TaskConstants.VALID_FEEDBACK_RATING));
+                new FeedbackImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE,
+                        TaskConstants.INVALID_TASK_DESCRIPTION, TaskConstants.VALID_FEEDBACK_RATING));
     }
 
     @Test
     public void constructor_Should_ThrowException_When_DescriptionIsNull() {
         assertThrows(NullPointerException.class, () ->
-                new FeedbackImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, null, TaskConstants.VALID_FEEDBACK_RATING));
+                new FeedbackImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE,
+                        null, TaskConstants.VALID_FEEDBACK_RATING));
     }
 
     @Test
