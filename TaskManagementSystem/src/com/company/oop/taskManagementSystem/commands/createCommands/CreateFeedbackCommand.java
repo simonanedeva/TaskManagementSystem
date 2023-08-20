@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CreateFeedbackCommand extends BaseCommand {
 
-    private static final String FEEDBACK_CREATED = "Feedback %s created successfully in board %s!";
+    public static final String FEEDBACK_CREATED = "Feedback %s created successfully in board %s!";
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 4;
     public static final String RATING_WHOLE_NUMBER_ERR_MESSAGE = "Rating must be a whole number1";

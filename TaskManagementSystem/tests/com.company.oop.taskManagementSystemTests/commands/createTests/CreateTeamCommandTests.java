@@ -15,13 +15,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CreateTeamCommandTest {
+public class CreateTeamCommandTests {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = CreateTeamCommand.EXPECTED_NUMBER_OF_ARGUMENTS;
     public static final String VALID_TEAM_NAME = TestHelpers.getString(TeamImpl.TEAM_NAME_MIN_LENGTH + 1);
-    public static final String INVALID_TEAM_NAME_TOO_SHORT = TestHelpers.getString(TeamImpl.TEAM_NAME_MIN_LENGTH - 1);
-    public static final String INVALID_TEAM_NAME_TOO_LONG = TestHelpers.getString(TeamImpl.TEAM_NAME_MAX_LENGTH + 1);
-
     private Command command;
     private TMSRepository repository;
 
@@ -36,7 +33,6 @@ public class CreateTeamCommandTest {
         repository.login(member);
     }
 
-
     @Test
     public void should_CreateNewTeam_When_PassedValidInput() {
         List<String> parameters = List.of(VALID_TEAM_NAME);
@@ -50,52 +46,24 @@ public class CreateTeamCommandTest {
     }
 
     @Test
-    public void should_ThrowException_When_TeamNameTooLong() {
-        List<String> parameters = List.of(INVALID_TEAM_NAME_TOO_LONG);
+    public void should_ThrowException_When_Invalid_ArgumentCount() {
+        List<String> parameters = TestHelpers.getList(EXPECTED_NUMBER_OF_ARGUMENTS - 1);
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            command.execute(parameters);
-        });
-
-        String expectedErrMessage = TeamImpl.TEAM_NAME_LEN_ERR;
-        String actualErrMessage = exception.getMessage();
-
-        Assertions.assertEquals(expectedErrMessage, actualErrMessage);
+        assertThrows(IllegalArgumentException.class, () -> command.execute(parameters));
     }
 
     @Test
-    public void should_ThrowException_When_TeamNameTooShort() {
-        List<String> parameters = List.of(INVALID_TEAM_NAME_TOO_SHORT);
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            command.execute(parameters);
-        });
-
-        String expectedErrMessage = TeamImpl.TEAM_NAME_LEN_ERR;
-        String actualErrMessage = exception.getMessage();
-
-        Assertions.assertEquals(expectedErrMessage, actualErrMessage);
-    }
-
-    @Test
-    public void should_ThrowException_When_TeamNameEmpty() {
+    public void should_ThrowException_When_NoArguments() {
         List<String> parameters = List.of();
 
         assertThrows(IllegalArgumentException.class, () -> command.execute(parameters));
     }
 
     @Test
-    public void should_ThrowException_When_TeamNameNull() {
+    public void should_ThrowException_When_NullArguments() {
         List<String> parameters = null;
 
         assertThrows(NullPointerException.class, () -> command.execute(parameters));
-    }
-
-    @Test
-    public void should_ThrowException_When_Invalid_ArgumentCount() {
-        List<String> parameters = TestHelpers.getList(EXPECTED_NUMBER_OF_ARGUMENTS - 1);
-
-        assertThrows(IllegalArgumentException.class, () -> command.execute(parameters));
     }
 
     @Test

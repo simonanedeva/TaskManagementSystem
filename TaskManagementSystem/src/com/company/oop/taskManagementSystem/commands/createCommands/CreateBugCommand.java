@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CreateBugCommand extends BaseCommand {
 
-    private static final String BUG_CREATED = "Bug %s created successfully in board %s!";
+    public static final String BUG_CREATED = "Bug %s created successfully in board %s!";
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 7;
     public static final String ASSIGNEE_ERR_MESSAGE = "Assignee %s is not part of team %s!";
