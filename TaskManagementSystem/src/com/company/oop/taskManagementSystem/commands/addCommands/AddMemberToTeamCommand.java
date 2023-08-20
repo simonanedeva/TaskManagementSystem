@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AddMemberToTeamCommand extends BaseCommand {
 
-    private static final String MEMBER_ADDED_TO_TEAM = "Member %s added to team %s!";
+    public static final String MEMBER_ADDED_TO_TEAM = "Member %s added to team %s!";
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
     public static final String MEMBER_IS_PART_OF_TEAM_ERR_MESSAGE = "Member %s is already a part of team %s!";

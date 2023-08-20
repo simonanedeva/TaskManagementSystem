@@ -1,21 +1,16 @@
-package com.company.oop.taskManagementSystemTests.commands.createTests;
+package com.company.oop.taskManagementSystemTests.commands.addTests;
 
+import com.company.oop.taskManagementSystem.commands.addCommands.AddCommentToTaskCommand;
 import com.company.oop.taskManagementSystem.commands.addCommands.AddMemberToTeamCommand;
 import com.company.oop.taskManagementSystem.commands.contracts.Command;
 import com.company.oop.taskManagementSystem.commands.createCommands.CreateBoardInTeamCommand;
 import com.company.oop.taskManagementSystem.commands.createCommands.CreateStoryCommand;
 import com.company.oop.taskManagementSystem.core.TMSRepositoryImpl;
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
-import com.company.oop.taskManagementSystem.models.BoardImpl;
-import com.company.oop.taskManagementSystem.models.StoryImpl;
 import com.company.oop.taskManagementSystem.models.TaskImpl;
-import com.company.oop.taskManagementSystem.models.TeamImpl;
-import com.company.oop.taskManagementSystem.models.contracts.Board;
 import com.company.oop.taskManagementSystem.models.contracts.Member;
 import com.company.oop.taskManagementSystem.models.contracts.Story;
 import com.company.oop.taskManagementSystem.models.contracts.Team;
-import com.company.oop.taskManagementSystem.models.enums.Priority;
-import com.company.oop.taskManagementSystem.models.enums.StorySize;
 import com.company.oop.taskManagementSystemTests.utils.TestHelpers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,28 +20,27 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CreateStoryCommandTests {
+public class AddCommentToTaskCommandTests {
 
-    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = CreateStoryCommand.EXPECTED_NUMBER_OF_ARGUMENTS;
+    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = AddCommentToTaskCommand.EXPECTED_NUMBER_OF_ARGUMENTS;
     public static final String VALID_TITLE = TestHelpers.getString(TaskImpl.TITLE_MIN_LENGTH + 1);
     public static final String VALID_DESCRIPTION = TestHelpers.getString(TaskImpl.DESCRIPTION_MIN_LENGTH + 1);
     public static final String VALID_PRIORITY = "HIGH";
     public static final String VALID_SIZE = "LARGE";
     public static final String VALID_ASSIGNEE = "Victor";
-    public static final String VALID_ID = "1";
+    private static final String VALID_COMMENT = "This is a valid comment.";
 
     private Command command;
     private TMSRepository repository;
     private Member member;
     private Team team;
     private String boardName = "BoardOne";
-
-    //boardToAdd
+    private Story story;
 
     @BeforeEach
     public void before() {
         this.repository = new TMSRepositoryImpl();
-        this.command = new CreateStoryCommand(repository);
+        this.command = new AddCommentToTaskCommand(repository);
 
         member = repository.createMember("Victor");
         repository.addMember(member);
@@ -59,21 +53,23 @@ public class CreateStoryCommandTests {
         memberToTeamCommand.execute(List.of(member.getUsername(), team.getName()));
 
         CreateBoardInTeamCommand boardInTeamCommand = new CreateBoardInTeamCommand(repository);
-        //board = repository.createBoard("BoardOne");
         boardInTeamCommand.execute(List.of(boardName, team.getName()));
+
+        CreateStoryCommand createStoryCommand = new CreateStoryCommand(repository);
+        createStoryCommand.execute(List.of(VALID_DESCRIPTION, VALID_TITLE, boardName, VALID_PRIORITY,
+                VALID_SIZE, VALID_ASSIGNEE));
+
     }
 
     @Test
-    public void should_CreateNewStory_When_PassedValidInput() {
-        List<String> parameters = List.of(VALID_DESCRIPTION, VALID_TITLE, boardName, VALID_PRIORITY,
-                VALID_SIZE, VALID_ASSIGNEE);
+    public void should_AddCommentToTask_When_PassedValidInput() {
+        List<String> parameters = List.of(VALID_COMMENT, VALID_TITLE);
 
-        String storyCreatedMessage = command.execute(parameters);
+        String commentAddedMessage = command.execute(parameters);
 
-        Assertions.assertEquals(1, repository.getTeams().get(0).getBoards().get(0).getStories().size());
+        Assertions.assertEquals(1, repository.getTeams().get(0).getBoards().get(0).getStories().get(0).getComments().size());
 
-        Assertions.assertEquals(String.format(CreateStoryCommand.STORY_CREATED, VALID_TITLE, repository.getTeams().get(0).getBoards().get(0).getName(),
-                parameters.get(0)), storyCreatedMessage);
+        Assertions.assertEquals(String.format(AddCommentToTaskCommand.COMMENT_ADDED_TO_TASK, VALID_TITLE), commentAddedMessage);
     }
 
     @Test
@@ -92,26 +88,21 @@ public class CreateStoryCommandTests {
     }
 
     @Test
-    public void should_ThrowException_When_AssigneeNotPartOfLoggedInMemberTeam() {
-        List<String> parameters = List.of(VALID_DESCRIPTION, VALID_TITLE, boardName, VALID_PRIORITY,
-                VALID_SIZE, "Nikolay");
+    public void should_ThrowException_When_TaskNotExist() {
+        List<String> parameters = List.of(VALID_COMMENT, "NewTask");
 
-        String storyErrorMessage = null;
+        String commentErrorMessage = null;
 
         try {
             command.execute(parameters);
         } catch (IllegalArgumentException e) {
-            storyErrorMessage = e.getMessage();
+            commentErrorMessage = e.getMessage();
         }
 
-        String expectedErrorMessage = String.format(CreateStoryCommand.ASSIGNEE_ERR_MESSAGE, "Nikolay", team.getName(), repository.getTeams().get(0).getBoards().get(0).getName(),
-                parameters.get(0));
+        String expectedErrorMessage = String.format(AddCommentToTaskCommand.ТASK_NOT_EXIST_ERR_MESSAGE, team.getName());
 
-        Assertions.assertEquals(expectedErrorMessage, storyErrorMessage);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> command.execute(parameters));
-
+        Assertions.assertEquals(commentErrorMessage, expectedErrorMessage);
     }
-
 
 }
 

@@ -10,9 +10,10 @@ import java.util.List;
 
 // TODO: 10.08.23 Test whether this allows the logged-in member to add comments to boards of other teams!
 public class AddCommentToTaskCommand extends BaseCommand {
-    private static final String COMMENT_ADDED_TO_TASK = "Comment added to task %s!";
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
+    public static final String COMMENT_ADDED_TO_TASK = "Comment added to task %s!";
+    public static final String ТASK_NOT_EXIST_ERR_MESSAGE = "Such a task does not exit in team %s";
 
     public AddCommentToTaskCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
@@ -45,7 +46,7 @@ public class AddCommentToTaskCommand extends BaseCommand {
         if (taskExist) {
             return String.format(COMMENT_ADDED_TO_TASK, taskToAdd);
         }
-        throw new IllegalArgumentException(String.format("Such a task does not exit in team %s", memberTeam.getName()));
+        throw new IllegalArgumentException(String.format(ТASK_NOT_EXIST_ERR_MESSAGE, memberTeam.getName()));
     }
 
     private static boolean isTaskExist(String taskToAdd, Member member, Comment commentToAdd, boolean taskExist, List<Task> tasks) {
