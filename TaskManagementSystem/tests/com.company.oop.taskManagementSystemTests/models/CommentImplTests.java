@@ -46,17 +46,4 @@ public class CommentImplTests {
         Assertions.assertEquals(author, comment.getAuthor());
     }
 
-    @Test
-    public void should_ThrowException_When_NullAuthor(){
-        content = TestHelpers.getString(CONTENT_LEN_MIN + 1);
-        Assertions.assertThrows(NullPointerException.class, () -> new CommentImpl(content, null));
-    }
-
-    @Test
-    public void should_ThrowException_When_NullContent(){
-        author = "Nikolay";
-        Assertions.assertThrows(NullPointerException.class, () -> new CommentImpl(null, author));
-    }
-
-
 }

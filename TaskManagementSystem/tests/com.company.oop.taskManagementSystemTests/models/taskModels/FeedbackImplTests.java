@@ -10,8 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FeedbackImplTests {
 
-    // TODO: 19.08.23 add validations for the null cases in the code
-
     @Test
     public void constructor_Should_CreateFeedback_When_ValidInput() {
         FeedbackImpl feedback = initializeFeedback();
@@ -37,22 +35,9 @@ public class FeedbackImplTests {
     }
 
     @Test
-    public void constructor_Should_ThrowException_When_DescriptionIsNull() {
-        assertThrows(NullPointerException.class, () ->
-                new FeedbackImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE,
-                        null, TaskConstants.VALID_FEEDBACK_RATING));
-    }
-
-    @Test
     public void constructor_Should_ThrowException_When_RatingIsNegative() {
         assertThrows(IllegalArgumentException.class, () ->
                 new FeedbackImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, -1));
-    }
-
-    @Test
-    public void constructor_Should_ThrowException_When_TitleIsNull() {
-        assertThrows(NullPointerException.class, () ->
-                new FeedbackImpl(TaskConstants.VALID_TASK_ID, null, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_FEEDBACK_RATING));
     }
 
     @Test

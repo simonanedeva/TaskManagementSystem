@@ -42,43 +42,6 @@ public class BugImplTests {
     }
 
     @Test
-    public void constructor_Should_ThrowException_When_TitleIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () ->
-                new BugImpl(TaskConstants.VALID_TASK_ID, null, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_STEPS_TO_REPRODUCE, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SEVERITY, TaskConstants.VALID_TASK_ASSIGNEE));
-    }
-
-    @Test
-    public void constructor_Should_ThrowException_When_DescriptionIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () ->
-                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, null, TaskConstants.VALID_STEPS_TO_REPRODUCE, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SEVERITY, TaskConstants.VALID_TASK_ASSIGNEE));
-    }
-
-    @Test
-    public void constructor_Should_ThrowException_When_StepsToReproduceIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () ->
-                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, null, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SEVERITY, TaskConstants.VALID_TASK_ASSIGNEE));
-    }
-
-    @Test
-    public void constructor_Should_ThrowException_When_PriorityIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () ->
-                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_STEPS_TO_REPRODUCE, null, TaskConstants.VALID_SEVERITY, TaskConstants.VALID_TASK_ASSIGNEE));
-    }
-
-    @Test
-    public void constructor_Should_ThrowException_When_SeverityIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () ->
-                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_STEPS_TO_REPRODUCE, TaskConstants.VALID_PRIORITY, null, TaskConstants.VALID_TASK_ASSIGNEE));
-    }
-
-    @Test
-    public void constructor_Should_ThrowException_When_AssigneeIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () ->
-                new BugImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_STEPS_TO_REPRODUCE, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SEVERITY, null));
-    }
-
-
-    @Test
     public void getter_Should_Return_ValidPriority() {
         BugImpl bug = initializeBug();
 

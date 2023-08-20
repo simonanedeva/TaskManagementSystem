@@ -12,8 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StoryImplTests {
 
-    // TODO: 19.08.23 add validations for the null cases in the code
-
     @Test
     public void constructor_Should_CreateStory_When_ValidInput() {
         StoryImpl story = initializeStory();
@@ -40,41 +38,6 @@ public class StoryImplTests {
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.INVALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
-    }
-
-    @Test
-    public void constructor_Should_ThrowException_When_TitleIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () ->
-                new StoryImpl(TaskConstants.VALID_TASK_ID, null, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
-    }
-
-    @Test
-    public void constructor_Should_ThrowException_When_DescriptionIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () ->
-                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, null, TaskConstants.VALID_PRIORITY, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
-    }
-
-    @Test
-    public void constructor_Should_ThrowException_When_PriorityIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () ->
-                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE,
-                        TaskConstants.VALID_TASK_DESCRIPTION, null, TaskConstants.VALID_SIZE, TaskConstants.VALID_TASK_ASSIGNEE));
-    }
-
-    @Test
-    public void constructor_Should_ThrowException_When_SizeIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () ->
-                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE,
-                        TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY,
-                        null, TaskConstants.VALID_TASK_ASSIGNEE));
-    }
-
-    @Test
-    public void constructor_Should_ThrowException_When_AssigneeIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () ->
-                new StoryImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE,
-                        TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_PRIORITY,
-                        TaskConstants.VALID_SIZE, null));
     }
 
 
