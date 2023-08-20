@@ -90,6 +90,7 @@ public class TMSRepositoryImpl implements TMSRepository {
 
     @Override
     public void addTeam(Team teamToAdd) {
+        // TODO: 20-Aug-23 following if never used, consider removing it;
         if (teams.contains(teamToAdd)) {
             throw new IllegalArgumentException(String.format(MEMBER_ALREADY_EXIST, teamToAdd.getName()));
         }

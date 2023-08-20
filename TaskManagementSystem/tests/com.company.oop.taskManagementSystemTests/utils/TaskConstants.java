@@ -21,6 +21,7 @@ public class TaskConstants {
     public static final String VALID_TASK_DESCRIPTION = TestHelpers.getString(DESCRIPTION_MIN_LENGTH + 1);
     public static final String INVALID_TASK_DESCRIPTION = TestHelpers.getString(DESCRIPTION_MAX_LENGTH + 1);
     public static final String VALID_TASK_ASSIGNEE = "Victor";
+    public static final String VALID_MEMBER_NAME = "Victor";
 
 
     //Story

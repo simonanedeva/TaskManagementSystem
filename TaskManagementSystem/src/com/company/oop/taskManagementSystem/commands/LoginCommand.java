@@ -8,10 +8,10 @@ import java.util.List;
 
 public class LoginCommand extends BaseCommand {
     private final static String MEMBER_LOGGED_IN = "Member %s successfully logged in!";
-    //private final static String WRONG_USERNAME_OR_PASSWORD = "Wrong username or password!";
+
     public final static String MEMBER_LOGGED_IN_ALREADY = "Member %s is logged in! Please log out first!";
 
-    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1; //switch to 2 if password implemented!!!
+    public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;
 
     public LoginCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
