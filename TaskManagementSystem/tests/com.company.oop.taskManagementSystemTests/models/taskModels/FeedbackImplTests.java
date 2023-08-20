@@ -92,7 +92,7 @@ public class FeedbackImplTests {
     }
 
 
-    public FeedbackImpl initializeFeedback() {
+    public static FeedbackImpl initializeFeedback() {
         return new FeedbackImpl(TaskConstants.VALID_TASK_ID, TaskConstants.VALID_TASK_TITLE, TaskConstants.VALID_TASK_DESCRIPTION, TaskConstants.VALID_FEEDBACK_RATING);
     }
 }

@@ -17,6 +17,10 @@ public class ActivityLogImpl implements ActivityLog {
         this.timestamp = LocalDateTime.now();
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
     public String getDescription() {
         return description;
     }
