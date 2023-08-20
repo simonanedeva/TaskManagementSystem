@@ -14,6 +14,8 @@ public class CreateFeedbackCommand extends BaseCommand {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 4;
     public static final String RATING_WHOLE_NUMBER_ERR_MESSAGE = "Rating must be a whole number1";
+    public static final String TITLE_EXIST_ERR_MESSAGE = "Task with such a title already exists!";
+    public static final String BOARD_NOT_EXIST_ERR_MESSAGE = "Board %s does not exist in this team!";
 
     public CreateFeedbackCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
@@ -53,7 +55,7 @@ public class CreateFeedbackCommand extends BaseCommand {
     private static void throwIfTaskExist(String nameOfTask, List<Task> taskList) {
         for (Task task : taskList) {
             if (task.getTitle().equals(nameOfTask)) {
-                throw new IllegalArgumentException("Task with such a title already exists");
+                throw new IllegalArgumentException(TITLE_EXIST_ERR_MESSAGE);
             }
         }
     }
@@ -64,7 +66,7 @@ public class CreateFeedbackCommand extends BaseCommand {
                 return board1;
             }
         }
-        throw new IllegalArgumentException("Board does not exist in this team");
+        throw new IllegalArgumentException(String.format(BOARD_NOT_EXIST_ERR_MESSAGE, board));
     }
 
 }

@@ -3,7 +3,6 @@ package com.company.oop.taskManagementSystemTests.commands.createTests;
 import com.company.oop.taskManagementSystem.commands.addCommands.AddMemberToTeamCommand;
 import com.company.oop.taskManagementSystem.commands.contracts.Command;
 import com.company.oop.taskManagementSystem.commands.createCommands.CreateBoardInTeamCommand;
-import com.company.oop.taskManagementSystem.commands.createCommands.CreateBugCommand;
 import com.company.oop.taskManagementSystem.commands.createCommands.CreateFeedbackCommand;
 import com.company.oop.taskManagementSystem.core.TMSRepositoryImpl;
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
@@ -78,6 +77,40 @@ public class CreateFeedbackCommandTests {
         List<String> parameters = List.of();
 
         assertThrows(IllegalArgumentException.class, () -> command.execute(parameters));
+    }
+
+    @Test
+    public void should_ThrowException_When_TaskExist() {
+        List<String> parameters = List.of(VALID_DESCRIPTION, VALID_TITLE, boardName, VALID_RATING);
+
+        command.execute(parameters);
+
+        try {
+            command.execute(parameters);
+        } catch (IllegalArgumentException e) {
+            String actualErrorMessage = e.getMessage();
+
+            String expectedErrorMessage = String.format(CreateFeedbackCommand.TITLE_EXIST_ERR_MESSAGE);
+
+            Assertions.assertEquals(expectedErrorMessage, actualErrorMessage);
+            Assertions.assertThrows(IllegalArgumentException.class, () -> command.execute(parameters));
+        }
+    }
+
+    @Test
+    public void should_ThrowException_When_BoardNotPartOfTeam() {
+        List<String> parameters = List.of(VALID_DESCRIPTION, VALID_TITLE, "NewBoard", VALID_RATING);
+
+        try {
+            command.execute(parameters);
+        } catch (IllegalArgumentException e) {
+            String actualErrorMessage = e.getMessage();
+
+            String expectedErrorMessage = String.format(CreateFeedbackCommand.BOARD_NOT_EXIST_ERR_MESSAGE, "NewBoard");
+
+            Assertions.assertEquals(expectedErrorMessage, actualErrorMessage);
+            Assertions.assertThrows(IllegalArgumentException.class, () -> command.execute(parameters));
+        }
     }
 
 }
