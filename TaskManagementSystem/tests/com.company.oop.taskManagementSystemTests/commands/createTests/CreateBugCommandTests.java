@@ -61,12 +61,12 @@ public class CreateBugCommandTests {
         List<String> parameters = List.of(VALID_DESCRIPTION, VALID_STEPS_TO_REPRODUCE, VALID_TITLE, boardName, VALID_PRIORITY,
                 VALID_SEVERITY, VALID_ASSIGNEE);
 
-        String storyCreatedMessage = command.execute(parameters);
+        String bugCreatedMessage = command.execute(parameters);
 
         Assertions.assertEquals(1, repository.getTeams().get(0).getBoards().get(0).getBugs().size());
 
         Assertions.assertEquals(String.format(CreateBugCommand.BUG_CREATED, VALID_TITLE, repository.getTeams().get(0).getBoards().get(0).getName(),
-                parameters.get(0)), storyCreatedMessage);
+                parameters.get(0)), bugCreatedMessage);
     }
 
     @Test

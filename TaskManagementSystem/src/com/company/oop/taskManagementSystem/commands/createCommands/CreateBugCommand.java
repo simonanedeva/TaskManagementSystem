@@ -82,6 +82,7 @@ public class CreateBugCommand extends BaseCommand {
         }
     }
 
+    // TODO: 21.08.23 Viktor: findBoardInTeam can be made to take a Team and not a list of boards. I'll do it tomorrow.
     private Board findBoardInTeam(List<Board> boardList, String board) {
         for (Board board1 : boardList) {
             if (board1.getName().equals(board)) {
