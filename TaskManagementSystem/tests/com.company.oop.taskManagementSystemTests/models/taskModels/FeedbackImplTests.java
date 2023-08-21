@@ -1,8 +1,10 @@
 package com.company.oop.taskManagementSystemTests.models.taskModels;
 
+import com.company.oop.taskManagementSystem.models.BugImpl;
 import com.company.oop.taskManagementSystem.models.FeedbackImpl;
 import com.company.oop.taskManagementSystem.models.enums.StatusValues;
 import com.company.oop.taskManagementSystemTests.utils.TaskConstants;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -77,6 +79,18 @@ public class FeedbackImplTests {
         FeedbackImpl feedback = initializeFeedback();
 
         assertThrows(IllegalArgumentException.class, () -> feedback.changeRating(TaskConstants.VALID_FEEDBACK_RATING));
+    }
+
+    @Test
+    public void isValidStatus_ShouldReturnTrue_When_ValidStatus() {
+        FeedbackImpl feedback = initializeFeedback();
+        Assertions.assertTrue(feedback.isValidStatus(StatusValues.NEW));
+    }
+
+    @Test
+    public void isValidStatus_ShouldThrow_When_InvalidStatus() {
+        FeedbackImpl feedback = initializeFeedback();
+        Assertions.assertThrows(IllegalArgumentException.class, () -> feedback.isValidStatus(StatusValues.FIXED));
     }
 
 

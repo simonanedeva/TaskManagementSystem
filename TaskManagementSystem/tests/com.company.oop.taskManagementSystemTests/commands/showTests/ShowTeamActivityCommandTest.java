@@ -5,6 +5,7 @@ import com.company.oop.taskManagementSystem.core.TMSRepositoryImpl;
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
 import com.company.oop.taskManagementSystem.models.*;
 import com.company.oop.taskManagementSystem.models.contracts.*;
+import com.company.oop.taskManagementSystemTests.utils.TaskConstants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ public class ShowTeamActivityCommandTest {
     public void setUp(){
         tmsRepository = new TMSRepositoryImpl();
         showTeamActivityCommand = new ShowTeamActivityCommand(tmsRepository);
-        member = new MemberImpl("TestMember");
+        member = new MemberImpl(TaskConstants.VALID_MEMBER_NAME);
         tmsRepository.login(member);
         team = new TeamImpl("TeamName");
         tmsRepository.addTeam(team);

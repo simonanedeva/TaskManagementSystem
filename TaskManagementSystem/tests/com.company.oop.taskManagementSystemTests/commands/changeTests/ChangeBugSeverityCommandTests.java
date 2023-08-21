@@ -84,12 +84,25 @@ public class ChangeBugSeverityCommandTests {
     }
 
     @Test
+    public void should_ThrowException_When_BugSeverityIsAlreadySetToPassedValue() {
+        List<String> parameters = List.of(CreateBugCommandTests.VALID_TITLE, repository.getTeams().get(0).getBoards().get(0).getBugs().get(0).getSeverity().toString());
+
+        assertThrows(IllegalArgumentException.class, () -> command.execute(parameters));
+    }
+
+    @Test
     public void should_ThrowException_When_BugDoesNotExist() {
         List<String> parameters = List.of("SomeOtherBugName", BugSeverity.CRITICAL.toString());
 
         assertThrows(IllegalArgumentException.class, () -> command.execute(parameters));
     }
 
+    @Test
+    public void should_ThrowException_When_InvalidSeverityStatus() {
+        List<String> parameters = List.of(CreateBugCommandTests.VALID_TITLE, "GoshoCritical");
+
+        assertThrows(IllegalArgumentException.class, () -> command.execute(parameters));
+    }
     @Test
     public void should_ThrowException_When_LoggedInMemberIsInOtherTeam() {
         repository.addTeam(repository.createTeam("AlcoHolics"));

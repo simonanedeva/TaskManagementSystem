@@ -111,6 +111,23 @@ public class BugImplTests {
         Assertions.assertThrows(IllegalArgumentException.class, () -> bug.changeAssignee("Victor"));
     }
 
+    @Test
+    public void changePriority_shouldThrow_When_PriorityAlreadySetToSameValue(){
+        BugImpl bug = initializeBug();
+        Assertions.assertThrows(IllegalArgumentException.class, () -> bug.changePriority(TaskConstants.VALID_PRIORITY));
+    }
+
+    @Test
+    public void isValidStatus_ShouldReturnTrue_When_ValidStatus() {
+        BugImpl bug = initializeBug();
+        Assertions.assertTrue(bug.isValidStatus(StatusValues.ACTIVE));
+    }
+
+    @Test
+    public void isValidStatus_ShouldThrow_When_InvalidStatus() {
+        BugImpl bug = initializeBug();
+        Assertions.assertThrows(IllegalArgumentException.class, () -> bug.isValidStatus(StatusValues.UNSCHEDULED));
+    }
 
     //Helpers method to initialize a valid BugImpl
     public static BugImpl initializeBug() {

@@ -54,6 +54,13 @@ public class MemberImplTests {
         Assertions.assertEquals(1, member.getActivityHistory().size());
     }
 
+    @Test
+    public void displayActivityHistory_ShouldDisplay_When_Prompted() {
+        Member member = initilizeValidMember();
+        member.logEvent("Test event");
+        Assertions.assertNotNull(member.displayActivityHistory());
+    }
+
     public static Member initilizeValidMember() {
         return new MemberImpl(VALID_MEMBER_NAME);
     }
