@@ -171,7 +171,7 @@ public class FilterCommand extends BaseCommand {
             case "Status":
                 storyString = listMatchingStatus(pattern, storyList);
                 bugString = listMatchingStatus(pattern, bugList);
-                return sb.append(storyString).append(System.lineSeparator()).append(bugString).toString();
+                   return sb.append(storyString).append(System.lineSeparator()).append(bugString).toString();
             case "Assignee":
                 storyString = listMatchingAssignee(pattern, storyList);
                 bugString = listMatchingAssignee(pattern, bugList);
