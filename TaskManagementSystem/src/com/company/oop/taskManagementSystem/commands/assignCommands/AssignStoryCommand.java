@@ -9,9 +9,10 @@ import java.util.List;
 
 public class AssignStoryCommand extends BaseCommand {
 
-    private static final String TASK_REASSIGNED_SUCCESSFULLY = "Assignee of story %s successfully reassigned from %s to %s!";
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
+    public static final String TASK_REASSIGNED_SUCCESSFULLY = "Assignee of story %s successfully reassigned from %s to %s!";
     public static final String ASSIGNEE_ERR_MESSAGE = "Assignee %s is not part of team %s!";
+    public static final String NO_STORY_ERR_MESSAGE = "There is no story %s in team %s!";
 
     public AssignStoryCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
@@ -49,7 +50,7 @@ public class AssignStoryCommand extends BaseCommand {
                 }
             }
         }
-        throw new IllegalArgumentException(String.format("There is no story %s in team %s!", storyToReassign, memberTeam.getName()));
+        throw new IllegalArgumentException(String.format(NO_STORY_ERR_MESSAGE, storyToReassign, memberTeam.getName()));
     }
 
     private static void throwIfInvalidAssignee(String assignee, Team teamOfLoggedInMember, List<Member> membersInTeam) {
