@@ -1,12 +1,8 @@
 package com.company.oop.taskManagementSystemTests.core;
 
 import com.company.oop.taskManagementSystem.core.TMSRepositoryImpl;
-import com.company.oop.taskManagementSystem.models.BoardImpl;
-import com.company.oop.taskManagementSystem.models.BugImpl;
 import com.company.oop.taskManagementSystem.models.MemberImpl;
 import com.company.oop.taskManagementSystem.models.TeamImpl;
-import com.company.oop.taskManagementSystem.models.contracts.Board;
-import com.company.oop.taskManagementSystem.models.contracts.Bug;
 import com.company.oop.taskManagementSystem.models.contracts.Member;
 import com.company.oop.taskManagementSystem.models.contracts.Team;
 import com.company.oop.taskManagementSystemTests.utils.TaskConstants;
@@ -16,8 +12,8 @@ import org.junit.jupiter.api.Test;
 
 
 public class TMSRepositoryImplTests {
-    TMSRepositoryImpl tmsRepository;
-    Member member;
+    private TMSRepositoryImpl tmsRepository;
+    private Member member;
 
     @BeforeEach
     public void beforeEach() {
