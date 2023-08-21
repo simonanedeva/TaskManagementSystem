@@ -9,10 +9,9 @@ import java.util.List;
 
 public class AssignBugCommand extends BaseCommand {
 
+    private static final String TASK_REASSIGNED_SUCCESSFULLY = "Assignee of bug %s successfully reassigned from %s to %s!";
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
-    public static final String TASK_REASSIGNED_SUCCESSFULLY = "Assignee of bug %s successfully reassigned from %s to %s!";
     public static final String ASSIGNEE_ERR_MESSAGE = "Assignee %s is not part of team %s!";
-    public static final String NO_BUG_ERR_MESSAGE = "There is no bug %s in team %s!";
 
     public AssignBugCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
@@ -50,7 +49,7 @@ public class AssignBugCommand extends BaseCommand {
                 }
             }
         }
-        throw new IllegalArgumentException(String.format(NO_BUG_ERR_MESSAGE, bugToReassign, memberTeam.getName()));
+        throw new IllegalArgumentException(String.format("There is no bug %s in team %s!", bugToReassign, memberTeam.getName()));
     }
 
     private static void throwIfInvalidAssignee(String assignee, Team teamOfLoggedInMember, List<Member> membersInTeam) {
