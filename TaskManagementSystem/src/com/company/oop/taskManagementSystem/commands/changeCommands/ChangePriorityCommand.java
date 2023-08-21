@@ -11,8 +11,10 @@ import java.util.List;
 
 public class ChangePriorityCommand extends BaseCommand {
 
-    private static final String PRIORITY_SET_SUCCESSFULLY = "Priority of %s %s successfully changed from %s to %s!";
+    public static final String PRIORITY_SET_SUCCESSFULLY = "Priority of %s %s successfully changed from %s to %s!";
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
+    public static final String NO_TASK_IN_TEAM_ERR_MESSAGE = "There is no story/bug %s in team %s!";
+
 
     public ChangePriorityCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
@@ -46,7 +48,7 @@ public class ChangePriorityCommand extends BaseCommand {
                     bug.changePriority(newPriorityStatus);
                     bug.logEvent(String.format("%s changed the priority of bug %s from %s to %s.", member.getUsername(), bug.getTitle(), oldPriority, newPriorityStatus));
                     member.logEvent(String.format("%s changed the priority of bug %s from %s to %s.", member.getUsername(), bug.getTitle(), oldPriority, newPriorityStatus));
-                    return String.format(PRIORITY_SET_SUCCESSFULLY, "bug", taskToChange, oldPriority, newPriorityStatus);
+                    return String.format(PRIORITY_SET_SUCCESSFULLY, bug.getType(), taskToChange, oldPriority, newPriorityStatus);
                 }
             }
 
@@ -59,11 +61,11 @@ public class ChangePriorityCommand extends BaseCommand {
                     story.changePriority(newPriorityStatus);
                     story.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), story.getTitle(), oldPriority, newPriorityStatus));
                     member.logEvent(String.format("%s changed the priority of story %s from %s to %s.", member.getUsername(), story.getTitle(), oldPriority, newPriorityStatus));
-                    return String.format(PRIORITY_SET_SUCCESSFULLY, "story", taskToChange, oldPriority, newPriorityStatus);
+                    return String.format(PRIORITY_SET_SUCCESSFULLY, story.getType(), taskToChange, oldPriority, newPriorityStatus);
                 }
             }
         }
-        throw new IllegalArgumentException(String.format("There is no story/bug %s in team %s!", taskToChange, memberTeam.getName()));
+        throw new IllegalArgumentException(String.format(NO_TASK_IN_TEAM_ERR_MESSAGE, taskToChange, memberTeam.getName()));
     }
 
 }
