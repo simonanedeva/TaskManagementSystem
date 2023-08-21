@@ -1,5 +1,6 @@
 package com.company.oop.taskManagementSystemTests.models.taskModels;
 
+import com.company.oop.taskManagementSystem.models.BugImpl;
 import com.company.oop.taskManagementSystem.models.StoryImpl;
 import com.company.oop.taskManagementSystem.models.enums.Priority;
 import com.company.oop.taskManagementSystem.models.enums.StatusValues;
@@ -117,6 +118,25 @@ public class StoryImplTests {
         StoryImpl story = initializeStory();
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> story.changeAssignee("Victor"));
+    }
+
+    @Test
+    public void changePriority_shouldThrow_When_PriorityAlreadySetToSameValue(){
+        StoryImpl story = initializeStory();
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> story.changePriority(TaskConstants.VALID_PRIORITY));
+    }
+
+    @Test
+    public void isValidStatus_ShouldReturnTrue_When_ValidStatus() {
+        StoryImpl story = initializeStory();
+        Assertions.assertTrue(story.isValidStatus(StatusValues.NOTDONE));
+    }
+
+    @Test
+    public void isValidStatus_ShouldThrow_When_InvalidStatus() {
+        StoryImpl story = initializeStory();
+        Assertions.assertThrows(IllegalArgumentException.class, () -> story.isValidStatus(StatusValues.UNSCHEDULED));
     }
 
 

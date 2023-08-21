@@ -144,6 +144,19 @@ public class BoardImplTests {
         );
     }
 
+    @Test
+    public void displayBoardActivityHistory_ShouldReturnActivity_When_Prompted() {
+        Board board = initilizeValidBoard();
+        Bug bug = BugImplTests.initializeBug();
+        Feedback feedback = FeedbackImplTests.initializeFeedback();
+        Story story = StoryImplTests.initializeStory();
+        board.addBug(bug);
+        board.addFeedback(feedback);
+        board.addStory(story);
+
+        Assertions.assertNotNull(board.displayBoardActivityHistory());
+    }
+
     public static Board initilizeValidBoard() {
         return new BoardImpl(VALID_BOARD_NAME);
     }

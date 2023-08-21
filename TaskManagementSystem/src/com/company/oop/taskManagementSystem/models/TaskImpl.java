@@ -85,9 +85,6 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
         this.comments.add(comment);
     }
 
-    public void removeComment(Comment comment) {
-        this.comments.remove(comment);
-    }
 
     public abstract boolean isValidStatus(StatusValues value);
 

@@ -21,8 +21,6 @@ public interface Task {
 
     void addComment(Comment comment);
 
-    void removeComment(Comment comment);
-
     String getType();
 
     void changeStatus(StatusValues status);
