@@ -10,6 +10,7 @@ import java.util.List;
 
 public class FilterCommand extends BaseCommand {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 3;
+    public static final String EMPTY_ERR_MESSAGE = "Nothing to show.";
 
     public FilterCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
@@ -50,7 +51,7 @@ public class FilterCommand extends BaseCommand {
     }
 
     private String listMatchingTitle(String pattern, List<Task> taskList) {
-        return taskList.stream()
+        String result = taskList.stream()
                 .filter(task -> task.getTitle().contains(pattern))
                 .collect(StringBuilder::new,
                         (stringBuilder, task) -> {
@@ -58,6 +59,12 @@ public class FilterCommand extends BaseCommand {
                             stringBuilder.append(System.lineSeparator());
                         },
                         StringBuilder::append).toString();
+        if (result.isEmpty()) {
+            return EMPTY_ERR_MESSAGE;
+        }
+        else {
+            return result;
+        }
     }
 
     private String filterBug(String filterBy, String pattern) {
@@ -83,7 +90,7 @@ public class FilterCommand extends BaseCommand {
     }
 
     private <T extends Task> String listMatchingStatus(String pattern, List<T> genericList) {
-        return genericList.stream()
+        String result = genericList.stream()
                 .filter(taskType -> taskType.getStatus().toString().equals(pattern))
                 .collect(StringBuilder::new,
                         (stringBuilder, taskType) -> {
@@ -91,21 +98,33 @@ public class FilterCommand extends BaseCommand {
                             stringBuilder.append(System.lineSeparator());
                         },
                         StringBuilder::append).toString();
+        if (result.isEmpty()) {
+            return EMPTY_ERR_MESSAGE;
+        }
+        else {
+            return result;
+        }
     }
 
 
     private <T extends Task & AssigneeGettable> String listMatchingAssignee(String pattern, List<T> genericList) {
-        return genericList.stream()
+        String result = genericList.stream()
                 .filter(taskType -> taskType.getAssignee().equals(pattern))
                 .collect(StringBuilder::new,
                         ((stringBuilder, taskType) -> {
                             stringBuilder.append(taskType);
                             stringBuilder.append(System.lineSeparator());
                         }), StringBuilder::append).toString();
+        if (result.isEmpty()) {
+            return EMPTY_ERR_MESSAGE;
+        }
+        else {
+            return result;
+        }
     }
 
     private <T extends Task & AssigneeGettable> String listMatchingAssigneeAndStatus(List<T> genericList, String[] filterParams) {
-        return genericList.stream()
+        String result = genericList.stream()
                 .filter(taskType -> taskType.getAssignee().equals(filterParams[1]))
                 .filter(taskType -> taskType.getStatus().toString().equals(filterParams[0]))
                 .collect(StringBuilder::new,
@@ -114,6 +133,12 @@ public class FilterCommand extends BaseCommand {
                             stringBuilder.append(System.lineSeparator());
                         },
                         StringBuilder::append).toString();
+        if (result.isEmpty()) {
+            return EMPTY_ERR_MESSAGE;
+        }
+        else {
+            return result;
+        }
     }
 
     private String filterFeedback(String pattern) {

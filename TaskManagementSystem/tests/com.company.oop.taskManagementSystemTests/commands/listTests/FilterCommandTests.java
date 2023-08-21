@@ -36,7 +36,6 @@ public class FilterCommandTests {
         team.addMember(tmsRepository.getLoggedInMember());
         board = new BoardImpl("BoardOne");
         this.team.addBoard(board);
-
     }
 
     @Test
@@ -91,7 +90,7 @@ public class FilterCommandTests {
         params.add("Assignee");
         params.add("Simona");
 
-        Assertions.assertEquals("",filterCommand.execute(params));
+        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
     }
 
     @Test
@@ -115,7 +114,7 @@ public class FilterCommandTests {
         params.add("Status");
         params.add("Fixed");
 
-        Assertions.assertEquals("",filterCommand.execute(params));
+        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
     }
 
     @Test
@@ -139,7 +138,7 @@ public class FilterCommandTests {
         params.add("StatusAndAssignee");
         params.add("Fixed/Victor");
 
-        Assertions.assertEquals("",filterCommand.execute(params));
+        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
     }
 
 
@@ -177,7 +176,7 @@ public class FilterCommandTests {
         params.add("Assignee");
         params.add("Simona");
 
-        Assertions.assertEquals("", filterCommand.execute(params));
+        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
     }
 
     @Test
@@ -201,7 +200,7 @@ public class FilterCommandTests {
         params.add("StatusAndAssignee");
         params.add("NotDone/Victor");
 
-        Assertions.assertEquals("",filterCommand.execute(params));
+        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
     }
 
     @Test
@@ -225,7 +224,7 @@ public class FilterCommandTests {
         params.add("Status");
         params.add("Done");
 
-        Assertions.assertEquals("",filterCommand.execute(params));
+        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
     }
 
     /** Feedback tests following */
@@ -250,8 +249,9 @@ public class FilterCommandTests {
         params.add("Feedbacks");
         params.add("Status");
         params.add("Done");
+        filterCommand.execute(params);
 
-        Assertions.assertEquals("",filterCommand.execute(params));
+        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
     }
 
 
