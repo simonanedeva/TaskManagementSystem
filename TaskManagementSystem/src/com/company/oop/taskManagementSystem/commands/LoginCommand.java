@@ -7,8 +7,7 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 import java.util.List;
 
 public class LoginCommand extends BaseCommand {
-    private final static String MEMBER_LOGGED_IN = "Member %s successfully logged in!";
-
+    public final static String MEMBER_LOGGED_IN = "Member %s successfully logged in!";
     public final static String MEMBER_LOGGED_IN_ALREADY = "Member %s is logged in! Please log out first!";
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 1;

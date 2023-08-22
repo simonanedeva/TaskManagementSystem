@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TMSRepositoryImpl implements TMSRepository {
-    private static final String NO_LOGGED_IN_MEMBER = "There is no logged in member.";
-    private final static String NO_SUCH_MEMBER = "There is no member with username %s!";
-    private final static String NO_SUCH_TEAM = "There is no team with name %s!";
-    private final static String MEMBER_ALREADY_EXIST = "Member %s already exist. Choose a different username!";
+    public static final String NO_LOGGED_IN_MEMBER = "There is no logged in member.";
+    public final static String NO_SUCH_MEMBER = "There is no member with username %s!";
+    public final static String NO_SUCH_TEAM = "There is no team with name %s!";
+    public final static String MEMBER_ALREADY_EXIST = "Member %s already exist. Choose a different username!";
     private final List<Member> members;
     private final List<Team> teams;
     private Member loggedMember;

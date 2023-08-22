@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class BaseCommand implements Command {
 
-    private final static String MEMBER_NOT_LOGGED = "You are not logged in! Please login first!";
+    public final static String MEMBER_NOT_LOGGED = "You are not logged in! Please login first!";
     private final TMSRepository tmsRepository;
 
     protected BaseCommand(TMSRepository tmsRepository) {
