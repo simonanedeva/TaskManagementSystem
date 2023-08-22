@@ -14,6 +14,8 @@ import java.util.function.Predicate;
 public class SortCommand extends BaseCommand {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
 
+    public static final String EMPTY_ERR_MESSAGE = "Nothing to show.";
+
     public SortCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
     }
@@ -53,7 +55,7 @@ public class SortCommand extends BaseCommand {
 //    }
 
     private <T> String sort(List<T> list, Comparator<T> comparator) {
-        return list.stream()
+        String result = list.stream()
                 .sorted(comparator)
                 .collect(StringBuilder::new,
                         (stringBuilder, taskType) -> {
@@ -61,6 +63,12 @@ public class SortCommand extends BaseCommand {
                             stringBuilder.append(System.lineSeparator());
                         },
                         StringBuilder::append).toString();
+        if (result.isEmpty()) {
+            return EMPTY_ERR_MESSAGE;
+        }
+        else {
+            return result;
+        }
     }
 
     private String sortBug(String sortBy, Team teamOfLoggedInMember) {

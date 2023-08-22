@@ -82,7 +82,7 @@ public class FilterCommandTests {
     }
 
     @Test
-    public void filterBug_ShouldReturnEmpty_When_NoBugWithThisAssignee(){
+    public void filterBug_ShouldReturnErrorMessage_When_NoBugWithThisAssignee(){
         BugImpl bug = initializeBug();
         board.addBug(bug);
 
@@ -90,7 +90,7 @@ public class FilterCommandTests {
         params.add("Assignee");
         params.add("Simona");
 
-        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
+        Assertions.assertEquals(FilterCommand.EMPTY_ERR_MESSAGE,filterCommand.execute(params));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class FilterCommandTests {
     }
 
     @Test
-    public void filterBug_ShouldReturnEmpty_When_NoBugWithThisStatus(){
+    public void filterBug_ShouldReturnErrorMessage_When_NoBugWithThisStatus(){
         BugImpl bug = initializeBug();
         board.addBug(bug);
 
@@ -114,7 +114,7 @@ public class FilterCommandTests {
         params.add("Status");
         params.add("Fixed");
 
-        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
+        Assertions.assertEquals(FilterCommand.EMPTY_ERR_MESSAGE,filterCommand.execute(params));
     }
 
     @Test
@@ -130,7 +130,7 @@ public class FilterCommandTests {
     }
 
     @Test
-    public void filterBug_ShouldReturnEmpty_When_NoBugWithThisStatusAndAssignee(){
+    public void filterBug_ShouldReturnErrorMessage_When_NoBugWithThisStatusAndAssignee(){
         BugImpl bug = initializeBug();
         board.addBug(bug);
 
@@ -138,7 +138,7 @@ public class FilterCommandTests {
         params.add("StatusAndAssignee");
         params.add("Fixed/Victor");
 
-        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
+        Assertions.assertEquals(FilterCommand.EMPTY_ERR_MESSAGE,filterCommand.execute(params));
     }
 
 
@@ -168,7 +168,7 @@ public class FilterCommandTests {
     }
 
     @Test
-    public void filterStory_ShouldReturnEmpty_When_NoStoryWithThisAssignee(){
+    public void filterStory_ShouldReturnErrorMessage_When_NoStoryWithThisAssignee(){
         StoryImpl story = initializeStory();
         board.addStory(story);
 
@@ -176,7 +176,7 @@ public class FilterCommandTests {
         params.add("Assignee");
         params.add("Simona");
 
-        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
+        Assertions.assertEquals(FilterCommand.EMPTY_ERR_MESSAGE,filterCommand.execute(params));
     }
 
     @Test
@@ -192,7 +192,7 @@ public class FilterCommandTests {
     }
 
     @Test
-    public void filterStory_ShouldReturnEmpty_When_NoStoryWithThisStatusAndAssignee(){
+    public void filterStory_ShouldReturnErrorMessage_When_NoStoryWithThisStatusAndAssignee(){
         StoryImpl story = initializeStory();
         board.addStory(story);
 
@@ -200,7 +200,7 @@ public class FilterCommandTests {
         params.add("StatusAndAssignee");
         params.add("NotDone/Victor");
 
-        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
+        Assertions.assertEquals(FilterCommand.EMPTY_ERR_MESSAGE,filterCommand.execute(params));
     }
 
     @Test
@@ -216,7 +216,7 @@ public class FilterCommandTests {
     }
 
     @Test
-    public void filterStory_ShouldReturnEmpty_When_NoStoryWithThisStatus(){
+    public void filterStory_ShouldReturnErrorMessage_When_NoStoryWithThisStatus(){
         StoryImpl story = initializeStory();
         board.addStory(story);
 
@@ -224,7 +224,7 @@ public class FilterCommandTests {
         params.add("Status");
         params.add("Done");
 
-        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
+        Assertions.assertEquals(FilterCommand.EMPTY_ERR_MESSAGE,filterCommand.execute(params));
     }
 
     /** Feedback tests following */
@@ -242,7 +242,7 @@ public class FilterCommandTests {
     }
 
     @Test
-    public void filterFeedback_ShouldReturnEmpty_When_NoFeedbackWithThisStatus(){
+    public void filterFeedback_ShouldReturnErrorMessage_When_NoFeedbackWithThisStatus(){
         StoryImpl story = initializeStory();
         board.addStory(story);
 
@@ -251,10 +251,154 @@ public class FilterCommandTests {
         params.add("Done");
         filterCommand.execute(params);
 
-        Assertions.assertEquals("Nothing to show.",filterCommand.execute(params));
+        Assertions.assertEquals(FilterCommand.EMPTY_ERR_MESSAGE,filterCommand.execute(params));
     }
 
+    /** Tasks tests following */
 
+    @Test
+    public void should_ThrowException_When_IllegalParameterToFilterTasks(){
+        BugImpl bug = initializeBug();
+        StoryImpl story = initializeStory();
+        FeedbackImpl feedback = initializeFeedback();
+        board.addBug(bug);
+        board.addStory(story);
+        board.addFeedback(feedback);
+
+        params.add("Bugs");
+        params.add("Batman");
+        params.add("Victor");
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> filterCommand.execute(params));
+    }
+
+    @Test
+    public void filterTasks_ShouldReturn_When_TaskWithThisAssigneeIsPresent(){
+        BugImpl bug = initializeBug();
+        StoryImpl story = initializeStory();
+        FeedbackImpl feedback = initializeFeedback();
+        board.addBug(bug);
+        board.addStory(story);
+        board.addFeedback(feedback);
+
+        params.add("Bugs");
+        params.add("Assignee");
+        params.add("Victor");
+
+        Assertions.assertNotNull(filterCommand.execute(params));
+    }
+
+    @Test
+    public void filterTasks_ShouldReturnErrorMessage_When_NoTaskWithThisAssignee(){
+        BugImpl bug = initializeBug();
+        StoryImpl story = initializeStory();
+        FeedbackImpl feedback = initializeFeedback();
+        board.addBug(bug);
+        board.addStory(story);
+        board.addFeedback(feedback);
+
+        params.add("Bugs");
+        params.add("Assignee");
+        params.add("Simona");
+
+        Assertions.assertEquals(FilterCommand.EMPTY_ERR_MESSAGE,filterCommand.execute(params));
+    }
+
+    @Test
+    public void filterTasks_ShouldReturn_When_TaskWithThisStatusIsPresent(){
+        BugImpl bug = initializeBug();
+        StoryImpl story = initializeStory();
+        FeedbackImpl feedback = initializeFeedback();
+        board.addBug(bug);
+        board.addStory(story);
+        board.addFeedback(feedback);
+
+        params.add("Bugs");
+        params.add("Status");
+        params.add("Active");
+
+        Assertions.assertNotNull(filterCommand.execute(params));
+    }
+
+    @Test
+    public void filterTasks_ShouldReturnErrorMessage_When_NoTaskWithThisStatus(){
+        BugImpl bug = initializeBug();
+        StoryImpl story = initializeStory();
+        FeedbackImpl feedback = initializeFeedback();
+        board.addBug(bug);
+        board.addStory(story);
+        board.addFeedback(feedback);
+
+        params.add("Bugs");
+        params.add("Status");
+        params.add("Fixed");
+
+        Assertions.assertEquals(FilterCommand.EMPTY_ERR_MESSAGE,filterCommand.execute(params));
+    }
+
+    @Test
+    public void filterTasks_ShouldReturn_When_TasksWithThisStatusAndAssigneeIsPresent(){
+        BugImpl bug = initializeBug();
+        StoryImpl story = initializeStory();
+        FeedbackImpl feedback = initializeFeedback();
+        board.addBug(bug);
+        board.addStory(story);
+        board.addFeedback(feedback);
+
+        params.add("Bugs");
+        params.add("StatusAndAssignee");
+        params.add("Active/Victor");
+
+        Assertions.assertNotNull(filterCommand.execute(params));
+    }
+
+    @Test
+    public void filterTasks_ShouldReturnErrorMessage_When_NoTaskWithThisStatusAndAssignee(){
+        BugImpl bug = initializeBug();
+        StoryImpl story = initializeStory();
+        FeedbackImpl feedback = initializeFeedback();
+        board.addBug(bug);
+        board.addStory(story);
+        board.addFeedback(feedback);
+
+        params.add("Tasks");
+        params.add("StatusAndAssignee");
+        params.add("Fixed/Victor");
+
+        Assertions.assertEquals(FilterCommand.EMPTY_ERR_MESSAGE,filterCommand.execute(params));
+    }
+
+    @Test
+    public void filterAllTask_ShouldReturn_When_TaskTitleMatchPattern() {
+        BugImpl bug = initializeBug();
+        StoryImpl story = initializeStory();
+        FeedbackImpl feedback = initializeFeedback();
+        board.addBug(bug);
+        board.addStory(story);
+        board.addFeedback(feedback);
+
+        params.add("allTasks");
+        params.add("Title");
+        params.add(TaskConstants.VALID_TASK_TITLE);
+
+        Assertions.assertNotNull(filterCommand.execute(params));
+    }
+
+    @Test
+    public void filterAllTask_ShouldReturnErrorMessage_When_NoMatch() {
+        BugImpl bug = initializeBug();
+        StoryImpl story = initializeStory();
+        FeedbackImpl feedback = initializeFeedback();
+        board.addBug(bug);
+        board.addStory(story);
+        board.addFeedback(feedback);
+
+        params.add("allTasks");
+        params.add("Title");
+        params.add("Batman");
+
+        Assertions.assertEquals(FilterCommand.EMPTY_ERR_MESSAGE, filterCommand.execute(params));
+    }
 
 
     /** Helper methods for Bug, Story and Feedback initialization */
