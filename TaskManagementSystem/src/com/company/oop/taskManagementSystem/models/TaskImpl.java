@@ -100,8 +100,7 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
     public String returnTaskSimpleInfo() {
         return String.format("""
                 Task Title: %s
-                Task Description: %s
-                """, getTitle(), getDescription());
+                Task Description: %s""", getTitle(), getDescription());
     }
 
     public String toString() {

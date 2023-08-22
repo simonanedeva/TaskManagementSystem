@@ -52,8 +52,7 @@ public class FeedbackImpl extends TaskImpl implements Feedback {
     public String toString() {
         return String.format("""
                 %s
-                Feedback Rating: %s
-                """, super.toString(), getRating());
+                Feedback Rating: %s""", super.toString(), getRating());
     }
 
     private void setRating(int rating) {

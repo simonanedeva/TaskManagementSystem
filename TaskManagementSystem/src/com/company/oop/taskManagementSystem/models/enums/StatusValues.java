@@ -35,7 +35,7 @@ public enum StatusValues implements StatusBug, StatusStory, StatusFeedback {
             case FIXED:
                 return "Fixed";
             case NOTDONE:
-                return "Not Done";
+                return "NotDone";
             case INPROGRESS:
                 return "InProgress";
             case DONE:

@@ -10,7 +10,11 @@ import java.util.List;
 
 public class FilterCommand extends BaseCommand {
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 3;
-    public static final String EMPTY_ERR_MESSAGE = "Nothing to show.";
+    public static final String EMPTY_ERR_MESSAGE = "Nothing to show";
+
+    String ANSI_RESET = "\u001B[0m";
+    String ANSI_RED = "\u001B[31m";
+
 
     public FilterCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
@@ -57,13 +61,15 @@ public class FilterCommand extends BaseCommand {
                         (stringBuilder, task) -> {
                             stringBuilder.append(task.returnTaskSimpleInfo());
                             stringBuilder.append(System.lineSeparator());
+                            stringBuilder.append("--------------------");
+                            stringBuilder.append(System.lineSeparator());
                         },
                         StringBuilder::append).toString();
         if (result.isEmpty()) {
             return EMPTY_ERR_MESSAGE;
         }
         else {
-            return result;
+            return result.trim();
         }
     }
 
@@ -96,13 +102,15 @@ public class FilterCommand extends BaseCommand {
                         (stringBuilder, taskType) -> {
                             stringBuilder.append(taskType);
                             stringBuilder.append(System.lineSeparator());
+                            stringBuilder.append("--------------------");
+                            stringBuilder.append(System.lineSeparator());
                         },
                         StringBuilder::append).toString();
         if (result.isEmpty()) {
             return EMPTY_ERR_MESSAGE;
         }
         else {
-            return result;
+            return result.trim();
         }
     }
 
@@ -114,12 +122,14 @@ public class FilterCommand extends BaseCommand {
                         ((stringBuilder, taskType) -> {
                             stringBuilder.append(taskType);
                             stringBuilder.append(System.lineSeparator());
+                            stringBuilder.append("--------------------");
+                            stringBuilder.append(System.lineSeparator());
                         }), StringBuilder::append).toString();
         if (result.isEmpty()) {
             return EMPTY_ERR_MESSAGE;
         }
         else {
-            return result;
+            return result.trim();
         }
     }
 
@@ -131,13 +141,15 @@ public class FilterCommand extends BaseCommand {
                         (stringBuilder, taskType) -> {
                             stringBuilder.append(taskType);
                             stringBuilder.append(System.lineSeparator());
+                            stringBuilder.append("--------------------");
+                            stringBuilder.append(System.lineSeparator());
                         },
                         StringBuilder::append).toString();
         if (result.isEmpty()) {
             return EMPTY_ERR_MESSAGE;
         }
         else {
-            return result;
+            return result.trim();
         }
     }
 

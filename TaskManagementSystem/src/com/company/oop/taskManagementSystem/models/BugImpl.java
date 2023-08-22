@@ -102,8 +102,7 @@ public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable{
                 Steps to Reproduce: %s
                 Bug Priority: %s
                 Bug Severity: %s
-                Bug Assignee: %s
-                """, super.toString(), getStepsToReproduce(), getPriority(), getSeverity(), getAssignee());
+                Bug Assignee: %s""", super.toString(), getStepsToReproduce(), getPriority(), getSeverity(), getAssignee());
     }
 
     private void setPriority(Priority priority) {
