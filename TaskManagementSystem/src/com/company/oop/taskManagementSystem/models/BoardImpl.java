@@ -68,7 +68,7 @@ public class BoardImpl implements Board {
             sb.append(story.getTitle()).append(System.lineSeparator());
             sb.append(story.displayActivityHistory()).append(System.lineSeparator());
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     public void addBug(Bug bug) {

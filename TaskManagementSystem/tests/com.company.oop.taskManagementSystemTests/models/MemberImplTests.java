@@ -64,5 +64,4 @@ public class MemberImplTests {
     public static Member initilizeValidMember() {
         return new MemberImpl(VALID_MEMBER_NAME);
     }
-    // TODO: 18.08.23 implement
 }

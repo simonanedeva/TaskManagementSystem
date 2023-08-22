@@ -41,7 +41,7 @@ public class MemberImpl implements Member {
         for (ActivityLog log : activityHistory) {
             sb.append(log.viewInfo()).append(System.lineSeparator());
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     public void logEvent(String event) {

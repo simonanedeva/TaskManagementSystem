@@ -198,7 +198,7 @@ public class FilterCommandTests {
 
         params.add("Stories");
         params.add("StatusAndAssignee");
-        params.add("NotDone/Victor");
+        params.add("New/Victor");
 
         Assertions.assertEquals(FilterCommand.EMPTY_ERR_MESSAGE,filterCommand.execute(params));
     }

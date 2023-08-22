@@ -73,8 +73,6 @@ public class SortCommandTests {
         Assertions.assertThrows(IllegalArgumentException.class, () -> sortCommand.execute(parameters));
     }
 
-    // TODO: 22.08.23 it would be great if we can check whether the tasks,bugs,stories etc. are sorted as per the
-    //  commands instruction.
     @Test
     public void sortBugByTitle_ShouldReturn(){
         Bug bug = BugImplTests.initializeBug();
@@ -171,8 +169,6 @@ public class SortCommandTests {
         Assertions.assertThrows(IllegalArgumentException.class, () -> sortCommand.execute(parameters));
     }
 
-    // TODO: 22.08.23 it would be great if we can check whether the tasks,bugs,stories etc. are sorted as per the
-    //  commands instruction.
     @Test
     public void sortStoryByTitle_ShouldReturn(){
         Story story = StoryImplTests.initializeStory();
@@ -270,8 +266,6 @@ public class SortCommandTests {
         Assertions.assertThrows(IllegalArgumentException.class, () -> sortCommand.execute(parameters));
     }
 
-    // TODO: 22.08.23 it would be great if we can check whether the tasks,bugs,stories etc. are sorted as per the
-    //  commands instruction.
     @Test
     public void sortFeedbackByTitle_ShouldReturn(){
         Feedback feedback = FeedbackImplTests.initializeFeedback();

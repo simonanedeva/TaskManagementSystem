@@ -32,6 +32,5 @@ public class ActivityLogImplTests {
     private static ActivityLog initilizeValidActivityLog() {
         return new ActivityLogImpl(VALID_DESCRIPTION);
     }
-    // TODO: 18.08.23 implement 
 
 }

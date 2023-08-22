@@ -160,7 +160,5 @@ public class BoardImplTests {
     public static Board initilizeValidBoard() {
         return new BoardImpl(VALID_BOARD_NAME);
     }
-    // TODO: 18.08.23 implement
-
 
 }

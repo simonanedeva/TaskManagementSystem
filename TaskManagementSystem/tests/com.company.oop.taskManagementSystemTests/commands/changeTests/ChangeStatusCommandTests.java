@@ -88,7 +88,7 @@ public class ChangeStatusCommandTests {
 
     @Test
     public void should_ThrowException_When_InvalidStoryStatusValue() {
-        List<String> parameters = List.of(storyTitle, StatusValues.NOTDONE.toString());
+        List<String> parameters = List.of(storyTitle, StatusValues.NEW.toString());
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> command.execute(parameters));
     }

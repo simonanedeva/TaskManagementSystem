@@ -8,7 +8,6 @@ import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
 import java.util.List;
 
-// TODO: 10.08.23 Test whether this allows the logged-in member to add comments to boards of other teams!
 public class AddCommentToTaskCommand extends BaseCommand {
 
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
@@ -32,7 +31,6 @@ public class AddCommentToTaskCommand extends BaseCommand {
         return addToTask(commentToAdd, taskToAdd);
     }
 
-    // TODO: 10.08.23 the logic bellow is very bulky - we should consider rewriting it. 
     private String addToTask(String stringCommentToAdd, String taskToAdd) {
         Member member = getTmsRepository().getLoggedInMember();
         Team memberTeam = getTmsRepository().findTeamOfMember(member.getUsername());
@@ -52,7 +50,6 @@ public class AddCommentToTaskCommand extends BaseCommand {
     private static boolean isTaskExist(String taskToAdd, Member member, Comment commentToAdd, boolean taskExist, List<Task> tasks) {
         for (Task task : tasks) {
             if (task.getTitle().equals(taskToAdd)) {
-                // TODO: 18.08.23 see if the 3 rows below can be added above (single responsibility principle)
                 task.addComment(commentToAdd);
                 task.logEvent(String.format("%s added a comment to task %s", member.getUsername(), task.getTitle()));
                 member.logEvent(String.format("%s added a comment to task %s", member.getUsername(), task.getTitle()));

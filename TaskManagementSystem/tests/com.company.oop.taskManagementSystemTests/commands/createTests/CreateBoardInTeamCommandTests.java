@@ -43,6 +43,7 @@ public class CreateBoardInTeamCommandTests {
         //create a team
         Team team = repository.createTeam("JavaHolics");
         repository.addTeam(team);
+        team.addMember(member);
         teamToAdd = team.getName();
     }
 
@@ -51,9 +52,6 @@ public class CreateBoardInTeamCommandTests {
         List<String> parameters = List.of(VALID_BOARD_NAME, teamToAdd);
 
         String boardCreatedMessage = command.execute(parameters);
-
-        // TODO: 19.08.23 we don't keep all our boards in the repo; think about doing so, or another way to test
-        //Assertions.assertEquals(1, repository.getBoard().size());
 
         //assert that we get the correct success message
         Assertions.assertEquals(String.format(CreateBoardInTeamCommand.BOARD_ADDED_TO_TEAM, VALID_BOARD_NAME, teamToAdd, parameters.get(0)), boardCreatedMessage);
@@ -101,28 +99,26 @@ public class CreateBoardInTeamCommandTests {
 
         assertThrows(NullPointerException.class, () -> command.execute(parameters));
     }
+    @Test
+    public void should_ThrowException_When_LoggedUserNotPartOfBoardTeam() {
 
-    // TODO: 19.08.23 uncomment this test if we implement the validation for member part of team when creating board
-//    @Test
-//    public void should_ThrowException_When_LoggedUserNotPartOfBoardTeam() {
-//
-//        repository.logout();
-//
-//        Member newMember = repository.createMember("Simona");
-//        repository.addMember(newMember);
-//        repository.login(newMember);
-//
-//        List<String> parameters = List.of(VALID_BOARD_NAME, teamToAdd);
-//
-//        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-//            command.execute(parameters);
-//        });
-//
-//        String expectedErrMessage = "Error";
-//        String actualErrMessage = exception.getMessage();
-//
-//        Assertions.assertEquals(expectedErrMessage, actualErrMessage);
-//    }
+        repository.logout();
+
+        Member newMember = repository.createMember("Simona");
+        repository.addMember(newMember);
+        repository.login(newMember);
+
+        List<String> parameters = List.of(VALID_BOARD_NAME, teamToAdd);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            command.execute(parameters);
+        });
+
+        String expectedErrMessage = String.format(CreateBoardInTeamCommand.NOT_PART_OF_TEAM_ERR_MESSAGE,teamToAdd);
+        String actualErrMessage = exception.getMessage();
+
+        Assertions.assertEquals(expectedErrMessage, actualErrMessage);
+    }
 
     @Test
     public void should_ThrowException_When_Invalid_ArgumentCount() {
@@ -149,7 +145,7 @@ public class CreateBoardInTeamCommandTests {
         });
 
         //Assert that we throw the correct error message
-        String expectedErrMessage = String.format(CreateBoardInTeamCommand.BOARD_IS_PART_OF_TEAM_ERR_MESSAGE, VALID_BOARD_NAME, teamToAdd, parameters.get(0));
+        String expectedErrMessage = String.format(CreateBoardInTeamCommand.BOARD_IS_PART_OF_TEAM_ERR_MESSAGE, VALID_BOARD_NAME, teamToAdd);
         String actualErrMessage = exception.getMessage();
 
         Assertions.assertEquals(expectedErrMessage, actualErrMessage);

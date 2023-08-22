@@ -26,7 +26,6 @@ public class ShowMembersCommand extends BaseCommand {
         return showMembers();
     }
 
-    // TODO: 18.08.23 implement a method in Member for optimization (Viki knows)
     private String showMembers() {
         List<Member> memberList = getTmsRepository().getMembers();
         StringBuilder sb = new StringBuilder();

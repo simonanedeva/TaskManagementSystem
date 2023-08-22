@@ -47,9 +47,7 @@ public class CreateBugCommand extends BaseCommand {
         Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
         List<Member> membersInTeam = teamOfLoggedInMember.getMembers();
         throwIfInvalidAssignee(assignee, teamOfLoggedInMember, membersInTeam);
-
-        List<Board> boards = teamOfLoggedInMember.getBoards();
-        Board board = findBoardInTeam(boards, boardToAdd);
+        Board board = findBoardInTeam(teamOfLoggedInMember, boardToAdd);
         Bug bugToAdd = getTmsRepository().createBug(title, boardToAdd, description, stepsToReproduce, priority, severity, assignee);
         List<Task> taskList = board.getTasks();
         throwIfTaskExist(title, taskList);
@@ -82,9 +80,9 @@ public class CreateBugCommand extends BaseCommand {
         }
     }
 
-    // TODO: 21.08.23 Viktor: findBoardInTeam can be made to take a Team and not a list of boards. I'll do it tomorrow.
-    private Board findBoardInTeam(List<Board> boardList, String board) {
-        for (Board board1 : boardList) {
+    private Board findBoardInTeam(Team teamOfLoggedInMember, String board) {
+        List<Board> boards = teamOfLoggedInMember.getBoards();
+        for (Board board1 : boards) {
             if (board1.getName().equals(board)) {
                 return board1;
             }

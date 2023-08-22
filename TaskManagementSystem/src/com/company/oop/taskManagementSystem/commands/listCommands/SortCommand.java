@@ -44,16 +44,6 @@ public class SortCommand extends BaseCommand {
         };
     }
 
-//    public <T> String filter(List<T>list , Predicate<T> predicate){
-//        List<T> someList = new ArrayList<>();
-//        Member member = getTmsRepository().getLoggedInMember();
-//        Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
-//        for (Board b : teamOfLoggedInMember.getBoards()) {
-//            someList.addAll(b.getBugs());
-//        }
-//        return null;
-//    }
-
     private <T> String sort(List<T> list, Comparator<T> comparator) {
         String result = list.stream()
                 .sorted(comparator)
@@ -61,12 +51,14 @@ public class SortCommand extends BaseCommand {
                         (stringBuilder, taskType) -> {
                             stringBuilder.append(taskType);
                             stringBuilder.append(System.lineSeparator());
+                            stringBuilder.append("--------------------");
+                            stringBuilder.append(System.lineSeparator());
                         },
                         StringBuilder::append).toString();
         if (result.isEmpty()) {
             return EMPTY_ERR_MESSAGE;
         } else {
-            return result;
+            return result.trim();
         }
     }
 
@@ -173,11 +165,13 @@ public class SortCommand extends BaseCommand {
         for (Task task : combinedTasks) {
             sb.append(task.toString());
             sb.append(System.lineSeparator());
+            sb.append("--------------------");
+            sb.append(System.lineSeparator());
         }
         if (sb.isEmpty()) {
             return EMPTY_ERR_MESSAGE;
         } else {
-            return sb.toString();
+            return sb.toString().trim();
         }
     }
 
@@ -198,12 +192,14 @@ public class SortCommand extends BaseCommand {
                 .forEach(task -> {
                     sb.append(task.returnTaskSimpleInfo());
                     sb.append(System.lineSeparator());
+                    sb.append("--------------------");
+                    sb.append(System.lineSeparator());
                 });
 
         if (sb.isEmpty()) {
             return EMPTY_ERR_MESSAGE;
         } else {
-            return sb.toString();
+            return sb.toString().trim();
         }
     }
 

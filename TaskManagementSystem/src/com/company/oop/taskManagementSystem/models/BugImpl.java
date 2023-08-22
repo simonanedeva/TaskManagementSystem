@@ -115,6 +115,5 @@ public class BugImpl extends TaskImpl implements Bug, AssigneeChangeable{
 
     private void setAssignee(String assignee) {
         this.assignee = assignee;
-        // TODO: 7.08.23 make a validation, assignee muse be a member from the team (separate method validateAssignee)
     }
 }

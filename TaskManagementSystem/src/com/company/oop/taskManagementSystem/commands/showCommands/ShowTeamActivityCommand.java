@@ -44,7 +44,7 @@ public class ShowTeamActivityCommand extends BaseCommand {
                 sb.append(teamMember.displayActivityHistory());
             }
         });
-        return sb.toString();
+        return sb.toString().trim();
     }
 
 }

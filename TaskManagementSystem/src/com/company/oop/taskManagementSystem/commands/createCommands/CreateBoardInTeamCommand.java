@@ -3,6 +3,7 @@ package com.company.oop.taskManagementSystem.commands.createCommands;
 import com.company.oop.taskManagementSystem.commands.BaseCommand;
 import com.company.oop.taskManagementSystem.core.contracts.TMSRepository;
 import com.company.oop.taskManagementSystem.models.contracts.Board;
+import com.company.oop.taskManagementSystem.models.contracts.Member;
 import com.company.oop.taskManagementSystem.models.contracts.Team;
 import com.company.oop.taskManagementSystem.utils.ValidationHelpers;
 
@@ -10,11 +11,10 @@ import java.util.List;
 
 public class CreateBoardInTeamCommand extends BaseCommand {
 
-    // TODO: 19.08.23 in this command we don't check if loggedInMember is part of the team he adds board to
-
     public static final String BOARD_ADDED_TO_TEAM = "Board %s added to team %s!";
     public static final int EXPECTED_NUMBER_OF_ARGUMENTS = 2;
     public static final String BOARD_IS_PART_OF_TEAM_ERR_MESSAGE = "Board %s is already a part of team %s!";
+    public static final String NOT_PART_OF_TEAM_ERR_MESSAGE = "You are not part of team %s and cannot add boards to it!";
 
     public CreateBoardInTeamCommand(TMSRepository tmsRepository) {
         super(tmsRepository);
@@ -36,12 +36,20 @@ public class CreateBoardInTeamCommand extends BaseCommand {
     private String addToTeam(String boardToAdd, String teamToAdd) {
         Team team = getTmsRepository().findTeamByName(teamToAdd);
         throwIfBoardExists(boardToAdd, teamToAdd, team);
-
+        throwIfLoggedInMemberNotPartOfTeam(teamToAdd, team);
         Board board = getTmsRepository().createBoard(boardToAdd);
 
         team.addBoard(board);
 
         return String.format(BOARD_ADDED_TO_TEAM, boardToAdd, teamToAdd);
+    }
+
+    private void throwIfLoggedInMemberNotPartOfTeam(String teamToAdd, Team team) {
+        Member member = getTmsRepository().getLoggedInMember();
+        if (!team.getMembers().contains(member)) {
+        throw new IllegalArgumentException(String.format(NOT_PART_OF_TEAM_ERR_MESSAGE
+                , teamToAdd));
+        }
     }
 
     private static void throwIfBoardExists(String boardToAdd, String teamToAdd, Team team) {

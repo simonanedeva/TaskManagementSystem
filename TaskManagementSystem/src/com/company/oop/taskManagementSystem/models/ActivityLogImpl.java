@@ -26,6 +26,6 @@ public class ActivityLogImpl implements ActivityLog {
     }
 
     public String viewInfo() {
-        return String.format("[%s] %s", timestamp.format(formatter), description);
+        return String.format("[%s] %s%n", timestamp.format(formatter), description);
     }
 }

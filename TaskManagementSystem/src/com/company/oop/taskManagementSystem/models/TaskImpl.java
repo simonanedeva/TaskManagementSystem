@@ -70,14 +70,13 @@ public abstract class TaskImpl implements Task, StatusBug, StatusStory, StatusFe
                 sb.append("No activity to show.");
                 return sb.toString();
             }
-            sb.append(log.viewInfo()).append(System.lineSeparator());
+            sb.append(log.viewInfo());
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     public void setDescription(String description) {
         ValidationHelpers.validateStringLength(description, DESCRIPTION_MIN_LENGTH, DESCRIPTION_MAX_LENGTH, INVALID_DESCRIPTION_LENGTH_MESSAGE);
-        // TODO: 14.08.23 add a validation here for the Regex pattern of Description - {{ .... }} 
         this.description = description;
     }
 
