@@ -33,11 +33,11 @@ public class SortCommand extends BaseCommand {
         Member member = getTmsRepository().getLoggedInMember();
         Team teamOfLoggedInMember = getTmsRepository().findTeamOfMember(member.getUsername());
         return switch (taskType) {
-            case "allTasks" -> sortAllTasks(teamOfLoggedInMember);
+            case "allTasks" -> sortAllTasks(sortBy, teamOfLoggedInMember);
             case "Bugs" -> sortBug(sortBy, teamOfLoggedInMember);
             case "Stories" -> sortStory(sortBy, teamOfLoggedInMember);
             case "Feedbacks" -> sortFeedback(sortBy, teamOfLoggedInMember);
-            case "allTasksWithAssignee" -> sortTasksWithAssignee(teamOfLoggedInMember);
+            case "allTasksWithAssignee" -> sortTasksWithAssignee(sortBy, teamOfLoggedInMember);
             default ->
                     throw new IllegalArgumentException("What you are searching for might exist in some other space-time " +
                             "continuum");
@@ -65,8 +65,7 @@ public class SortCommand extends BaseCommand {
                         StringBuilder::append).toString();
         if (result.isEmpty()) {
             return EMPTY_ERR_MESSAGE;
-        }
-        else {
+        } else {
             return result;
         }
     }
@@ -150,7 +149,10 @@ public class SortCommand extends BaseCommand {
         }
     }
 
-    private String sortTasksWithAssignee(Team teamOfLoggedInMember) {
+    private String sortTasksWithAssignee(String sortBy, Team teamOfLoggedInMember) {
+        if (!sortBy.equals("Title")) {
+            throw new IllegalArgumentException("Unable to filter this way.");
+        }
 
         List<Story> storyList = new ArrayList<>();
         List<Bug> bugList = new ArrayList<>();
@@ -172,11 +174,18 @@ public class SortCommand extends BaseCommand {
             sb.append(task.toString());
             sb.append(System.lineSeparator());
         }
-
-        return sb.toString();
+        if (sb.isEmpty()) {
+            return EMPTY_ERR_MESSAGE;
+        } else {
+            return sb.toString();
+        }
     }
 
-    private String sortAllTasks(Team teamOfLoggedInMember) {
+    private String sortAllTasks(String sortBy, Team teamOfLoggedInMember) {
+        if (!sortBy.equals("Title")) {
+            throw new IllegalArgumentException("Unable to filter this way.");
+        }
+
         List<Task> taskList = new ArrayList<>();
 
         for (Board b : teamOfLoggedInMember.getBoards()) {
@@ -191,7 +200,11 @@ public class SortCommand extends BaseCommand {
                     sb.append(System.lineSeparator());
                 });
 
-        return sb.toString();
+        if (sb.isEmpty()) {
+            return EMPTY_ERR_MESSAGE;
+        } else {
+            return sb.toString();
+        }
     }
 
 }

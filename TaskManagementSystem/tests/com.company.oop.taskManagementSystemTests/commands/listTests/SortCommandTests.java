@@ -24,6 +24,8 @@ public class SortCommandTests {
     public static final String VALID_BUGS_ATTRIBUTE = "Bugs";
     public static final String VALID_STORIES_ATTRIBUTE = "Stories";
     public static final String VALID_FEEDBACKS_ATTRIBUTE = "Feedbacks";
+    public static final String VALID_TASKS_WITH_ASSIGNEE_ATTRIBUTE = "allTasksWithAssignee";
+    public static final String VALID_ALL_TASKS_ATTRIBUTE = "allTasks";
     private TMSRepository tmsRepository;
     private SortCommand sortCommand;
     private Team team;
@@ -320,4 +322,77 @@ public class SortCommandTests {
 
         Assertions.assertEquals("Nothing to show.",sortCommand.execute(parameters));
     }
+
+    /** Task tests **/
+    @Test
+    public void should_ThrowException_When_IllegalParameterToSortTasksWithAssignee(){
+        Feedback feedback = FeedbackImplTests.initializeFeedback();
+        Story story = StoryImplTests.initializeStory();
+        Bug bug = BugImplTests.initializeBug();
+        board.addFeedback(feedback);
+        board.addBug(bug);
+        board.addStory(story);
+
+        List<String> parameters = List.of(VALID_TASKS_WITH_ASSIGNEE_ATTRIBUTE,"Johnny Bravo");
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> sortCommand.execute(parameters));
+    }
+
+    @Test
+    public void sortTasksWithAssigneeByTitle_ShouldReturn(){
+        Feedback feedback = FeedbackImplTests.initializeFeedback();
+        Story story = StoryImplTests.initializeStory();
+        Bug bug = BugImplTests.initializeBug();
+        board.addFeedback(feedback);
+        board.addBug(bug);
+        board.addStory(story);
+
+        List<String> parameters = List.of(VALID_TASKS_WITH_ASSIGNEE_ATTRIBUTE,"Title");
+
+        Assertions.assertNotNull(sortCommand.execute(parameters));
+    }
+
+    @Test
+    public void sortTasksWithAssigneeByTitle_ShouldReturnMessage_When_NoTasksToSort(){
+        List<String> parameters = List.of(VALID_TASKS_WITH_ASSIGNEE_ATTRIBUTE, "Title");
+
+        Assertions.assertEquals("Nothing to show.",sortCommand.execute(parameters));
+    }
+
+
+    @Test
+    public void should_ThrowException_When_IllegalParameterToSortAllTasks(){
+        Feedback feedback = FeedbackImplTests.initializeFeedback();
+        Story story = StoryImplTests.initializeStory();
+        Bug bug = BugImplTests.initializeBug();
+        board.addFeedback(feedback);
+        board.addBug(bug);
+        board.addStory(story);
+
+        List<String> parameters = List.of(VALID_ALL_TASKS_ATTRIBUTE,"Johnny Bravo");
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> sortCommand.execute(parameters));
+    }
+
+    @Test
+    public void sortAllTasksByTitle_ShouldReturn(){
+        Feedback feedback = FeedbackImplTests.initializeFeedback();
+        Story story = StoryImplTests.initializeStory();
+        Bug bug = BugImplTests.initializeBug();
+        board.addFeedback(feedback);
+        board.addBug(bug);
+        board.addStory(story);
+
+        List<String> parameters = List.of(VALID_ALL_TASKS_ATTRIBUTE,"Title");
+
+        Assertions.assertNotNull(sortCommand.execute(parameters));
+    }
+
+    @Test
+    public void sortAllTasksByTitle_ShouldReturnMessage_When_NoTasksToSort(){
+        List<String> parameters = List.of(VALID_ALL_TASKS_ATTRIBUTE,"Title");
+
+        Assertions.assertEquals("Nothing to show.",sortCommand.execute(parameters));
+    }
+
 }
