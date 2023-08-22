@@ -196,18 +196,26 @@ public class FilterCommand extends BaseCommand {
             case "Status":
                 storyString = listMatchingStatus(pattern, storyList);
                 bugString = listMatchingStatus(pattern, bugList);
-                   return sb.append(storyString).append(System.lineSeparator()).append(bugString).toString();
+                return printTaskFilterResult(sb, storyString, bugString);
             case "Assignee":
                 storyString = listMatchingAssignee(pattern, storyList);
                 bugString = listMatchingAssignee(pattern, bugList);
-                return sb.append(storyString).append(System.lineSeparator()).append(bugString).toString();
+                return printTaskFilterResult(sb, storyString, bugString);
             case "StatusAndAssignee":
                 String[] filterParams = pattern.split("/");
                 storyString = listMatchingAssigneeAndStatus(storyList, filterParams);
                 bugString = listMatchingAssigneeAndStatus(bugList, filterParams);
-                return sb.append(storyString).append(System.lineSeparator()).append(bugString).toString();
+                return printTaskFilterResult(sb, storyString, bugString);
             default:
                 throw new IllegalArgumentException("Unable to filter this way.");
+        }
+    }
+
+    private static String printTaskFilterResult(StringBuilder sb, String storyString, String bugString) {
+        if (!storyString.equals(bugString)){
+            return sb.append(storyString).append(System.lineSeparator()).append(bugString).toString();
+        } else {
+            return sb.append(storyString).toString();
         }
     }
 
